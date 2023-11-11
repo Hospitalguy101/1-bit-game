@@ -1,0 +1,122 @@
+[gd_scene load_steps=6 format=3 uid="uid://dkvw1gfhendya"]
+
+[ext_resource type="Script" path="res://TitleScreen/title_screen.gd" id="1_ct7k0"]
+[ext_resource type="FontFile" uid="uid://by3aevm1ucjhc" path="res://Fonts/sd_auto_pilot.ttf" id="1_k6jlg"]
+[ext_resource type="Texture2D" uid="uid://bybktrw3uwqqh" path="res://TitleScreen/hand.png" id="3_n4hh6"]
+[ext_resource type="Texture2D" uid="uid://bols05xhjlv23" path="res://TitleScreen/Puddle.png" id="4_32jgg"]
+[ext_resource type="AudioStream" uid="uid://b5bxkjoi4dsum" path="res://Music/TitleTheme.mp3" id="5_ug5pn"]
+
+[node name="Title Screen" type="Node2D"]
+script = ExtResource("1_ct7k0")
+
+[node name="BG" type="ColorRect" parent="."]
+offset_right = 288.0
+offset_bottom = 162.0
+color = Color(0, 0, 0, 1)
+
+[node name="Title" type="RichTextLabel" parent="."]
+offset_left = 9.0
+offset_top = 2.0
+offset_right = 237.0
+offset_bottom = 42.0
+rotation = -9.91643e-05
+pivot_offset = Vector2(-9, 87)
+theme_override_fonts/normal_font = ExtResource("1_k6jlg")
+theme_override_font_sizes/normal_font_size = 60
+text = "SEVERED"
+
+[node name="Select1" type="RichTextLabel" parent="."]
+offset_left = 35.0012
+offset_top = 45.0
+offset_right = 139.001
+offset_bottom = 177.0
+rotation = -9.91643e-05
+pivot_offset = Vector2(-34.7001, 60.0724)
+theme_override_fonts/normal_font = ExtResource("1_k6jlg")
+theme_override_font_sizes/normal_font_size = 35
+text = "Play
+
+	Options
+
+Quit"
+
+[node name="Play" type="Button" parent="Select1"]
+modulate = Color(1, 1, 1, 0)
+offset_left = 0.0044632
+offset_top = 3.00347
+offset_right = 41.0045
+offset_bottom = 21.0035
+
+[node name="Options" type="Button" parent="Select1"]
+modulate = Color(1, 1, 1, 0)
+offset_left = 10.9998
+offset_top = 50.0046
+offset_right = 85.9998
+offset_bottom = 65.0046
+
+[node name="Quit" type="Button" parent="Select1"]
+modulate = Color(1, 1, 1, 0)
+offset_left = 0.995243
+offset_top = 96.0036
+offset_right = 41.9952
+offset_bottom = 110.004
+
+[node name="Select2" type="RichTextLabel" parent="."]
+offset_left = 39.0
+offset_top = 44.0
+offset_right = 143.0
+offset_bottom = 176.0
+rotation = 3.14159
+pivot_offset = Vector2(-38, 60)
+theme_override_fonts/normal_font = ExtResource("1_k6jlg")
+theme_override_font_sizes/normal_font_size = 35
+text = "Versus
+
+	Train
+
+Back"
+
+[node name="Versus" type="Button" parent="Select2"]
+modulate = Color(1, 1, 1, 0)
+offset_left = -2.0
+offset_top = 3.0
+offset_right = 62.0
+offset_bottom = 23.0
+
+[node name="Train" type="Button" parent="Select2"]
+modulate = Color(1, 1, 1, 0)
+offset_left = 12.0
+offset_top = 50.0
+offset_right = 63.0
+offset_bottom = 68.0
+
+[node name="Back" type="Button" parent="Select2"]
+modulate = Color(1, 1, 1, 0)
+offset_left = -3.0
+offset_top = 96.0
+offset_right = 36.0
+offset_bottom = 115.0
+
+[node name="Hand" type="Sprite2D" parent="."]
+position = Vector2(1.52588e-05, 93.5)
+rotation = 0.00120742
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("3_n4hh6")
+offset = Vector2(169.159, -6.45425)
+
+[node name="Puddle" type="Sprite2D" parent="Hand"]
+position = Vector2(0.000490375, 0.416672)
+rotation = -0.00120742
+scale = Vector2(1.41667, 1.00417)
+texture = ExtResource("4_32jgg")
+offset = Vector2(128.235, -10.7884)
+
+[node name="BGM" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(-35, 161)
+rotation = -3.14159
+stream = ExtResource("5_ug5pn")
+autoplay = true
+
+[connection signal="pressed" from="Select1/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="Select1/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="Select2/Back" to="." method="_on_back_pressed"]
