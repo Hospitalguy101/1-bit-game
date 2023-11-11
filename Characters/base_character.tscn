@@ -2,11 +2,9 @@
 
 [ext_resource type="Script" path="res://Characters/BaseCharacter.gd" id="1_a3637"]
 
-[node name="BaseCharacter" type="CharacterBody2D"]
+[node name="BaseCharacter" type="CharacterBody2D" groups=["Fighter"]]
 script = ExtResource("1_a3637")
 
 [node name="BodyHitbox" type="CollisionShape2D" parent="."]
-
-[node name="Limbs" type="Node2D" parent="."]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

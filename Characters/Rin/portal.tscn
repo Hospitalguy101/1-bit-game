@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://bhla3lmhp48cb"]
+
+[ext_resource type="Script" path="res://Characters/Rin/portal.gd" id="1_2bkot"]
+
+[sub_resource type="Gradient" id="Gradient_cxx88"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_y2xty"]
+gradient = SubResource("Gradient_cxx88")
+fill_from = Vector2(1, 0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7gkpr"]
+size = Vector2(64, 64)
+
+[node name="Portal" type="StaticBody2D"]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_2bkot")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("GradientTexture2D_y2xty")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_7gkpr")
+
+[node name="Cooldown" type="Timer" parent="."]
+wait_time = 30.0
+
+[connection signal="timeout" from="Cooldown" to="." method="_on_cooldown_timeout"]

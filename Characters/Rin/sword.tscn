@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://bpn6aa8lhnvy6"]
+
+[ext_resource type="Script" path="res://Characters/Rin/sword.gd" id="1_rof4s"]
+
+[sub_resource type="Gradient" id="Gradient_ps7tt"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_dhhpp"]
+gradient = SubResource("Gradient_ps7tt")
+fill_from = Vector2(1, 0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2qm0o"]
+size = Vector2(64, 20)
+
+[node name="Sword" type="StaticBody2D"]
+collision_layer = 0
+script = ExtResource("1_rof4s")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(1, 0.3)
+texture = SubResource("GradientTexture2D_dhhpp")
+
+[node name="Cooldown" type="Timer" parent="."]
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_2qm0o")

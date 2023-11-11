@@ -14,7 +14,9 @@ width = 5.0
 
 [node name="Area2D" type="Area2D" parent="LeftBorder"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftBorder/Area2D"]
+[node name="StaticBody2D" type="StaticBody2D" parent="LeftBorder"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftBorder/StaticBody2D"]
 position = Vector2(2.5, 252)
 shape = SubResource("RectangleShape2D_tgbhd")
 
@@ -25,7 +27,9 @@ width = 5.0
 [node name="Area2D" type="Area2D" parent="RightBorder"]
 position = Vector2(995, 1)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RightBorder/Area2D"]
+[node name="StaticBody2D" type="StaticBody2D" parent="RightBorder/Area2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightBorder/Area2D/StaticBody2D"]
 position = Vector2(2.5, 251)
 shape = SubResource("RectangleShape2D_tgbhd")
 
@@ -35,6 +39,8 @@ width = 8.0
 
 [node name="Area2D" type="Area2D" parent="Floor"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor/Area2D"]
+[node name="StaticBody2D" type="StaticBody2D" parent="Floor/Area2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor/Area2D/StaticBody2D"]
 position = Vector2(500, 500)
 shape = SubResource("RectangleShape2D_uft8e")
