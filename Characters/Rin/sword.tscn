@@ -1,27 +1,33 @@
 [gd_scene load_steps=5 format=3 uid="uid://bpn6aa8lhnvy6"]
 
 [ext_resource type="Script" path="res://Characters/Rin/sword.gd" id="1_rof4s"]
+[ext_resource type="Texture2D" uid="uid://bg14obv1vtla4" path="res://Characters/Rin/rinknife.png" id="2_12wco"]
+[ext_resource type="PackedScene" uid="uid://dfii823rul1pv" path="res://Characters/Hitboxes/hurtbox.tscn" id="3_vfby0"]
 
-[sub_resource type="Gradient" id="Gradient_ps7tt"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_38j58"]
+size = Vector2(49, 20)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_dhhpp"]
-gradient = SubResource("Gradient_ps7tt")
-fill_from = Vector2(1, 0)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_2qm0o"]
-size = Vector2(64, 20)
-
-[node name="Sword" type="StaticBody2D"]
+[node name="Sword" type="CharacterBody2D" groups=["Projectile"]]
 collision_layer = 0
 script = ExtResource("1_rof4s")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(1, 0.3)
-texture = SubResource("GradientTexture2D_dhhpp")
+rotation = 1.5708
+texture = ExtResource("2_12wco")
 
-[node name="Cooldown" type="Timer" parent="."]
+[node name="AttackTimer" type="Timer" parent="."]
+one_shot = true
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Hurtbox" parent="." instance=ExtResource("3_vfby0")]
+collision_layer = 0
+collision_mask = 9
+launch_trajectory = Vector2(20, -100)
+projectile = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("RectangleShape2D_2qm0o")
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_38j58")
+
+[connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
+
+[editable path="Hurtbox"]

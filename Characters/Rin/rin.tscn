@@ -1,9 +1,10 @@
-[gd_scene load_steps=33 format=3 uid="uid://dwrvf7esucege"]
+[gd_scene load_steps=34 format=3 uid="uid://dwrvf7esucege"]
 
 [ext_resource type="PackedScene" uid="uid://cj5yffxhnvcji" path="res://Characters/base_character.tscn" id="1_voviw"]
 [ext_resource type="Script" path="res://Characters/Rin/rin.gd" id="2_f2mt2"]
 [ext_resource type="Texture2D" uid="uid://dmmv2d5msgxbx" path="res://Characters/Rin/rin.png" id="3_jm4h2"]
 [ext_resource type="PackedScene" uid="uid://dog8xpvpd4vek" path="res://Characters/Rin/rin_anim_player.tscn" id="4_lxsc4"]
+[ext_resource type="PackedScene" uid="uid://bhla3lmhp48cb" path="res://Characters/Rin/portal.tscn" id="5_i85mh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wjjwv"]
 
@@ -123,6 +124,7 @@ states/Walk/position = Vector2(473, 206)
 transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_fb8y7"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_b12uv"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_xjab4"), "Idle", "Grab", SubResource("AnimationNodeStateMachineTransition_5kqia"), "Grab", "Idle", SubResource("AnimationNodeStateMachineTransition_uc2tw"), "Walk", "Grab", SubResource("AnimationNodeStateMachineTransition_6kt2q"), "Grab", "Walk", SubResource("AnimationNodeStateMachineTransition_fjeki"), "Jump", "Flutter", SubResource("AnimationNodeStateMachineTransition_4jfp8"), "Walk", "Jump", SubResource("AnimationNodeStateMachineTransition_bhmlc"), "Flutter", "Idle", SubResource("AnimationNodeStateMachineTransition_0nnf1"), "Flutter", "Walk", SubResource("AnimationNodeStateMachineTransition_ahdbi"), "Idle", "Crouch", SubResource("AnimationNodeStateMachineTransition_vcl7x"), "Walk", "Crouch", SubResource("AnimationNodeStateMachineTransition_bylqf"), "Crouch", "Idle", SubResource("AnimationNodeStateMachineTransition_ohols"), "Crouch", "Walk", SubResource("AnimationNodeStateMachineTransition_hiwtq"), "Walk", "Guard", SubResource("AnimationNodeStateMachineTransition_6s5jw"), "Idle", "Guard", SubResource("AnimationNodeStateMachineTransition_26i6v"), "Guard", "Walk", SubResource("AnimationNodeStateMachineTransition_mqjqs"), "Guard", "Idle", SubResource("AnimationNodeStateMachineTransition_ldc2f")]
 
 [node name="Rin" groups=["Rin"] instance=ExtResource("1_voviw")]
+mass = 0.8
 gravity_scale = 0.8
 script = ExtResource("2_f2mt2")
 run_speed = 1500.0
@@ -158,10 +160,70 @@ parameters/conditions/jump = false
 
 [node name="Portals" type="Node2D" parent="." index="4"]
 
+[node name="Portal" parent="Portals" index="0" instance=ExtResource("5_i85mh")]
+position = Vector2(0, 10)
+
+[node name="Portal2" parent="Portals" index="1" instance=ExtResource("5_i85mh")]
+visible = false
+position = Vector2(0, 10)
+id = 1
+
+[node name="Portal3" parent="Portals" index="2" instance=ExtResource("5_i85mh")]
+visible = false
+position = Vector2(0, 10)
+id = 2
+
+[node name="Portal4" parent="Portals" index="3" instance=ExtResource("5_i85mh")]
+visible = false
+position = Vector2(0, 10)
+id = 3
+
+[node name="Portal5" parent="Portals" index="4" instance=ExtResource("5_i85mh")]
+visible = false
+position = Vector2(0, 10)
+id = 4
+
 [node name="Swords" type="Node2D" parent="." index="5"]
 
 [node name="Area2D" type="Area2D" parent="." index="6"]
+collision_mask = 3
 input_pickable = false
 
 [node name="BodyHitbox" type="CollisionShape2D" parent="Area2D" index="0"]
 shape = SubResource("RectangleShape2D_wjjwv")
+
+[node name="FloorChecker" parent="." index="7"]
+target_position = Vector2(0, 10)
+
+[node name="SwordTimers" type="Node2D" parent="." index="8"]
+
+[node name="Timer1" type="Timer" parent="SwordTimers" index="0"]
+one_shot = true
+
+[node name="Timer2" type="Timer" parent="SwordTimers" index="1"]
+one_shot = true
+
+[node name="Timer3" type="Timer" parent="SwordTimers" index="2"]
+one_shot = true
+
+[node name="Timer4" type="Timer" parent="SwordTimers" index="3"]
+one_shot = true
+
+[node name="Timer5" type="Timer" parent="SwordTimers" index="4"]
+one_shot = true
+
+[node name="Timer6" type="Timer" parent="SwordTimers" index="5"]
+one_shot = true
+
+[node name="Timer7" type="Timer" parent="SwordTimers" index="6"]
+one_shot = true
+
+[node name="Timer8" type="Timer" parent="SwordTimers" index="7"]
+one_shot = true
+
+[node name="Label" type="Label" parent="." index="9"]
+offset_left = -4.0
+offset_top = -36.0
+offset_right = 6.0
+offset_bottom = -10.0
+text = "1"

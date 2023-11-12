@@ -1,9 +1,7 @@
-extends StaticBody2D
+extends CharacterBody2D
 
-@export var id = 0;
+var id = 0;
 var isReady = true;
-
-var trajectory
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -12,15 +10,16 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
+	move_and_slide()
 
-func initialize(traj):
-	trajectory = traj;
+#default traj is for default light attack
+func initialize(time, traj=null, height=0):
+	id = get_parent().get_parent().id
+	$Hurtbox.id = id;
+	if traj: $Hurtbox.launch_trajectory = traj;
+	
+	#attack timer determines how long sword will exist before disappearing
+	$AttackTimer.start(time);
 
-func start_cooldown():
-	isReady = false;
-	$Cooldown.start(30);
-
-
-func _on_cooldown_timeout():
-	isReady = true;
+func _on_attack_timer_timeout():
+	queue_free();

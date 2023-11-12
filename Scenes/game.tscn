@@ -18,3 +18,8 @@ limit_bottom = 150
 [node name="Rin" parent="." instance=ExtResource("2_klfh5")]
 position = Vector2(216, 124)
 lock_rotation = false
+
+[node name="Rin2" parent="." instance=ExtResource("2_klfh5")]
+position = Vector2(262, 131)
+id = 1
+controllable = false

@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://bhla3lmhp48cb"]
+[gd_scene load_steps=6 format=3 uid="uid://bhla3lmhp48cb"]
 
 [ext_resource type="Script" path="res://Characters/Rin/portal.gd" id="1_2bkot"]
 
@@ -9,22 +9,38 @@ gradient = SubResource("Gradient_cxx88")
 fill_from = Vector2(1, 0)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7gkpr"]
-size = Vector2(64, 64)
+size = Vector2(4, 4)
 
-[node name="Portal" type="StaticBody2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cubv5"]
+size = Vector2(20, 1)
+
+[node name="Portal" type="CharacterBody2D"]
 collision_layer = 0
 collision_mask = 0
 script = ExtResource("1_2bkot")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.05, 0.05)
 texture = SubResource("GradientTexture2D_y2xty")
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("RectangleShape2D_7gkpr")
 
 [node name="Cooldown" type="Timer" parent="."]
 wait_time = 30.0
 
+[node name="ConnectionBox" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ConnectionBox"]
+shape = SubResource("RectangleShape2D_cubv5")
+
+[node name="Swords" type="Node2D" parent="."]
+
 [connection signal="timeout" from="Cooldown" to="." method="_on_cooldown_timeout"]
+[connection signal="area_entered" from="ConnectionBox" to="." method="_on_connection_box_area_entered"]

@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://dfii823rul1pv"]
+
+[ext_resource type="Script" path="res://Characters/Hitboxes/hurtbox.gd" id="1_6wjg8"]
+
+[node name="Hurtbox" type="Area2D" groups=["Hurtbox"]]
+script = ExtResource("1_6wjg8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

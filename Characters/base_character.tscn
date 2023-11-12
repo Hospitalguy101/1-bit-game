@@ -1,14 +1,28 @@
-[gd_scene load_steps=2 format=3 uid="uid://cj5yffxhnvcji"]
+[gd_scene load_steps=5 format=3 uid="uid://cj5yffxhnvcji"]
 
 [ext_resource type="Script" path="res://Characters/BaseCharacter.gd" id="1_a3637"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_amk2t"]
+size = Vector2(63, 63)
+
+[sub_resource type="Gradient" id="Gradient_h8i1l"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_msg4j"]
+gradient = SubResource("Gradient_h8i1l")
+fill_to = Vector2(0, 0)
+
 [node name="BaseCharacter" type="RigidBody2D" groups=["Fighter"]]
+collision_mask = 3
 lock_rotation = true
 script = ExtResource("1_a3637")
 
 [node name="BodyHitbox" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, -0.5)
+shape = SubResource("RectangleShape2D_amk2t")
 
 [node name="Sprite" type="Sprite2D" parent="."]
+texture = SubResource("GradientTexture2D_msg4j")
 
 [node name="FloorChecker" type="RayCast2D" parent="."]
-target_position = Vector2(0, 10)
+target_position = Vector2(0, 32)
+collision_mask = 2

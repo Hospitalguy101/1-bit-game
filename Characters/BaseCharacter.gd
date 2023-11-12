@@ -2,6 +2,8 @@ extends RigidBody2D
 
 class_name Fighter;
 
+@export var id = 0;
+
 @export var run_speed = 1000.0;
 @export var max_run_speed = 100.0;
 @export var air_speed = 1500.0;
@@ -15,6 +17,9 @@ var crouching = false
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity");
 
+#debug vars
+@export var controllable = true;
+
 func _ready():
 	pass;
 
@@ -25,11 +30,11 @@ func _physics_process(delta):
 		floored = true;
 	else: floored = false;
 	# Add the gravity.
-#	if not floored:
-#		apply_force(Vector2(0, gravity*delta));
+	#if not floored:
+	#	apply_force(Vector2(0, gravity));
 	
 	#momvement controls
-	if floored:
+	if floored and controllable:
 		hasDoubleJump = true;
 		if Input.is_action_pressed("move_left") and get_linear_velocity().x > -max_run_speed and !crouching:
 			apply_force(Vector2(-run_speed, 0));
@@ -41,7 +46,7 @@ func _physics_process(delta):
 			crouching = true
 		if Input.is_action_just_released("crouch"):
 			crouching = false
-	else:
+	elif controllable:
 		if Input.is_action_pressed("move_left") and get_linear_velocity().x > -max_air_speed:
 			apply_force(Vector2(-air_speed, 0));
 		if Input.is_action_pressed("move_right") and get_linear_velocity().x < max_air_speed:
@@ -61,6 +66,13 @@ func _unhandled_input(event):
 		slash_attack(direction);
 	elif event.is_action_pressed("heavy_attack"):
 		heavy_attack(direction);
+		
+	if event.is_action_released("light_attack"):
+		release_light_attack();
+	elif event.is_action_released("slash_attack"):
+		release_slash_attack();
+	elif event.is_action_released("heavy_attack"):
+		release_heavy_attack();
 
 func light_attack(direction):
 	pass;
@@ -69,4 +81,13 @@ func slash_attack(direction):
 	pass;
 
 func heavy_attack(direction):
+	pass;
+	
+func release_light_attack():
+	pass;
+	
+func release_slash_attack():
+	pass;
+
+func release_heavy_attack():
 	pass;

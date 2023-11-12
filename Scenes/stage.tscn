@@ -13,10 +13,12 @@ points = PackedVector2Array(1.25, 150, 1.25, 0)
 width = 2.5
 
 [node name="Area2D" type="Area2D" parent="LeftBorder"]
+collision_layer = 2
 
-[node name="StaticBody2D" type="StaticBody2D" parent="LeftBorder"]
+[node name="StaticBody2D" type="StaticBody2D" parent="LeftBorder/Area2D"]
+collision_layer = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftBorder/StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftBorder/Area2D/StaticBody2D"]
 position = Vector2(1.25, 76)
 shape = SubResource("RectangleShape2D_tgbhd")
 
@@ -26,8 +28,10 @@ width = 2.5
 
 [node name="Area2D" type="Area2D" parent="RightBorder"]
 position = Vector2(995, 1)
+collision_layer = 2
 
 [node name="StaticBody2D" type="StaticBody2D" parent="RightBorder/Area2D"]
+collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RightBorder/Area2D/StaticBody2D"]
 position = Vector2(-495.141, 74)
@@ -38,8 +42,10 @@ points = PackedVector2Array(0, 150, 501.25, 150)
 width = 4.0
 
 [node name="Area2D" type="Area2D" parent="Floor"]
+collision_layer = 2
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Floor/Area2D" groups=["FloorCollider"]]
+collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floor/Area2D/StaticBody2D"]
 position = Vector2(250.5, 150)
