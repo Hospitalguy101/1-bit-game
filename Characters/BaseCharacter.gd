@@ -1,47 +1,54 @@
-extends CharacterBody2D
+extends RigidBody2D
 
 class_name Fighter;
 
-@export var walk_speed = 200;
-@export var run_speed = 300.0;
-@export var air_speed = 300.0;
+@export var run_speed = 2000.0;
+@export var max_run_speed = 100.0;
+@export var air_speed = 1500.0;
+@export var max_air_speed = 100.0
+var floored = true;
 
 var hasDoubleJump = false;
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity");
 
+func _ready():
+	pass;
+
 func _physics_process(delta):
+	rotation = 0;
+	#Check if raycast is colliding with the floor
+	if $FloorChecker.is_colliding() and $FloorChecker.get_collider().is_in_group("FloorCollider"):
+		floored = true;
+	else: floored = false;
 	# Add the gravity.
-	if not is_on_floor():
-		velocity.y += gravity * delta;
+#	if not floored:
+#		apply_force(Vector2(0, gravity*delta));
 	
 	#momvement controls
-	if is_on_floor():
+	if floored:
 		hasDoubleJump = true;
-		if Input.is_action_pressed("move_left"):
-			velocity.x = -1*run_speed;
-		if Input.is_action_pressed("move_right"):
-			velocity.x = run_speed;
+		if Input.is_action_pressed("move_left") and get_linear_velocity().x > -1*max_run_speed:
+			apply_force(Vector2(-1*run_speed, 0));
+		if Input.is_action_pressed("move_right") and get_linear_velocity().x < max_run_speed:
+			apply_force(Vector2(run_speed, 0));
 		if Input.is_action_just_pressed("jump"):
-			velocity.y = -500;
+			set_axis_velocity(Vector2(0, -300));
 		if Input.is_action_pressed("crouch"):
 			#crouch animation
 			pass
 	else:
-		if Input.is_action_pressed("move_left"):
-			velocity.x = -1*air_speed;
-		if Input.is_action_pressed("move_right"):
-			velocity.x = air_speed;
+		if Input.is_action_pressed("move_left") and get_linear_velocity().x > -1*max_air_speed:
+			apply_force(Vector2(-1*air_speed, 0));
+		if Input.is_action_pressed("move_right") and get_linear_velocity().x < max_air_speed:
+			apply_force(Vector2(air_speed, 0));
 		if Input.is_action_just_pressed("jump") and hasDoubleJump:
-			velocity.y = 100;
+			set_axis_velocity(Vector2(0, -300));
 			hasDoubleJump = false;
 		if Input.is_action_pressed("crouch"):
 			#fall twice as fast
-			velocity.y += gravity*delta
-	if Input.is_action_just_released("move_left") or Input.is_action_just_released("move_right"):
-		velocity.x = 0;
-	move_and_slide();
+			apply_force(Vector2(0, 1.5*gravity));
 
 func _unhandled_input(event):
 	var direction = Input.get_vector("move_left", "move_right", "crouch", "jump");
