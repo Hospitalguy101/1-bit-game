@@ -8,13 +8,13 @@
 [node name="Stage" parent="." instance=ExtResource("1_sphns")]
 
 [node name="Camera" type="Camera2D" parent="."]
-position = Vector2(502, 396)
-zoom = Vector2(3, 3)
+position = Vector2(250, 96)
+zoom = Vector2(6, 6)
 limit_left = 0
 limit_top = 0
-limit_right = 1000
-limit_bottom = 500
+limit_right = 500
+limit_bottom = 150
 
 [node name="Rin" parent="." instance=ExtResource("2_klfh5")]
-position = Vector2(413, 458)
+position = Vector2(216, 124)
 lock_rotation = false

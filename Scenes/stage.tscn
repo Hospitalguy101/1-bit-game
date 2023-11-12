@@ -1,28 +1,28 @@
 [gd_scene load_steps=3 format=3 uid="uid://b7db2uskvgrby"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tgbhd"]
-size = Vector2(5, 504)
+size = Vector2(2.5, 152)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uft8e"]
-size = Vector2(1000, 8)
+size = Vector2(1002, 4)
 
 [node name="Stage" type="Node2D"]
 
 [node name="LeftBorder" type="Line2D" parent="."]
-points = PackedVector2Array(2.5, 500, 2.5, 0)
-width = 5.0
+points = PackedVector2Array(1.25, 150, 1.25, 0)
+width = 2.5
 
 [node name="Area2D" type="Area2D" parent="LeftBorder"]
 
 [node name="StaticBody2D" type="StaticBody2D" parent="LeftBorder"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LeftBorder/StaticBody2D"]
-position = Vector2(2.5, 252)
+position = Vector2(1.25, 76)
 shape = SubResource("RectangleShape2D_tgbhd")
 
 [node name="RightBorder" type="Line2D" parent="."]
-points = PackedVector2Array(997.5, 500, 997.5, 0)
-width = 5.0
+points = PackedVector2Array(500, 150, 500, 0)
+width = 2.5
 
 [node name="Area2D" type="Area2D" parent="RightBorder"]
 position = Vector2(995, 1)
@@ -30,17 +30,18 @@ position = Vector2(995, 1)
 [node name="StaticBody2D" type="StaticBody2D" parent="RightBorder/Area2D"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RightBorder/Area2D/StaticBody2D"]
-position = Vector2(2.5, 251)
+position = Vector2(-495.141, 74)
 shape = SubResource("RectangleShape2D_tgbhd")
 
 [node name="Floor" type="Line2D" parent="."]
-points = PackedVector2Array(0, 500, 1000, 500)
-width = 8.0
+points = PackedVector2Array(0, 150, 501.25, 150)
+width = 4.0
 
 [node name="Area2D" type="Area2D" parent="Floor"]
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Floor/Area2D" groups=["FloorCollider"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floor/Area2D/StaticBody2D"]
-position = Vector2(500, 500)
+position = Vector2(250.5, 150)
+scale = Vector2(0.5, 1)
 shape = SubResource("RectangleShape2D_uft8e")
