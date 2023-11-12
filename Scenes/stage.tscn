@@ -39,7 +39,7 @@ width = 8.0
 
 [node name="Area2D" type="Area2D" parent="Floor"]
 
-[node name="StaticBody2D" type="StaticBody2D" parent="Floor/Area2D"]
+[node name="StaticBody2D" type="StaticBody2D" parent="Floor/Area2D" groups=["FloorCollider"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floor/Area2D/StaticBody2D"]
 position = Vector2(500, 500)

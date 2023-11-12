@@ -3,7 +3,6 @@
 [ext_resource type="Script" path="res://Characters/BaseCharacter.gd" id="1_a3637"]
 
 [node name="BaseCharacter" type="RigidBody2D" groups=["Fighter"]]
-lock_rotation = true
 script = ExtResource("1_a3637")
 
 [node name="BodyHitbox" type="CollisionShape2D" parent="."]
