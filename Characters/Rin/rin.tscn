@@ -1,15 +1,126 @@
-[gd_scene load_steps=6 format=3 uid="uid://dwrvf7esucege"]
+[gd_scene load_steps=33 format=3 uid="uid://dwrvf7esucege"]
 
 [ext_resource type="PackedScene" uid="uid://cj5yffxhnvcji" path="res://Characters/base_character.tscn" id="1_voviw"]
 [ext_resource type="Script" path="res://Characters/Rin/rin.gd" id="2_f2mt2"]
-
-[sub_resource type="Gradient" id="Gradient_t67nd"]
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_tvgvx"]
-gradient = SubResource("Gradient_t67nd")
-fill_to = Vector2(0.0183486, 0)
+[ext_resource type="Texture2D" uid="uid://dmmv2d5msgxbx" path="res://Characters/Rin/rin.png" id="3_jm4h2"]
+[ext_resource type="PackedScene" uid="uid://dog8xpvpd4vek" path="res://Characters/Rin/rin_anim_player.tscn" id="4_lxsc4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wjjwv"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_df755"]
+animation = &"Crouch"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_5d1hf"]
+animation = &"Flutter"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_pdlhp"]
+animation = &"Grab"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1crr2"]
+animation = &"Grab"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_fmmdf"]
+animation = &"Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_owrdw"]
+animation = &"Jump"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7w07r"]
+animation = &"Walk"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_fb8y7"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_b12uv"]
+advance_mode = 2
+advance_condition = &"is_walking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xjab4"]
+advance_mode = 2
+advance_condition = &"is_idle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5kqia"]
+advance_mode = 2
+advance_condition = &"grab"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_uc2tw"]
+switch_mode = 2
+advance_mode = 2
+advance_condition = &"is_idle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6kt2q"]
+advance_mode = 2
+advance_condition = &"grab"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_fjeki"]
+switch_mode = 2
+advance_mode = 2
+advance_condition = &"is_walking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4jfp8"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_bhmlc"]
+advance_mode = 2
+advance_condition = &"jump"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0nnf1"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ahdbi"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_vcl7x"]
+advance_mode = 2
+advance_condition = &"is_crouching"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_bylqf"]
+advance_mode = 2
+advance_condition = &"is_crouching"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ohols"]
+advance_mode = 2
+advance_condition = &"is_not_crouched"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_hiwtq"]
+advance_mode = 2
+advance_condition = &"is_not_crouching"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6s5jw"]
+advance_mode = 2
+advance_condition = &"is_guarding"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_26i6v"]
+advance_mode = 2
+advance_condition = &"is_guarding"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_mqjqs"]
+advance_mode = 2
+advance_condition = &"is_not_guarding"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ldc2f"]
+advance_mode = 2
+advance_condition = &"is_not_guarding"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_hmym6"]
+states/Crouch/node = SubResource("AnimationNodeAnimation_df755")
+states/Crouch/position = Vector2(533, 109)
+states/End/position = Vector2(937, 206)
+states/Flutter/node = SubResource("AnimationNodeAnimation_5d1hf")
+states/Flutter/position = Vector2(277, 309)
+states/Grab/node = SubResource("AnimationNodeAnimation_pdlhp")
+states/Grab/position = Vector2(307, 100)
+states/Guard/node = SubResource("AnimationNodeAnimation_1crr2")
+states/Guard/position = Vector2(665, 403)
+states/Idle/node = SubResource("AnimationNodeAnimation_fmmdf")
+states/Idle/position = Vector2(342, 206)
+states/Jump/node = SubResource("AnimationNodeAnimation_owrdw")
+states/Jump/position = Vector2(406, 309)
+states/Start/position = Vector2(202, 206)
+states/Walk/node = SubResource("AnimationNodeAnimation_7w07r")
+states/Walk/position = Vector2(473, 206)
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_fb8y7"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_b12uv"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_xjab4"), "Idle", "Grab", SubResource("AnimationNodeStateMachineTransition_5kqia"), "Grab", "Idle", SubResource("AnimationNodeStateMachineTransition_uc2tw"), "Walk", "Grab", SubResource("AnimationNodeStateMachineTransition_6kt2q"), "Grab", "Walk", SubResource("AnimationNodeStateMachineTransition_fjeki"), "Jump", "Flutter", SubResource("AnimationNodeStateMachineTransition_4jfp8"), "Walk", "Jump", SubResource("AnimationNodeStateMachineTransition_bhmlc"), "Flutter", "Idle", SubResource("AnimationNodeStateMachineTransition_0nnf1"), "Flutter", "Walk", SubResource("AnimationNodeStateMachineTransition_ahdbi"), "Idle", "Crouch", SubResource("AnimationNodeStateMachineTransition_vcl7x"), "Walk", "Crouch", SubResource("AnimationNodeStateMachineTransition_bylqf"), "Crouch", "Idle", SubResource("AnimationNodeStateMachineTransition_ohols"), "Crouch", "Walk", SubResource("AnimationNodeStateMachineTransition_hiwtq"), "Walk", "Guard", SubResource("AnimationNodeStateMachineTransition_6s5jw"), "Idle", "Guard", SubResource("AnimationNodeStateMachineTransition_26i6v"), "Guard", "Walk", SubResource("AnimationNodeStateMachineTransition_mqjqs"), "Guard", "Idle", SubResource("AnimationNodeStateMachineTransition_ldc2f")]
 
 [node name="Rin" groups=["Rin"] instance=ExtResource("1_voviw")]
 gravity_scale = 0.8
@@ -19,18 +130,38 @@ max_run_speed = 200.0
 air_speed = 3000.0
 max_air_speed = 150.0
 
-[node name="Sprite2D" type="Sprite2D" parent="." index="0"]
-scale = Vector2(0.3, 0.3)
-texture = SubResource("GradientTexture2D_tvgvx")
-
-[node name="BodyHitbox" parent="." index="1"]
+[node name="BodyHitbox" parent="." index="0"]
+position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_wjjwv")
 
-[node name="Portals" type="Node2D" parent="." index="3"]
+[node name="Sprite" parent="." index="1"]
+position = Vector2(0, 1)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("3_jm4h2")
+hframes = 29
 
-[node name="Swords" type="Node2D" parent="." index="4"]
+[node name="RinAnimPlayer" parent="." index="2" instance=ExtResource("4_lxsc4")]
+root_node = NodePath("../Sprite")
 
-[node name="Area2D" type="Area2D" parent="." index="5"]
+[node name="AnimationTree" type="AnimationTree" parent="." index="3"]
+tree_root = SubResource("AnimationNodeStateMachine_hmym6")
+anim_player = NodePath("../RinAnimPlayer")
+active = true
+parameters/conditions/grab = false
+parameters/conditions/is_crouching = false
+parameters/conditions/is_guarding = false
+parameters/conditions/is_idle = false
+parameters/conditions/is_not_crouched = false
+parameters/conditions/is_not_crouching = false
+parameters/conditions/is_not_guarding = false
+parameters/conditions/is_walking = false
+parameters/conditions/jump = false
+
+[node name="Portals" type="Node2D" parent="." index="4"]
+
+[node name="Swords" type="Node2D" parent="." index="5"]
+
+[node name="Area2D" type="Area2D" parent="." index="6"]
 input_pickable = false
 
 [node name="BodyHitbox" type="CollisionShape2D" parent="Area2D" index="0"]

@@ -8,7 +8,7 @@ script = ExtResource("1_a3637")
 
 [node name="BodyHitbox" type="CollisionShape2D" parent="."]
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="Sprite" type="Sprite2D" parent="."]
 
 [node name="FloorChecker" type="RayCast2D" parent="."]
 target_position = Vector2(0, 10)

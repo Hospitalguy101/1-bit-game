@@ -2,13 +2,15 @@ extends RigidBody2D
 
 class_name Fighter;
 
-@export var run_speed = 2000.0;
+@export var run_speed = 1000.0;
 @export var max_run_speed = 100.0;
 @export var air_speed = 1500.0;
 @export var max_air_speed = 100.0
 var floored = true;
 
 var hasDoubleJump = false;
+
+var crouching = false
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity");
@@ -29,15 +31,16 @@ func _physics_process(delta):
 	#momvement controls
 	if floored:
 		hasDoubleJump = true;
-		if Input.is_action_pressed("move_left") and get_linear_velocity().x > -1*max_run_speed:
+		if Input.is_action_pressed("move_left") and get_linear_velocity().x > -1*max_run_speed and !crouching:
 			apply_force(Vector2(-1*run_speed, 0));
-		if Input.is_action_pressed("move_right") and get_linear_velocity().x < max_run_speed:
+		if Input.is_action_pressed("move_right") and get_linear_velocity().x < max_run_speed and !crouching:
 			apply_force(Vector2(run_speed, 0));
 		if Input.is_action_just_pressed("jump"):
 			set_axis_velocity(Vector2(0, -300));
 		if Input.is_action_pressed("crouch"):
-			#crouch animation
-			pass
+			crouching = true
+		if Input.is_action_just_released("crouch"):
+			crouching = false
 	else:
 		if Input.is_action_pressed("move_left") and get_linear_velocity().x > -1*max_air_speed:
 			apply_force(Vector2(-1*air_speed, 0));
