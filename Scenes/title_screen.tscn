@@ -26,12 +26,18 @@ theme_override_fonts/normal_font = ExtResource("1_k6jlg")
 theme_override_font_sizes/normal_font_size = 60
 text = "SEVERED"
 
-[node name="Select1" type="RichTextLabel" parent="."]
+[node name="Node" type="Node2D" parent="."]
+position = Vector2(0, 400)
+
+[node name="Select1" type="RichTextLabel" parent="Node"]
 texture_filter = 1
-offset_left = 35.0017
-offset_top = 340.0
-offset_right = 139.002
-offset_bottom = 472.0
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -64.5
+offset_right = 100.0
+offset_bottom = 64.5
+grow_vertical = 2
 rotation = -9.91643e-05
 scale = Vector2(3, 3)
 pivot_offset = Vector2(-34.7001, 60.0724)
@@ -43,7 +49,7 @@ text = "Play
 
 Quit"
 
-[node name="Play" type="Button" parent="Select1"]
+[node name="Play" type="Button" parent="Node/Select1"]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 0
 offset_left = 0.0044632
@@ -51,7 +57,7 @@ offset_top = 3.00347
 offset_right = 41.0045
 offset_bottom = 21.0035
 
-[node name="Options" type="Button" parent="Select1"]
+[node name="Options" type="Button" parent="Node/Select1"]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 0
 offset_left = 10.9998
@@ -59,7 +65,7 @@ offset_top = 50.0046
 offset_right = 85.9998
 offset_bottom = 65.0046
 
-[node name="Quit" type="Button" parent="Select1"]
+[node name="Quit" type="Button" parent="Node/Select1"]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 0
 offset_left = 0.995243
@@ -67,11 +73,14 @@ offset_top = 96.0036
 offset_right = 41.9952
 offset_bottom = 110.004
 
-[node name="Select2" type="RichTextLabel" parent="."]
-offset_left = 39.0005
-offset_top = 339.0
-offset_right = 143.001
-offset_bottom = 471.0
+[node name="Select2" type="RichTextLabel" parent="Node"]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -66.0
+offset_right = 104.001
+offset_bottom = 66.0
+grow_vertical = 2
 rotation = 3.14159
 scale = Vector2(3, 3)
 pivot_offset = Vector2(-38, 60)
@@ -83,7 +92,7 @@ text = "Versus
 
 Back"
 
-[node name="Versus" type="Button" parent="Select2"]
+[node name="Versus" type="Button" parent="Node/Select2"]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 0
 offset_left = -2.0
@@ -91,7 +100,7 @@ offset_top = 3.0
 offset_right = 62.0
 offset_bottom = 23.0
 
-[node name="Train" type="Button" parent="Select2"]
+[node name="Train" type="Button" parent="Node/Select2"]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 0
 offset_left = 12.0
@@ -99,7 +108,7 @@ offset_top = 50.0
 offset_right = 63.0
 offset_bottom = 68.0
 
-[node name="Back" type="Button" parent="Select2"]
+[node name="Back" type="Button" parent="Node/Select2"]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 0
 offset_left = -3.0
@@ -127,6 +136,6 @@ rotation = -3.14159
 stream = ExtResource("5_ug5pn")
 autoplay = true
 
-[connection signal="pressed" from="Select1/Play" to="." method="_on_play_pressed"]
-[connection signal="pressed" from="Select1/Quit" to="." method="_on_quit_pressed"]
-[connection signal="pressed" from="Select2/Back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="Node/Select1/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="Node/Select1/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="Node/Select2/Back" to="." method="_on_back_pressed"]

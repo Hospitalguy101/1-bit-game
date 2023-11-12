@@ -1,8 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://dwrvf7esucege"]
+[gd_scene load_steps=6 format=3 uid="uid://dwrvf7esucege"]
 
 [ext_resource type="PackedScene" uid="uid://cj5yffxhnvcji" path="res://Characters/base_character.tscn" id="1_voviw"]
 [ext_resource type="Script" path="res://Characters/Rin/rin.gd" id="2_f2mt2"]
-[ext_resource type="PackedScene" uid="uid://bpn6aa8lhnvy6" path="res://Characters/Rin/sword.tscn" id="3_85nsu"]
 
 [sub_resource type="Gradient" id="Gradient_t67nd"]
 
@@ -13,7 +12,12 @@ fill_to = Vector2(0.0183486, 0)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wjjwv"]
 
 [node name="Rin" groups=["Rin"] instance=ExtResource("1_voviw")]
+gravity_scale = 0.8
 script = ExtResource("2_f2mt2")
+run_speed = 3000.0
+max_run_speed = 200.0
+air_speed = 3000.0
+max_air_speed = 150.0
 
 [node name="Sprite2D" type="Sprite2D" parent="." index="0"]
 scale = Vector2(0.3, 0.3)
@@ -25,11 +29,6 @@ shape = SubResource("RectangleShape2D_wjjwv")
 [node name="Portals" type="Node2D" parent="." index="3"]
 
 [node name="Swords" type="Node2D" parent="." index="4"]
-
-[node name="Sword" parent="Swords" index="0" instance=ExtResource("3_85nsu")]
-position = Vector2(0, -25)
-rotation = 1.5708
-scale = Vector2(0.3, 0.3)
 
 [node name="Area2D" type="Area2D" parent="." index="5"]
 input_pickable = false

@@ -1,44 +1,52 @@
 extends Node2D
-var rotate = false
-var rotate2 = false
+
+var rotating = 0;
 
 func _ready():
-	$Select2/Versus.disabled = true
-	$Select2/Train.disabled = true
-	$Select2/Back.disabled = true
+	$Node/Select2/Versus.disabled = true
+	$Node/Select2/Train.disabled = true
+	$Node/Select2/Back.disabled = true
+	
+	$Title.modulate.a = 1;
 
 func _physics_process(delta):
-	if rotate == true:
-		if ($Select1.rotation_degrees < -180):
-			rotate = false
-			$Select2/Versus.disabled = false
-			$Select2/Train.disabled = false
-			$Select2/Back.disabled = false
-		$Title.modulate.a -= 3*delta
-		$Select1.rotation_degrees -= 70*delta
-		$Select2.rotation_degrees -= 70*delta
-	if rotate2 == true:
-		if ($Select1.rotation_degrees > 0):
-			rotate2 = false
-			$Select1/Play.disabled = false
-			$Select1/Options.disabled = false
-			$Select1/Quit.disabled = false
-		$Title.modulate.a += 3*delta
-		$Select1.rotation_degrees += 70*delta
-		$Select2.rotation_degrees += 70*delta
-		
+	if rotating == 1: $Title.modulate.a -= 2.8*delta
+	elif rotating == -1: $Title.modulate.a += 2.8*delta
 
 func _on_quit_pressed():
 	get_tree().quit()
 
 func _on_play_pressed():
-	rotate = true
-	$Select1/Play.disabled = true
-	$Select1/Options.disabled = true
-	$Select1/Quit.disabled = true
+	var tween = get_tree().create_tween();
+	tween.tween_property($Node, "rotation_degrees", 180, .5);
+	rotating = 1;
+	
+	
+	$Node/Select1/Play.disabled = true
+	$Node/Select1/Options.disabled = true
+	$Node/Select1/Quit.disabled = true
+	
+	$Node/Select2/Versus.disabled = false
+	$Node/Select2/Train.disabled = false
+	$Node/Select2/Back.disabled = false
+	
+	await tween.finished;
+	rotating = 0;
 
 func _on_back_pressed():
-	rotate2 = true
-	$Select2/Versus.disabled = true
-	$Select2/Train.disabled = true
-	$Select2/Back.disabled = true
+	var backTween = get_tree().create_tween();
+	backTween.tween_property($Node, "rotation_degrees", 0, .5);
+	rotating = -1;
+	
+	$Node/Select2/Versus.disabled = true
+	$Node/Select2/Train.disabled = true
+	$Node/Select2/Back.disabled = true
+	
+	$Node/Select1/Play.disabled = false
+	$Node/Select1/Options.disabled = false
+	$Node/Select1/Quit.disabled = false
+	
+	await backTween.finished;
+	rotating = 0;
+
+
