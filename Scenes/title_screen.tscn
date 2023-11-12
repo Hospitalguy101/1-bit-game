@@ -1,10 +1,90 @@
-[gd_scene load_steps=6 format=3 uid="uid://dkvw1gfhendya"]
+[gd_scene load_steps=46 format=3 uid="uid://dkvw1gfhendya"]
 
 [ext_resource type="Script" path="res://TitleScreen/title_screen.gd" id="1_ct7k0"]
 [ext_resource type="FontFile" uid="uid://by3aevm1ucjhc" path="res://Fonts/sd_auto_pilot.ttf" id="1_k6jlg"]
 [ext_resource type="Texture2D" uid="uid://bybktrw3uwqqh" path="res://TitleScreen/hand.png" id="3_n4hh6"]
 [ext_resource type="Texture2D" uid="uid://bols05xhjlv23" path="res://TitleScreen/Puddle.png" id="4_32jgg"]
 [ext_resource type="AudioStream" uid="uid://b5bxkjoi4dsum" path="res://Music/TitleTheme.mp3" id="5_ug5pn"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vgi2x"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7syom"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5hmwe"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4bfc3"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7lbdn"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hsyet"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3qrs6"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ixg7u"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ac5cn"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kf7fc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vedbh"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kjhuv"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_r7c83"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qb1o8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_u2vk6"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ds8i3"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7pl0e"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_448v0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_elkip"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_p4up0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_38dx8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kjhgb"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_84m2e"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dv54e"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_60a3t"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_envj6"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_h0ios"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_u8u0f"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3g7ju"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tyhhk"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y65d0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ky67e"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_n0tqp"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rr151"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_apcsj"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hax6a"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8pyw1"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_n53ao"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4rkdg"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_okcc7"]
 
 [node name="Title Screen" type="Node2D"]
 script = ExtResource("1_ct7k0")
@@ -29,92 +109,92 @@ text = "SEVERED"
 [node name="Node" type="Node2D" parent="."]
 position = Vector2(0, 400)
 
-[node name="Select1" type="RichTextLabel" parent="Node"]
-texture_filter = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_top = -64.5
-offset_right = 100.0
-offset_bottom = 64.5
-grow_vertical = 2
-rotation = -9.91643e-05
-scale = Vector2(3, 3)
-pivot_offset = Vector2(-34.7001, 60.0724)
-theme_override_fonts/normal_font = ExtResource("1_k6jlg")
-theme_override_font_sizes/normal_font_size = 35
-text = "Play
+[node name="Play" type="Button" parent="Node"]
+offset_left = 66.0
+offset_top = -186.0
+offset_right = 181.0
+offset_bottom = -120.0
+theme_override_fonts/font = ExtResource("1_k6jlg")
+theme_override_font_sizes/font_size = 100
+theme_override_styles/normal = SubResource("StyleBoxEmpty_vgi2x")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_7syom")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_5hmwe")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_4bfc3")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_7lbdn")
+text = "Play"
 
-	Options
+[node name="Options" type="Button" parent="Node"]
+offset_left = 102.397
+offset_top = -41.6446
+offset_right = 316.397
+offset_bottom = 32.3554
+theme_override_fonts/font = ExtResource("1_k6jlg")
+theme_override_font_sizes/font_size = 100
+theme_override_styles/normal = SubResource("StyleBoxEmpty_hsyet")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_3qrs6")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_ixg7u")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_ac5cn")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_kf7fc")
+text = "Options"
 
-Quit"
+[node name="Quit" type="Button" parent="Node"]
+offset_left = 72.3966
+offset_top = 103.355
+offset_right = 113.397
+offset_bottom = 117.356
+theme_override_fonts/font = ExtResource("1_k6jlg")
+theme_override_font_sizes/font_size = 100
+theme_override_styles/normal = SubResource("StyleBoxEmpty_vedbh")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_kjhuv")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_r7c83")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_qb1o8")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_u2vk6")
+text = "Quit"
 
-[node name="Play" type="Button" parent="Node/Select1"]
-modulate = Color(1, 1, 1, 0)
-layout_mode = 0
-offset_left = 0.0044632
-offset_top = 3.00347
-offset_right = 41.0045
-offset_bottom = 21.0035
-
-[node name="Options" type="Button" parent="Node/Select1"]
-modulate = Color(1, 1, 1, 0)
-layout_mode = 0
-offset_left = 10.9998
-offset_top = 50.0046
-offset_right = 85.9998
-offset_bottom = 65.0046
-
-[node name="Quit" type="Button" parent="Node/Select1"]
-modulate = Color(1, 1, 1, 0)
-layout_mode = 0
-offset_left = 0.995243
-offset_top = 96.0036
-offset_right = 41.9952
-offset_bottom = 110.004
-
-[node name="Select2" type="RichTextLabel" parent="Node"]
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_top = -66.0
-offset_right = 104.001
-offset_bottom = 66.0
-grow_vertical = 2
+[node name="Versus" type="Button" parent="Node"]
+offset_left = -151.0
+offset_top = 170.0
+offset_right = 29.0
+offset_bottom = 236.0
 rotation = 3.14159
-scale = Vector2(3, 3)
-pivot_offset = Vector2(-38, 60)
-theme_override_fonts/normal_font = ExtResource("1_k6jlg")
-theme_override_font_sizes/normal_font_size = 35
-text = "Versus
+theme_override_fonts/font = ExtResource("1_k6jlg")
+theme_override_font_sizes/font_size = 100
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ds8i3")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_7pl0e")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_448v0")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_elkip")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_p4up0")
+text = "Versus"
 
-	Train
+[node name="Train" type="Button" parent="Node"]
+offset_left = -188.0
+offset_top = 34.0004
+offset_right = -53.9999
+offset_bottom = 100.0
+rotation = 3.14159
+theme_override_fonts/font = ExtResource("1_k6jlg")
+theme_override_font_sizes/font_size = 100
+theme_override_styles/normal = SubResource("StyleBoxEmpty_38dx8")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_kjhgb")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_84m2e")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_dv54e")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_60a3t")
+text = "Train"
 
-Back"
-
-[node name="Versus" type="Button" parent="Node/Select2"]
-modulate = Color(1, 1, 1, 0)
-layout_mode = 0
-offset_left = -2.0
-offset_top = 3.0
-offset_right = 62.0
-offset_bottom = 23.0
-
-[node name="Train" type="Button" parent="Node/Select2"]
-modulate = Color(1, 1, 1, 0)
-layout_mode = 0
-offset_left = 12.0
-offset_top = 50.0
-offset_right = 63.0
-offset_bottom = 68.0
-
-[node name="Back" type="Button" parent="Node/Select2"]
-modulate = Color(1, 1, 1, 0)
-layout_mode = 0
-offset_left = -3.0
-offset_top = 96.0
-offset_right = 36.0
-offset_bottom = 115.0
+[node name="Back" type="Button" parent="Node"]
+offset_left = -151.0
+offset_top = -107.0
+offset_right = -51.0003
+offset_bottom = -40.9998
+rotation = 3.14159
+theme_override_fonts/font = ExtResource("1_k6jlg")
+theme_override_font_sizes/font_size = 100
+theme_override_styles/normal = SubResource("StyleBoxEmpty_envj6")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_h0ios")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_u8u0f")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_3g7ju")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_tyhhk")
+text = "Back"
 
 [node name="Hand" type="Sprite2D" parent="."]
 position = Vector2(-1.30768, 331.176)
@@ -159,6 +239,80 @@ theme_override_fonts/font = ExtResource("1_k6jlg")
 theme_override_font_sizes/font_size = 75
 text = "VOLUME"
 
+[node name="Keybinds" type="GridContainer" parent="OptionsMenu"]
+visible = false
+layout_mode = 0
+offset_left = 63.0
+offset_top = 200.0
+offset_right = 1096.0
+offset_bottom = 489.0
+columns = 6
+
+[node name="LightLabel" type="Label" parent="OptionsMenu/Keybinds"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Light Attack:"
+
+[node name="LightButton" type="Button" parent="OptionsMenu/Keybinds"]
+layout_mode = 2
+size_flags_horizontal = 3
+toggle_mode = true
+
+[node name="SliceLabel" type="Label" parent="OptionsMenu/Keybinds"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Slice Attack:"
+
+[node name="SliceButton" type="Button" parent="OptionsMenu/Keybinds"]
+layout_mode = 2
+size_flags_horizontal = 3
+toggle_mode = true
+
+[node name="HeavyLabel" type="Label" parent="OptionsMenu/Keybinds"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Heavy Attack:"
+
+[node name="HeavyButton" type="Button" parent="OptionsMenu/Keybinds"]
+layout_mode = 2
+size_flags_horizontal = 3
+toggle_mode = true
+
+[node name="Jump" type="Label" parent="OptionsMenu/Keybinds"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Jump:"
+
+[node name="JumpButton" type="Button" parent="OptionsMenu/Keybinds"]
+layout_mode = 2
+size_flags_horizontal = 3
+toggle_mode = true
+
+[node name="Grab" type="Label" parent="OptionsMenu/Keybinds"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Grab"
+
+[node name="GrabButton" type="Button" parent="OptionsMenu/Keybinds"]
+layout_mode = 2
+size_flags_horizontal = 3
+toggle_mode = true
+
+[node name="KeybindsButton" type="Button" parent="OptionsMenu"]
+layout_mode = 0
+offset_left = 57.0
+offset_top = 388.0
+offset_right = 460.0
+offset_bottom = 462.0
+theme_override_fonts/font = ExtResource("1_k6jlg")
+theme_override_font_sizes/font_size = 100
+theme_override_styles/normal = SubResource("StyleBoxEmpty_y65d0")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_ky67e")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_n0tqp")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_rr151")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_apcsj")
+text = "Change Keybinds"
+
 [node name="OptionsBack" type="Button" parent="OptionsMenu"]
 layout_mode = 0
 offset_left = 73.0
@@ -167,10 +321,16 @@ offset_right = 187.0
 offset_bottom = 566.0
 theme_override_fonts/font = ExtResource("1_k6jlg")
 theme_override_font_sizes/font_size = 109
+theme_override_styles/normal = SubResource("StyleBoxEmpty_hax6a")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_8pyw1")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_n53ao")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_4rkdg")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_okcc7")
 text = "BACK"
 
-[connection signal="pressed" from="Node/Select1/Play" to="." method="_on_play_pressed"]
-[connection signal="pressed" from="Node/Select1/Options" to="." method="_on_options_pressed"]
-[connection signal="pressed" from="Node/Select1/Quit" to="." method="_on_quit_pressed"]
-[connection signal="pressed" from="Node/Select2/Back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="Node/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="Node/Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="Node/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="Node/Back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="OptionsMenu/KeybindsButton" to="." method="_on_keybinds_button_pressed"]
 [connection signal="pressed" from="OptionsMenu/OptionsBack" to="." method="_on_options_back_pressed"]

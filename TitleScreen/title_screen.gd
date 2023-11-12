@@ -3,9 +3,9 @@ extends Node2D
 var rotating = 0;
 
 func _ready():
-	$Node/Select2/Versus.disabled = true
-	$Node/Select2/Train.disabled = true
-	$Node/Select2/Back.disabled = true
+	$Node/Versus.disabled = true
+	$Node/Train.disabled = true
+	$Node/Back.disabled = true
 	$OptionsMenu.hide();#lolol
 	$Title.modulate.a = 1;
 
@@ -23,13 +23,13 @@ func _on_play_pressed():
 	rotating = 1;
 	
 	
-	$Node/Select1/Play.disabled = true
-	$Node/Select1/Options.disabled = true
-	$Node/Select1/Quit.disabled = true
+	$Node/Play.disabled = true
+	$Node/Options.disabled = true
+	$Node/Quit.disabled = true
 	
-	$Node/Select2/Versus.disabled = false
-	$Node/Select2/Train.disabled = false
-	$Node/Select2/Back.disabled = false
+	$Node/Versus.disabled = false
+	$Node/Train.disabled = false
+	$Node/Back.disabled = false
 	
 	await tween.finished;
 	rotating = 0;
@@ -51,13 +51,13 @@ func _on_back_pressed():
 	backTween.tween_property($Node, "rotation_degrees", 0, .5);
 	rotating = -1;
 	
-	$Node/Select2/Versus.disabled = true
-	$Node/Select2/Train.disabled = true
-	$Node/Select2/Back.disabled = true
+	$Node/Versus.disabled = true
+	$Node/Train.disabled = true
+	$Node/Back.disabled = true
 	
-	$Node/Select1/Play.disabled = false
-	$Node/Select1/Options.disabled = false
-	$Node/Select1/Quit.disabled = false
+	$Node/Play.disabled = false
+	$Node/Options.disabled = false
+	$Node/Quit.disabled = false
 	
 	await backTween.finished;
 	rotating = 0;
@@ -66,3 +66,9 @@ func _on_options_back_pressed():
 	$Node.show();
 	$OptionsMenu.hide();
 	pass # Replace with function body.
+
+
+func _on_keybinds_button_pressed():
+	#Rafe will add this later, he is too tired right now
+	pass
+	
