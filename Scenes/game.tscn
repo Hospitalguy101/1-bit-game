@@ -19,9 +19,9 @@ limit_bottom = 150
 position = Vector2(216, 124)
 lock_rotation = false
 
-[node name="Projectiles" type="Node2D" parent="."]
-
 [node name="Rin2" parent="." instance=ExtResource("2_klfh5")]
 position = Vector2(262, 120)
 id = 1
 controllable = false
+
+[node name="Projectiles" type="Node2D" parent="."]

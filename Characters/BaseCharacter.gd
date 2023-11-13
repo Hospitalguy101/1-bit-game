@@ -42,22 +42,18 @@ func _physics_process(delta):
 	
 	
 	#throw controls
-	if grabbing:
+	if grabbing and $Grabbox.enemy:
 		if Input.is_action_pressed("jump"):
-			if id == 0: print($Grabbox.held_body);
-			throw(0);
+			$Grabbox.throw(0);
 			grabbing = false;
 		if Input.is_action_pressed("move_left"):
-			if id == 0: print($Grabbox.held_body);
-			throw(1);
+			$Grabbox.throw(1);
 			grabbing = false;
 		if Input.is_action_pressed("crouch"):
-			if id == 0: print($Grabbox.held_body);
-			throw(2);
+			$Grabbox.throw(2);
 			grabbing = false;
 		if Input.is_action_pressed("move_right"):
-			if id == 0: print($Grabbox.held_body);
-			throw(3);
+			$Grabbox.throw(3);
 			grabbing = false;
 	
 	#momvement controls
@@ -86,15 +82,17 @@ func _physics_process(delta):
 			apply_force(Vector2(0, 1.5*gravity));
 
 func _unhandled_input(event):
-	if !motion_combo:
+	if !motion_combo and controllable:
 		if event.is_action_pressed("light_attack"):
 			light_attack(direction);
 		elif event.is_action_pressed("slash_attack"):
+			print(direction.y)
 			slash_attack(direction);
 		elif event.is_action_pressed("heavy_attack"):
 			heavy_attack(direction);
 		elif event.is_action_pressed("grab"):
-			grab();
+			$Grabbox.grab();
+			grabbing = true;
 			
 		if event.is_action_released("light_attack"):
 			release_light_attack();
@@ -121,32 +119,12 @@ func release_slash_attack():
 func release_heavy_attack():
 	pass;
 
-func grab():
-	if $Grabbox.enemy != null and $Grabbox/Cooldown.is_stopped():
-		$Grabbox.enemy.is_grabbed = true;
-		$Grabbox/CollisionShape2D.disabled = false;
-		$Grabbox/GrabTimer.start(5);
-		if !$Grabbox.held_body: $Grabbox.held_body = $Grabbox.enemy;
-		grabbing = true
 
-#0 = up, 1 = left, 2 = right, 3 = down
-func throw(direction):
-	if id == 0: print($Grabbox.held_body)
-	$Grabbox/GrabTimer.stop();
-	$Grabbox.held_body.is_grabbed = false;
-	$Grabbox/Cooldown.start(.5);
-	match direction:
-		0: $Grabbox.held_body.set_axis_velocity($Grabbox.up_traj);
-		1: $Grabbox.held_body.set_axis_velocity($Grabbox.left_traj);
-		2: $Grabbox.held_body.set_axis_velocity($Grabbox.down_traj);
-		3: $Grabbox.held_body.set_axis_velocity($Grabbox.right_traj);
-	$Grabbox.held_body = null;
 
 func progress_combo():
 	special_step += 1;
 	$InputTimer.stop();
 	$InputTimer.start(.3);
-	print(special_step)
 
 func _on_input_timer_timeout():
 	motion_combo = false;

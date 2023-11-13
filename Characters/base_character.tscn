@@ -26,12 +26,6 @@ texture = SubResource("GradientTexture2D_msg4j")
 
 [node name="Grabbox" parent="." instance=ExtResource("2_a21f7")]
 
-[node name="GrabTimer" parent="Grabbox" index="1"]
-one_shot = true
-
-[node name="Cooldown" parent="Grabbox" index="2"]
-one_shot = true
-
 [node name="FloorChecker" type="RayCast2D" parent="."]
 target_position = Vector2(0, 32)
 collision_mask = 2

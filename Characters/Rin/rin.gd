@@ -46,7 +46,7 @@ func light_attack(direction):
 		#stick tilted down
 		elif direction.y < -Global.DEADZONE:
 			var sword = create_sword(Vector2(-2, 5), Vector2(.5, .2), Vector2(150, 0), 0);
-			sword.initialize(0.2, Vector2(80, -120), -1);
+			sword.initialize(0.1, Vector2(80, -120), -1);
 			use_sword(1);
 			
 		#default move
@@ -57,10 +57,12 @@ func light_attack(direction):
 
 func slash_attack(direction):
 	#stick down
-	if direction.y < -Global.DEADZONE:
-		pass
+	if direction.y < -Global.DEADZONE and currPortal:
+		print("B")
+		currPortal.get_node("Grabbox").grab();
+		currPortal.use_portal();
 	
-	if ready_swords >= 3:
+	elif ready_swords >= 3:
 		#stick right
 		if direction.x > Global.DEADZONE:
 			var sword = create_sword(currPortal.position + Vector2(-5, 5), Vector2(.35, .2), Vector2(1, -1)*150, -PI/4);
@@ -232,38 +234,65 @@ func special2():
 func _unhandled_input(event):
 	if !motion_combo:
 		#hard down, special 1 and 2
-		if direction.x > -Global.DEADZONE and direction.x < Global.DEADZONE and direction.y < -Global.DEADZONE:
+		if event is InputEventJoypadMotion and direction.x > -Global.DEADZONE and direction.x < Global.DEADZONE and direction.y < -Global.DEADZONE:
 			special_step = 0;
 			current_special = 1;
 			motion_combo = true;
 			progress_combo()
+		#hard right, wspecial 3
+		elif event is InputEventJoypadMotion and direction.x > Global.DEADZONE and direction.y > -Global.DEADZONE and direction.y < Global.DEADZONE:
+			special_step = 0;
+			current_special = 3;
+			motion_combo = true;
+			progress_combo();
 	else:
 		match special_step:
 			1:
 				if current_special == 1:
 					#down left, special 1
-					if direction.x < -Global.DEADZONE and direction.y < -Global.DEADZONE:
+					if event is InputEventJoypadMotion and direction.x < -Global.DEADZONE and direction.y < -Global.DEADZONE:
 						progress_combo();
 					#down right, special 2
-					elif direction.x > Global.DEADZONE and direction.y < -Global.DEADZONE:
+					elif event is InputEventJoypadMotion and direction.x > Global.DEADZONE and direction.y < -Global.DEADZONE:
 						current_special = 2;
 						progress_combo();
 					elif event is InputEventJoypadButton or event is InputEventKey:
 						motion_combo = false;
+						print("end")
+						super._unhandled_input(event);
+						
+				if current_special == 3:
+					#down right
+					if event is InputEventJoypadMotion and direction.x > Global.DEADZONE and direction.y < -Global.DEADZONE:
+						current_special = 2;
+						progress_combo();
+					elif event is InputEventJoypadButton or event is InputEventKey:
+						motion_combo = false;
+						super._unhandled_input(event);
 			2:
 				if current_special == 1:
 					#hard left
-					if direction.x < -Global.DEADZONE and direction.y > -Global.DEADZONE and direction.y < Global.DEADZONE:
+					if event is InputEventJoypadMotion and direction.x < -Global.DEADZONE and direction.y > -Global.DEADZONE and direction.y < Global.DEADZONE:
 						progress_combo();
 					elif event is InputEventJoypadButton or event is InputEventKey:
 						motion_combo = false;
+						super._unhandled_input(event);
 				
 				if current_special == 2:
 					#hard right
-					if direction.x > Global.DEADZONE and direction.y > -Global.DEADZONE and direction.y < Global.DEADZONE:
+					if event is InputEventJoypadMotion and direction.x > Global.DEADZONE and direction.y > -Global.DEADZONE and direction.y < Global.DEADZONE:
 						progress_combo();
 					elif event is InputEventJoypadButton or event is InputEventKey:
 						motion_combo = false;
+						super._unhandled_input(event);
+				
+				if current_special == 3:
+					#hard down
+					if event is InputEventJoypadMotion and direction.x > -Global.DEADZONE and direction.x < Global.DEADZONE and direction.y < -Global.DEADZONE:
+						progress_combo()
+					elif event is InputEventJoypadButton or event is InputEventKey:
+						motion_combo = false;
+						super._unhandled_input(event);
 			3:
 				if current_special == 1:
 					if Input.is_action_pressed("light_attack"):
@@ -272,28 +301,89 @@ func _unhandled_input(event):
 						special1(1);
 					elif event is InputEventJoypadButton or event is InputEventKey:
 						motion_combo = false;
+						super._unhandled_input(event);
 				
 				if current_special == 2:
 					#no direction
-					if direction.x > -Global.DEADZONE and direction.x < Global.DEADZONE and direction.y < Global.DEADZONE and direction.y > -Global.DEADZONE:
+					if event is InputEventJoypadMotion and direction.x > -Global.DEADZONE and direction.x < Global.DEADZONE and direction.y < Global.DEADZONE and direction.y > -Global.DEADZONE:
 						progress_combo();
 					elif event is InputEventJoypadButton or event is InputEventKey:
 						motion_combo = false;
+						super._unhandled_input(event);
+				
+				if current_special == 3:
+					#down left
+					if event is InputEventJoypadMotion and direction.x < -Global.DEADZONE and direction.y < -Global.DEADZONE:
+						progress_combo();
+					elif event is InputEventJoypadButton or event is InputEventKey:
+						motion_combo = false;
+						super._unhandled_input(event);
 			4:
 				if current_special == 2:
 					#hard right
-					if direction.x > Global.DEADZONE and direction.y > -Global.DEADZONE and direction.y < Global.DEADZONE:
+					if event is InputEventJoypadMotion and direction.x > Global.DEADZONE and direction.y > -Global.DEADZONE and direction.y < Global.DEADZONE:
 						progress_combo();
 					elif event is InputEventJoypadButton or event is InputEventKey:
 						motion_combo = false;
+						super._unhandled_input(event);
+				
+				if current_special == 3:
+					#hard left
+					if event is InputEventJoypadMotion and direction.x < -Global.DEADZONE and direction.y > -Global.DEADZONE and direction.y < Global.DEADZONE:
+						progress_combo();
+					elif event is InputEventJoypadButton or event is InputEventKey:
+						motion_combo = false;
+						super._unhandled_input(event);
 			5:
 				if current_special == 2:
 					if Input.is_action_pressed("slash_attack"):
 						special2();
-
 					elif event is InputEventJoypadButton or event is InputEventKey:
 						motion_combo = false;
-
+						super._unhandled_input(event);
+				
+				if current_special == 3:
+					#up left
+					if event is InputEventJoypadMotion and direction.x < -Global.DEADZONE and direction.y > Global.DEADZONE:
+						progress_combo();
+					elif event is InputEventJoypadButton or event is InputEventKey:
+						motion_combo = false;
+						super._unhandled_input(event);
+			6:
+				#hard down
+				if event is InputEventJoypadMotion and direction.x > -Global.DEADZONE and direction.x < Global.DEADZONE and direction.y > Global.DEADZONE:
+					progress_combo()
+				elif event is InputEventJoypadButton or event is InputEventKey:
+					motion_combo = false;
+					super._unhandled_input(event);
+			7:
+				#up right
+				if event is InputEventJoypadMotion and direction.x > Global.DEADZONE and direction.y > Global.DEADZONE:
+					progress_combo();
+				elif event is InputEventJoypadButton or event is InputEventKey:
+					motion_combo = false;
+					super._unhandled_input(event);
+			8:
+				#hard right
+				if event is InputEventJoypadMotion and direction.x > Global.DEADZONE and direction.y > -Global.DEADZONE and direction.y < Global.DEADZONE:
+					progress_combo();
+				elif event is InputEventJoypadButton or event is InputEventKey:
+					motion_combo = false;
+					super._unhandled_input(event);
+			9:
+				if Input.is_action_pressed("heavy_attack"):
+					progress_combo();
+				elif event is InputEventJoypadButton or event is InputEventKey:
+					motion_combo = false;
+					super._unhandled_input(event);
+			10:
+				if Input.is_action_pressed("slash_attack"):
+					progress_combo();
+				elif event is InputEventJoypadButton or event is InputEventKey:
+					motion_combo = false;
+					super._unhandled_input(event);
+				
+	print(motion_combo)
 	super._unhandled_input(event);
 	if special_step == 0: motion_combo = false;
 
@@ -323,7 +413,6 @@ func use_sword(cost):
 func rotate_point(point, angle):
 	var newX = point.x*cos(angle) - point.y*sin(angle);
 	var newY = point.y*cos(angle) + point.x*sin(angle);
-	print(Vector2(newX, newY))
 	return Vector2(newX, newY);
 
 
@@ -346,10 +435,10 @@ func update_animation_param():
 		if Input.is_action_just_released("crouch"):
 			animation["parameters/conditions/is_crouching"] = false
 			animation["parameters/conditions/is_not_crouching"] = true
-		if (Input.is_action_just_pressed("jump")):
+		if Input.is_action_just_pressed("jump") and not is_grabbed and not grabbing:
 			animation["parameters/conditions/jump"] = true
 	else:
-		if (Input.is_action_just_pressed("jump") and hasDoubleJump):
+		if Input.is_action_just_pressed("jump") and hasDoubleJump and not is_grabbed and not grabbing:
 			animation["parameters/conditions/jump"] = true
 		else:
 			animation["parameters/conditions/jump"] = false
