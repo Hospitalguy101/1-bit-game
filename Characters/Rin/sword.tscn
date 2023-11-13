@@ -5,13 +5,15 @@
 [ext_resource type="PackedScene" uid="uid://dfii823rul1pv" path="res://Characters/Hitboxes/hurtbox.tscn" id="3_vfby0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_38j58"]
-size = Vector2(49, 20)
+size = Vector2(45.5, 18)
 
 [node name="Sword" type="CharacterBody2D" groups=["Projectile"]]
-collision_layer = 0
+collision_layer = 2
+collision_mask = 9
 script = ExtResource("1_rof4s")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(23, 0)
 rotation = 1.5708
 texture = ExtResource("2_12wco")
 
@@ -22,12 +24,13 @@ one_shot = true
 collision_layer = 0
 collision_mask = 9
 launch_trajectory = Vector2(20, -100)
-projectile = true
+break_on_hit = true
 
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]
-position = Vector2(-0.5, 0)
+position = Vector2(23.25, 0)
 shape = SubResource("RectangleShape2D_38j58")
 
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
+[connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]
 
 [editable path="Hurtbox"]

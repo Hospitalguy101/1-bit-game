@@ -12,7 +12,7 @@ func _ready():
 func _physics_process(delta):
 	move_and_slide();
 	#set connectionbox to connect player to portal, always on ground
-	if visible:
+	if get_parent().get_parent().currPortal == self:
 		$ConnectionBox/CollisionShape2D.shape.size.x = position.x;
 		$ConnectionBox/CollisionShape2D.position.x = -position.x/2;
 
@@ -23,8 +23,10 @@ func break_portal():
 		if p.isReady:
 			get_parent().get_parent().currPortal = p;
 			p.show();
-			break;
 			queue_free();
+			return;
+	get_parent().get_parent().currPortal = null;
+	queue_free();
 
 func use_portal():
 	hide();
@@ -34,11 +36,15 @@ func use_portal():
 		if p.isReady:
 			get_parent().get_parent().currPortal = p;
 			p.show();
-			break;
+			return;
+	get_parent().get_parent().currPortal = null;
 
 
 func _on_cooldown_timeout():
 	isReady = true;
+	if !get_parent().get_parent().currPortal:
+		show();
+		get_parent().get_parent().currPortal = self;
 
 
 func _on_connection_box_area_entered(area):
