@@ -35,10 +35,6 @@ func _on_play_pressed():
 	rotating = 0;
 
 func _on_options_pressed():
-	#volume.
-	#so first off. so okay. so you want to have a volume slider
-	#
-	#	
 	$Node.hide();
 	$OptionsMenu.show();
 	pass # Replace with function body.

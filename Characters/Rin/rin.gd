@@ -250,7 +250,6 @@ func _unhandled_input(event):
 						progress_combo();
 					elif event is InputEventJoypadButton or event is InputEventKey:
 						motion_combo = false;
-			
 			2:
 				if current_special == 1:
 					#hard left
@@ -265,7 +264,6 @@ func _unhandled_input(event):
 						progress_combo();
 					elif event is InputEventJoypadButton or event is InputEventKey:
 						motion_combo = false;
-			
 			3:
 				if current_special == 1:
 					if Input.is_action_pressed("light_attack"):
@@ -281,7 +279,6 @@ func _unhandled_input(event):
 						progress_combo();
 					elif event is InputEventJoypadButton or event is InputEventKey:
 						motion_combo = false;
-			
 			4:
 				if current_special == 2:
 					#hard right
@@ -289,7 +286,6 @@ func _unhandled_input(event):
 						progress_combo();
 					elif event is InputEventJoypadButton or event is InputEventKey:
 						motion_combo = false;
-			
 			5:
 				if current_special == 2:
 					if Input.is_action_pressed("slash_attack"):

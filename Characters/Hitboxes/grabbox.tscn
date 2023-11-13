@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://cansug0y4q86t"]
+
+[ext_resource type="Script" path="res://Characters/Hitboxes/grabbox.gd" id="1_dwj2p"]
+
+[node name="Grabbox" type="Area2D"]
+collision_layer = 0
+script = ExtResource("1_dwj2p")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="GrabTimer" type="Timer" parent="."]
+
+[node name="Cooldown" type="Timer" parent="."]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="timeout" from="GrabTimer" to="." method="_on_grab_timer_timeout"]
