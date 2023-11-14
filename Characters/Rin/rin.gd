@@ -232,7 +232,6 @@ func special2():
 	
 
 func special3():
-	print("BOOOm")
 	if floored:
 		special_step = 0;
 		
@@ -402,14 +401,12 @@ func _unhandled_input(event):
 					super._unhandled_input(event);
 			9:
 				if Input.is_action_pressed("heavy_attack"):
-					print("CLOSE")
 					progress_combo();
 				elif event is InputEventJoypadButton or event is InputEventKey or (event is InputEventJoypadMotion and direction.x > -Global.DEADZONE and direction.x < Global.DEADZONE and direction.y < -Global.DEADZONE):
 					motion_combo = false;
 					super._unhandled_input(event);
 			10:
 				if Input.is_action_pressed("slash_attack"):
-					print("AMOST")
 					special3();
 				elif event is InputEventJoypadButton or event is InputEventKey or (event is InputEventJoypadMotion and direction.x > -Global.DEADZONE and direction.x < Global.DEADZONE and direction.y < -Global.DEADZONE):
 					motion_combo = false;

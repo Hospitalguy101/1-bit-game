@@ -56,9 +56,7 @@ func deactivate():
 	target = null;
 
 func _on_body_entered(body):
-	print(body.is_in_group("Fighter"))
 	if body.is_in_group("Fighter") and body.id != id:
-		print("ENTER")
 		enemy = body;
 
 func _on_body_exited(body):
