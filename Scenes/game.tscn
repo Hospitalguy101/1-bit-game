@@ -26,10 +26,6 @@ lock_rotation = false
 id = 1
 controllable = false
 
-[node name="Rin2" parent="Players" instance=ExtResource("2_klfh5")]
-position = Vector2(330, 134)
-id = 1
-
 [node name="Machamp" parent="Players" instance=ExtResource("3_us6aj")]
 position = Vector2(172, 128)
 collision_mask = 3
@@ -37,4 +33,3 @@ mass = 0.8
 gravity_scale = 0.8
 lock_rotation = false
 run_speed = 1250.0
-max_air_speed = 20.0

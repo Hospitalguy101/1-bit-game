@@ -136,7 +136,6 @@ physics_material_override = SubResource("PhysicsMaterial_13oxu")
 gravity_scale = 0.8
 script = ExtResource("2_f2mt2")
 run_speed = 1500.0
-max_air_speed = 75.0
 jump_height = 250
 
 [node name="BodyHitbox" parent="." index="0"]

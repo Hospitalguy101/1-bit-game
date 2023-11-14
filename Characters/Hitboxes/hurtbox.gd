@@ -9,6 +9,8 @@ var enemy;
 @export var break_on_hit = false;
 @export var disable_on_hit = false;
 
+@export var knockdown = false;
+
 #attack heights: 1 = high, 0 = medium, -1 = low
 @export var height = 0;
 
@@ -16,6 +18,8 @@ var enemy;
 @export var point_mode = false;
 var launch_point = Vector2.ZERO;
 var target;
+
+signal enemy_hit;
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -27,6 +31,7 @@ func _process(delta):
 	if target: target.position = launch_point;
 	
 	if active and enemy:
+		enemy_hit.emit(enemy);
 		if disable_on_hit: active = false;#$CollisionShape2D.disabled = true;
 		if point_mode:
 			enemy.sleeping = true;
@@ -40,15 +45,6 @@ func activate(time=null):
 	active = true;
 	if time: $Duration.start(time);
 	
-	
-	#check if anyone is already inside the box
-#	for p in get_node("/root/Game/Players").get_children():
-#		if p.id != id and $CollisionShape2D.shape:
-#			if p.position.x + p.get_node("BodyHitbox").shape.size.x/2 > global_position.x - $CollisionShape2D.shape.size.x/2:
-#				if p.position.x - p.get_node("BodyHitbox").shape.size.x/2 < global_position.x + $CollisionShape2D.shape.size.x/2:
-#					if p.position.y + p.get_node("BodyHitbox").shape.size.y/2 > global_position.y - $CollisionShape2D.shape.size.y/2:
-#						if p.position.y - p.get_node("BodyHitbox").shape.size.x/2< global_position.y + $CollisionShape2D.shape.size.y/2:
-#							_on_body_entered(p);
 
 func deactivate():
 	active = false;

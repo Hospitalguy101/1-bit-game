@@ -1,10 +1,11 @@
-[gd_scene load_steps=24 format=3 uid="uid://c7h8newfnrydq"]
+[gd_scene load_steps=28 format=3 uid="uid://c7h8newfnrydq"]
 
 [ext_resource type="PackedScene" uid="uid://cj5yffxhnvcji" path="res://Characters/base_character.tscn" id="1_qlep1"]
 [ext_resource type="Script" path="res://Characters/Machamp/machamp.gd" id="2_pa1cw"]
 [ext_resource type="Texture2D" uid="uid://cv545nif8yum2" path="res://Characters/Machamp/haripart.png" id="4_4a6ve"]
 [ext_resource type="Texture2D" uid="uid://xpfbarecmwx6" path="res://Characters/Machamp/MachampBody.png" id="4_wy1bl"]
 [ext_resource type="PackedScene" uid="uid://dfii823rul1pv" path="res://Characters/Hitboxes/hurtbox.tscn" id="5_jnegw"]
+[ext_resource type="PackedScene" uid="uid://damfmig5qop12" path="res://Characters/Hitboxes/windbox.tscn" id="6_2uivf"]
 
 [sub_resource type="Gradient" id="Gradient_glovb"]
 offsets = PackedFloat32Array(0.896296, 1)
@@ -24,6 +25,9 @@ orbit_velocity_max = 0.0
 scale_min = 0.5
 scale_max = 1.2
 color_ramp = SubResource("GradientTexture1D_e6gbv")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_46t5x"]
+size = Vector2(30, 18)
 
 [sub_resource type="Animation" id="Animation_rxh7a"]
 resource_name = "ArmlessIdle"
@@ -198,6 +202,13 @@ transitions = ["Start", "idlerun", SubResource("AnimationNodeStateMachineTransit
 size = Vector2(18.5, 7)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_28rtk"]
+size = Vector2(20, 29)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b2rhh"]
+size = Vector2(64, 47)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_44kcv"]
+size = Vector2(61.5, 9.5)
 
 [node name="Machamp" instance=ExtResource("1_qlep1")]
 script = ExtResource("2_pa1cw")
@@ -218,6 +229,17 @@ texture = ExtResource("4_wy1bl")
 hframes = 30
 frame = 1
 
+[node name="Grabbox" parent="." index="3"]
+position = Vector2(22, -3)
+has_up = false
+left_traj = Vector2(-120, -100)
+down_traj = Vector2(0, 300)
+right_traj = Vector2(200, -120)
+
+[node name="CollisionShape2D" parent="Grabbox" index="0"]
+shape = SubResource("RectangleShape2D_46t5x")
+debug_color = Color(0.0745098, 0.631373, 0.419608, 0.419608)
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="4"]
 root_node = NodePath("../Sprite")
 libraries = {
@@ -227,6 +249,9 @@ libraries = {
 [node name="AnimationTree" type="AnimationTree" parent="." index="5"]
 tree_root = SubResource("AnimationNodeStateMachine_2o4cw")
 anim_player = NodePath("../AnimationPlayer")
+
+[node name="FloorChecker" parent="." index="6"]
+target_position = Vector2(0, 18)
 
 [node name="Hurtboxes" type="Node2D" parent="." index="8"]
 
@@ -243,9 +268,25 @@ launch_trajectory = Vector2(250, -100)
 disable_on_hit = true
 
 [node name="CollisionShape2D" parent="Hurtboxes/ChargeHurtbox" index="0"]
-position = Vector2(4, 1)
+position = Vector2(4, 1.5)
 shape = SubResource("RectangleShape2D_28rtk")
 debug_color = Color(0.843137, 0, 0, 0.419608)
+
+[node name="Windbox" parent="Hurtboxes" index="2" instance=ExtResource("6_2uivf")]
+position = Vector2(55, -5.5)
+
+[node name="CollisionShape2D" parent="Hurtboxes/Windbox" index="0"]
+shape = SubResource("RectangleShape2D_b2rhh")
+debug_color = Color(0.796078, 0.188235, 0.921569, 0.419608)
+
+[node name="DownHeavyHurtbox" parent="Hurtboxes" index="3" instance=ExtResource("5_jnegw")]
+position = Vector2(46, 17)
+launch_trajectory = Vector2(100, -100)
+height = -1
+
+[node name="CollisionShape2D" parent="Hurtboxes/DownHeavyHurtbox" index="0"]
+shape = SubResource("RectangleShape2D_44kcv")
+debug_color = Color(0.647059, 0.521569, 0, 0.419608)
 
 [node name="AttackTimers" type="Node2D" parent="." index="9"]
 
@@ -255,9 +296,16 @@ one_shot = true
 [node name="LightChargeTimer" type="Timer" parent="AttackTimers" index="1"]
 one_shot = true
 
+[node name="DownHeavyTimer" type="Timer" parent="AttackTimers" index="2"]
+one_shot = true
+
+[connection signal="enemy_hit" from="Hurtboxes/ChargeHurtbox" to="." method="_on_charge_hurtbox_enemy_hit"]
 [connection signal="timeout" from="AttackTimers/LightAttackTimer" to="." method="_on_light_attack_timer_timeout"]
 [connection signal="timeout" from="AttackTimers/LightChargeTimer" to="." method="_on_light_charge_timer_timeout"]
+[connection signal="timeout" from="AttackTimers/DownHeavyTimer" to="." method="_on_down_heavy_timer_timeout"]
 
 [editable path="Grabbox"]
 [editable path="Hurtboxes/LightHurtbox"]
 [editable path="Hurtboxes/ChargeHurtbox"]
+[editable path="Hurtboxes/Windbox"]
+[editable path="Hurtboxes/DownHeavyHurtbox"]

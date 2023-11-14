@@ -14,6 +14,7 @@ func _ready():
 	set_collision_mask_value(1, false);
 	
 	move_vars.append(false);
+	
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -26,6 +27,8 @@ func _physics_process(delta):
 	update_animation_param()
 	if charging: charge_timer += delta;
 	if running_attack: apply_force(Vector2(2000, 0));
+	
+	down_throw_point = position + Vector2(20, -20);
 	
 	super._physics_process(delta);
 	
@@ -51,9 +54,24 @@ func release_light_attack():
 		clamp(charge_timer, 0, 1);
 		charging = false;
 		running_attack = true;
+		super_armor = true;
 		$Hurtboxes/ChargeHurtbox.activate()
 		print(charge_timer)
 		$AttackTimers/LightChargeTimer.start(charge_timer);
+		
+
+func slash_attack(direction):
+	#hard left
+	if direction.x < -Global.DEADZONE and abs(direction.y) < Global.DEADZONE:
+		$Hurtboxes/Windbox.activate(1.5);
+
+
+func heavy_attack(direction):
+	#hard down
+	if abs(direction.x) < Global.DEADZONE and direction.y < -Global.DEADZONE:
+		$AttackTimers/DownHeavyTimer.start(1);
+		$Hurtboxes/DownHeavyHurtbox.top_level = true;
+		$Hurtboxes/DownHeavyHurtbox.position += position;
 
 func update_animation_param():
 	pass
@@ -66,4 +84,17 @@ func _on_light_attack_timer_timeout():
 func _on_light_charge_timer_timeout():
 	running_attack = false;
 	move_vars[move_vars.size()-1] = false;
+	super_armor = false;
 	$Hurtboxes/ChargeHurtbox.deactivate()
+
+
+func _on_down_heavy_timer_timeout():
+	$Hurtboxes/DownHeavyHurtbox.activate(.4);
+	$Hurtboxes/DownHeavyHurtbox.top_level = false;
+	$Hurtboxes/DownHeavyHurtbox.position -= position;
+
+
+func _on_charge_hurtbox_enemy_hit(enemy):
+	linear_velocity.x = 0;
+	_on_light_charge_timer_timeout();
+	$AttackTimers/LightChargeTimer.stop();
