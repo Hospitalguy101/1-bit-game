@@ -104,6 +104,10 @@ grab={
 2d_physics/layer_3="Portals"
 2d_physics/layer_4="PortalConnection"
 
+[physics]
+
+2d/run_on_separate_thread=true
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
