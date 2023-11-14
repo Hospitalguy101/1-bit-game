@@ -21,7 +21,7 @@ position = Vector2(216, 124)
 lock_rotation = false
 
 [node name="Rin2" parent="." instance=ExtResource("2_klfh5")]
-position = Vector2(262, 131)
+position = Vector2(262, 120)
 id = 1
 controllable = false
 
@@ -32,3 +32,4 @@ gravity_scale = 0.8
 lock_rotation = false
 run_speed = 1250.0
 max_air_speed = 20.0
+[node name="Projectiles" type="Node2D" parent="."]

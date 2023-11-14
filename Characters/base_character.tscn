@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://cj5yffxhnvcji"]
+[gd_scene load_steps=6 format=3 uid="uid://cj5yffxhnvcji"]
 
 [ext_resource type="Script" path="res://Characters/BaseCharacter.gd" id="1_a3637"]
+[ext_resource type="PackedScene" uid="uid://cansug0y4q86t" path="res://Characters/Hitboxes/grabbox.tscn" id="2_a21f7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_amk2t"]
 size = Vector2(28, 32)
@@ -23,6 +24,14 @@ shape = SubResource("RectangleShape2D_amk2t")
 [node name="Sprite" type="Sprite2D" parent="."]
 texture = SubResource("GradientTexture2D_msg4j")
 
+[node name="Grabbox" parent="." instance=ExtResource("2_a21f7")]
+
 [node name="FloorChecker" type="RayCast2D" parent="."]
 target_position = Vector2(0, 32)
 collision_mask = 2
+
+[node name="InputTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="InputTimer" to="." method="_on_input_timer_timeout"]
+
+[editable path="Grabbox"]

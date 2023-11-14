@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://dwrvf7esucege"]
+[gd_scene load_steps=36 format=3 uid="uid://dwrvf7esucege"]
 
 [ext_resource type="PackedScene" uid="uid://cj5yffxhnvcji" path="res://Characters/base_character.tscn" id="1_voviw"]
 [ext_resource type="Script" path="res://Characters/Rin/rin.gd" id="2_f2mt2"]
@@ -6,7 +6,10 @@
 [ext_resource type="PackedScene" uid="uid://dog8xpvpd4vek" path="res://Characters/Rin/rin_anim_player.tscn" id="4_lxsc4"]
 [ext_resource type="PackedScene" uid="uid://bhla3lmhp48cb" path="res://Characters/Rin/portal.tscn" id="5_i85mh"]
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_q86cr"]
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wjjwv"]
+size = Vector2(18, 18)
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_df755"]
 animation = &"Crouch"
@@ -123,8 +126,13 @@ states/Walk/node = SubResource("AnimationNodeAnimation_7w07r")
 states/Walk/position = Vector2(473, 206)
 transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_fb8y7"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_b12uv"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_xjab4"), "Idle", "Grab", SubResource("AnimationNodeStateMachineTransition_5kqia"), "Grab", "Idle", SubResource("AnimationNodeStateMachineTransition_uc2tw"), "Walk", "Grab", SubResource("AnimationNodeStateMachineTransition_6kt2q"), "Grab", "Walk", SubResource("AnimationNodeStateMachineTransition_fjeki"), "Jump", "Flutter", SubResource("AnimationNodeStateMachineTransition_4jfp8"), "Walk", "Jump", SubResource("AnimationNodeStateMachineTransition_bhmlc"), "Flutter", "Idle", SubResource("AnimationNodeStateMachineTransition_0nnf1"), "Flutter", "Walk", SubResource("AnimationNodeStateMachineTransition_ahdbi"), "Idle", "Crouch", SubResource("AnimationNodeStateMachineTransition_vcl7x"), "Walk", "Crouch", SubResource("AnimationNodeStateMachineTransition_bylqf"), "Crouch", "Idle", SubResource("AnimationNodeStateMachineTransition_ohols"), "Crouch", "Walk", SubResource("AnimationNodeStateMachineTransition_hiwtq"), "Walk", "Guard", SubResource("AnimationNodeStateMachineTransition_6s5jw"), "Idle", "Guard", SubResource("AnimationNodeStateMachineTransition_26i6v"), "Guard", "Walk", SubResource("AnimationNodeStateMachineTransition_mqjqs"), "Guard", "Idle", SubResource("AnimationNodeStateMachineTransition_ldc2f")]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6y1cp"]
+size = Vector2(6, 14)
+
 [node name="Rin" groups=["Rin"] instance=ExtResource("1_voviw")]
+collision_mask = 2
 mass = 0.8
+physics_material_override = SubResource("PhysicsMaterial_q86cr")
 gravity_scale = 0.8
 script = ExtResource("2_f2mt2")
 run_speed = 1500.0
@@ -132,7 +140,7 @@ max_air_speed = 75.0
 jump_height = 250
 
 [node name="BodyHitbox" parent="." index="0"]
-position = Vector2(0, -1)
+position = Vector2(0, 0)
 shape = SubResource("RectangleShape2D_wjjwv")
 
 [node name="Sprite" parent="." index="1"]
@@ -185,17 +193,17 @@ id = 4
 
 [node name="Swords" type="Node2D" parent="." index="5"]
 
-[node name="Area2D" type="Area2D" parent="." index="6"]
-collision_mask = 3
-input_pickable = false
+[node name="Grabbox" parent="." index="6"]
+position = Vector2(6, 1)
+up_traj = Vector2(0, -250)
+left_traj = Vector2(-250, -100)
+down_traj = Vector2(0, 100)
+right_traj = Vector2(250, -100)
 
-[node name="BodyHitbox" type="CollisionShape2D" parent="Area2D" index="0"]
-shape = SubResource("RectangleShape2D_wjjwv")
+[node name="CollisionShape2D" parent="Grabbox" index="0"]
+shape = SubResource("RectangleShape2D_6y1cp")
 
-[node name="FloorChecker" parent="." index="7"]
-target_position = Vector2(0, 10)
-
-[node name="SwordTimers" type="Node2D" parent="." index="8"]
+[node name="SwordTimers" type="Node2D" parent="." index="7"]
 
 [node name="Timer1" type="Timer" parent="SwordTimers" index="0"]
 one_shot = true
@@ -221,9 +229,37 @@ one_shot = true
 [node name="Timer8" type="Timer" parent="SwordTimers" index="7"]
 one_shot = true
 
+[node name="AttackTimers" type="Node2D" parent="." index="8"]
+
+[node name="HeavyTimer" type="Timer" parent="AttackTimers" index="0"]
+one_shot = true
+
+[node name="PortalRecallTimer" type="Timer" parent="AttackTimers" index="1"]
+one_shot = true
+
 [node name="Label" type="Label" parent="." index="9"]
-offset_left = -4.0
-offset_top = -36.0
-offset_right = 6.0
-offset_bottom = -10.0
-text = "1"
+offset_left = -7.0
+offset_top = -24.0
+offset_right = 20.0
+offset_bottom = 2.0
+scale = Vector2(0.5, 0.5)
+text = "S: 1"
+
+[node name="Label2" type="Label" parent="." index="10"]
+offset_left = -7.0
+offset_top = -33.0
+offset_right = 21.0
+offset_bottom = -7.0
+scale = Vector2(0.5, 0.5)
+text = "P: 1"
+
+[node name="FloorChecker" parent="." index="11"]
+target_position = Vector2(0, 10)
+
+[node name="InputTimer" parent="." index="12"]
+one_shot = true
+
+[connection signal="timeout" from="AttackTimers/HeavyTimer" to="." method="_on_heavy_timer_timeout"]
+[connection signal="timeout" from="AttackTimers/PortalRecallTimer" to="." method="_on_portal_recall_timer_timeout"]
+
+[editable path="Grabbox"]
