@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Characters/BaseCharacter.gd" id="1_a3637"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_amk2t"]
-size = Vector2(63, 63)
+size = Vector2(28, 32)
 
 [sub_resource type="Gradient" id="Gradient_h8i1l"]
 

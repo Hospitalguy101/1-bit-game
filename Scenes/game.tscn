@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://bwefc52y2qpdh"]
+[gd_scene load_steps=4 format=3 uid="uid://bwefc52y2qpdh"]
 
 [ext_resource type="PackedScene" uid="uid://b7db2uskvgrby" path="res://Scenes/stage.tscn" id="1_sphns"]
 [ext_resource type="PackedScene" uid="uid://dwrvf7esucege" path="res://Characters/Rin/rin.tscn" id="2_klfh5"]
+[ext_resource type="PackedScene" uid="uid://c7h8newfnrydq" path="res://Characters/Machamp/machamp.tscn" id="3_us6aj"]
 
 [node name="Game" type="Node2D"]
 
@@ -23,3 +24,11 @@ lock_rotation = false
 position = Vector2(262, 131)
 id = 1
 controllable = false
+
+[node name="Machamp" parent="." instance=ExtResource("3_us6aj")]
+position = Vector2(113, 67)
+mass = 0.8
+gravity_scale = 0.8
+lock_rotation = false
+run_speed = 1250.0
+max_air_speed = 20.0
