@@ -1,7 +1,7 @@
 [gd_scene load_steps=24 format=3 uid="uid://c7h8newfnrydq"]
 
 [ext_resource type="PackedScene" uid="uid://cj5yffxhnvcji" path="res://Characters/base_character.tscn" id="1_qlep1"]
-[ext_resource type="Script" path="res://machamp.gd" id="2_mqwap"]
+[ext_resource type="Script" path="res://Characters/Machamp/machamp.gd" id="2_pa1cw"]
 [ext_resource type="Texture2D" uid="uid://cv545nif8yum2" path="res://Characters/Machamp/haripart.png" id="4_4a6ve"]
 [ext_resource type="Texture2D" uid="uid://xpfbarecmwx6" path="res://Characters/Machamp/MachampBody.png" id="4_wy1bl"]
 [ext_resource type="PackedScene" uid="uid://dfii823rul1pv" path="res://Characters/Hitboxes/hurtbox.tscn" id="5_jnegw"]
@@ -200,7 +200,7 @@ size = Vector2(18.5, 7)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_28rtk"]
 
 [node name="Machamp" instance=ExtResource("1_qlep1")]
-script = ExtResource("2_mqwap")
+script = ExtResource("2_pa1cw")
 
 [node name="BodyHitbox" parent="." index="0"]
 position = Vector2(0, 1)
