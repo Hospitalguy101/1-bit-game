@@ -187,6 +187,17 @@ _data = {
 "idlerun": SubResource("Animation_esor4")
 }
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_18unr"]
+animation = &"idlerun"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_l26fx"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_2o4cw"]
+states/idlerun/node = SubResource("AnimationNodeAnimation_18unr")
+states/idlerun/position = Vector2(361, 100)
+transitions = ["Start", "idlerun", SubResource("AnimationNodeStateMachineTransition_l26fx")]
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0ev54"]
 size = Vector2(18.5, 7)
 
@@ -816,17 +827,6 @@ states/idlerun/node = SubResource("AnimationNodeAnimation_clltm")
 states/idlerun/position = Vector2(342, 100)
 transitions = ["Start", "idlerun", SubResource("AnimationNodeStateMachineTransition_xrfax")]
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_18unr"]
-animation = &"idlerun"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_l26fx"]
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_2o4cw"]
-states/idlerun/node = SubResource("AnimationNodeAnimation_18unr")
-states/idlerun/position = Vector2(361, 100)
-transitions = ["Start", "idlerun", SubResource("AnimationNodeStateMachineTransition_l26fx")]
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_46t5x"]
 size = Vector2(30, 18)
 
@@ -859,6 +859,10 @@ root_node = NodePath("../Sprite")
 libraries = {
 "": SubResource("AnimationLibrary_uw1tv")
 }
+
+[node name="BodyTree" type="AnimationTree" parent="AnimationPlayer" index="0"]
+tree_root = SubResource("AnimationNodeStateMachine_2o4cw")
+anim_player = NodePath("..")
 
 [node name="HArm" type="Sprite2D" parent="." index="5"]
 scale = Vector2(0.5, 0.5)
@@ -925,7 +929,7 @@ one_shot = true
 one_shot = true
 
 [node name="SArmAnim" type="AnimationPlayer" parent="." index="10"]
-root_node = NodePath("../BodyAnimation/BodyTree")
+root_node = NodePath("../AnimationPlayer/BodyTree")
 libraries = {
 "": SubResource("AnimationLibrary_7851n")
 }
@@ -933,7 +937,6 @@ libraries = {
 [node name="SArmTree" type="AnimationTree" parent="SArmAnim" index="0"]
 tree_root = SubResource("AnimationNodeStateMachine_14pcv")
 anim_player = NodePath("..")
-active = true
 
 [node name="HArmAnim" type="AnimationPlayer" parent="." index="11"]
 root_node = NodePath("../SArmAnim")
@@ -944,7 +947,6 @@ libraries = {
 [node name="HArmTree" type="AnimationTree" parent="HArmAnim" index="0"]
 tree_root = SubResource("AnimationNodeStateMachine_mpihq")
 anim_player = NodePath("..")
-active = true
 
 [node name="GArmAnim" type="AnimationPlayer" parent="." index="12"]
 libraries = {
@@ -954,7 +956,6 @@ libraries = {
 [node name="GArmTree" type="AnimationTree" parent="GArmAnim" index="0"]
 tree_root = SubResource("AnimationNodeStateMachine_dvhot")
 anim_player = NodePath("..")
-active = true
 
 [node name="LArmAnim" type="AnimationPlayer" parent="." index="13"]
 root_node = NodePath("../HArmAnim")
@@ -965,16 +966,8 @@ libraries = {
 [node name="LArmTree" type="AnimationTree" parent="LArmAnim" index="0"]
 tree_root = SubResource("AnimationNodeStateMachine_nqwf7")
 anim_player = NodePath("..")
-active = true
 
-[node name="BodyAnimation" type="AnimationPlayer" parent="." index="14"]
-
-[node name="BodyTree" type="AnimationTree" parent="BodyAnimation" index="0"]
-tree_root = SubResource("AnimationNodeStateMachine_2o4cw")
-anim_player = NodePath("..")
-active = true
-
-[node name="Grabbox" parent="." index="15"]
+[node name="Grabbox" parent="." index="14"]
 position = Vector2(22, -3)
 has_up = false
 left_traj = Vector2(-120, -100)
@@ -985,7 +978,7 @@ right_traj = Vector2(200, -120)
 shape = SubResource("RectangleShape2D_46t5x")
 debug_color = Color(0.0745098, 0.631373, 0.419608, 0.419608)
 
-[node name="FloorChecker" parent="." index="16"]
+[node name="FloorChecker" parent="." index="15"]
 target_position = Vector2(0, 18)
 
 [connection signal="enemy_hit" from="Hurtboxes/ChargeHurtbox" to="." method="_on_charge_hurtbox_enemy_hit"]

@@ -145,6 +145,7 @@ func _physics_process(delta):
 #		if Input.is_action_pressed("move_right") and get_linear_velocity().x < max_air_speed:
 #			apply_force(Vector2(air_speed, 0));
 		if Input.is_action_just_pressed("p1_jump") and hasDoubleJump and !motion_combo:
+			hasDoubleJump = false
 			#straight jump
 			if direction.x > -Global.DEADZONE and direction.x < Global.DEADZONE:
 				set_axis_velocity(Vector2(0, -jump_height));
