@@ -87,11 +87,11 @@ advance_condition = &"is_crouching"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ohols"]
 advance_mode = 2
-advance_condition = &"is_not_crouched"
+advance_condition = &"is_not_crouch"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_hiwtq"]
 advance_mode = 2
-advance_condition = &"is_not_crouching"
+advance_condition = &"is_not_crouch"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6s5jw"]
 advance_mode = 2
@@ -160,9 +160,8 @@ parameters/conditions/grab = false
 parameters/conditions/is_crouching = false
 parameters/conditions/is_guarding = false
 parameters/conditions/is_idle = false
-parameters/conditions/is_not_crouched = false
-parameters/conditions/is_not_crouching = false
-parameters/conditions/is_not_guarding = false
+parameters/conditions/is_not_crouch = true
+parameters/conditions/is_not_guarding = true
 parameters/conditions/is_walking = false
 parameters/conditions/jump = false
 parameters/conditions/onGround = false

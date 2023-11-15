@@ -460,11 +460,11 @@ func update_animation_param():
 			animation["parameters/conditions/grab"] = false
 			
 		if Input.is_action_pressed("p1_crouch"):
-			animation["parameters/conditions/is_crouching"] = true
-			animation["parameters/conditions/is_not_crouching"] = false
+			animation["parameters/conditions/is_crouch"] = true
+			animation["parameters/conditions/is_not_crouch"] = false
 		if Input.is_action_just_released("p1_crouch"):
-			animation["parameters/conditions/is_crouching"] = false
-			animation["parameters/conditions/is_not_crouching"] = true
+			animation["parameters/conditions/is_crouch"] = false
+			animation["parameters/conditions/is_not_crouch"] = true
 		if Input.is_action_just_pressed("p1_jump") and not is_grabbed and not grabbing:
 			animation["parameters/conditions/jump"] = true
 	else:
