@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://bjm8hdd1dlhby"]
+
+[ext_resource type="PackedScene" uid="uid://cj5yffxhnvcji" path="res://Characters/base_character.tscn" id="1_mqk0f"]
+[ext_resource type="Script" path="res://Characters/Guts/guts.gd" id="2_u0yhi"]
+
+[node name="Guts" instance=ExtResource("1_mqk0f")]
+script = ExtResource("2_u0yhi")
+
+[node name="AttackTimers" type="Node2D" parent="." index="4"]
+
+[editable path="Grabbox"]
