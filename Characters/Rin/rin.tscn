@@ -79,11 +79,11 @@ advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_vcl7x"]
 advance_mode = 2
-advance_condition = &"is_crouching"
+advance_condition = &"is_crouch"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_bylqf"]
 advance_mode = 2
-advance_condition = &"is_crouching"
+advance_condition = &"is_crouch"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ohols"]
 advance_mode = 2
@@ -157,7 +157,7 @@ tree_root = SubResource("AnimationNodeStateMachine_hmym6")
 anim_player = NodePath("../RinAnimPlayer")
 active = true
 parameters/conditions/grab = false
-parameters/conditions/is_crouching = false
+parameters/conditions/is_crouch = false
 parameters/conditions/is_guarding = false
 parameters/conditions/is_idle = false
 parameters/conditions/is_not_crouch = true
