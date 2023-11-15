@@ -5,7 +5,7 @@ var sword_timer = 8;
 @onready var swordPath = load("res://Characters/Rin/sword.tscn")
 
 @onready var currPortal = $Portals/Portal;
-
+var floor_port = false
 #0 = default, 1 = up right, 2 = down, 3 = down right
 var last_heavy_attack = 0;
 
@@ -57,6 +57,7 @@ func light_attack(direction):
 
 func slash_attack(direction):
 	#stick down
+	floor_port = true
 	if direction.y < -Global.DEADZONE and currPortal and !grabbing:
 		currPortal.get_node("Grabbox").grab();
 		currPortal.use_portal();
@@ -89,6 +90,7 @@ func slash_attack(direction):
 		$AttackTimers/PortalRecallTimer.start(0.1);
 
 func release_slash_attack():
+	floor_port = false
 	if $AttackTimers/PortalRecallTimer.is_stopped() and currPortal: currPortal.velocity.x = 0;
 	elif currPortal:
 		currPortal.position = Vector2(0, 10);

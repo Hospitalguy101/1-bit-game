@@ -4,7 +4,7 @@
 size = Vector2(2.5, 152)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uft8e"]
-size = Vector2(1002, 4)
+size = Vector2(1111.11, 4)
 
 [node name="Stage" type="Node2D"]
 
@@ -32,13 +32,15 @@ position = Vector2(-495.141, 74)
 shape = SubResource("RectangleShape2D_tgbhd")
 
 [node name="Floor" type="Line2D" parent="."]
-points = PackedVector2Array(0, 150, 501.25, 150)
+position = Vector2(-2.38419e-07, -173.25)
+scale = Vector2(1, 2.125)
+points = PackedVector2Array(0, 150, 250.534, 150, 501.25, 150)
 width = 4.0
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Floor" groups=["FloorCollider"]]
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floor/StaticBody2D"]
-position = Vector2(250.5, 150)
+position = Vector2(251, 150)
 scale = Vector2(0.45, 0.9)
 shape = SubResource("RectangleShape2D_uft8e")
