@@ -6,7 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://dog8xpvpd4vek" path="res://Characters/Rin/rin_anim_player.tscn" id="4_lxsc4"]
 [ext_resource type="PackedScene" uid="uid://bhla3lmhp48cb" path="res://Characters/Rin/portal.tscn" id="5_i85mh"]
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_q86cr"]
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_13oxu"]
+friction = 0.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wjjwv"]
 size = Vector2(18, 18)
@@ -130,13 +131,11 @@ transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition
 size = Vector2(6, 14)
 
 [node name="Rin" groups=["Rin"] instance=ExtResource("1_voviw")]
-collision_mask = 2
 mass = 0.8
-physics_material_override = SubResource("PhysicsMaterial_q86cr")
+physics_material_override = SubResource("PhysicsMaterial_13oxu")
 gravity_scale = 0.8
 script = ExtResource("2_f2mt2")
 run_speed = 1500.0
-max_air_speed = 75.0
 jump_height = 250
 
 [node name="BodyHitbox" parent="." index="0"]
@@ -237,6 +236,9 @@ one_shot = true
 [node name="PortalRecallTimer" type="Timer" parent="AttackTimers" index="1"]
 one_shot = true
 
+[node name="Special3Timer" type="Timer" parent="AttackTimers" index="2"]
+one_shot = true
+
 [node name="Label" type="Label" parent="." index="9"]
 offset_left = -7.0
 offset_top = -24.0
@@ -256,10 +258,8 @@ text = "P: 1"
 [node name="FloorChecker" parent="." index="11"]
 target_position = Vector2(0, 10)
 
-[node name="InputTimer" parent="." index="12"]
-one_shot = true
-
 [connection signal="timeout" from="AttackTimers/HeavyTimer" to="." method="_on_heavy_timer_timeout"]
 [connection signal="timeout" from="AttackTimers/PortalRecallTimer" to="." method="_on_portal_recall_timer_timeout"]
+[connection signal="timeout" from="AttackTimers/Special3Timer" to="." method="_on_special_3_timer_timeout"]
 
 [editable path="Grabbox"]

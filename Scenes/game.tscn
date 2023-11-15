@@ -16,17 +16,19 @@ limit_top = 0
 limit_right = 500
 limit_bottom = 150
 
-[node name="Rin" parent="." instance=ExtResource("2_klfh5")]
-position = Vector2(216, 124)
-lock_rotation = false
+[node name="Projectiles" type="Node2D" parent="."]
 
-[node name="Rin2" parent="." instance=ExtResource("2_klfh5")]
-position = Vector2(262, 120)
+[node name="Players" type="Node2D" parent="."]
+
+[node name="Rin" parent="Players" instance=ExtResource("2_klfh5")]
+position = Vector2(263, 135)
+lock_rotation = false
 id = 1
 controllable = false
 
-[node name="Machamp" parent="." instance=ExtResource("3_us6aj")]
-position = Vector2(113, 67)
+[node name="Machamp" parent="Players" instance=ExtResource("3_us6aj")]
+position = Vector2(172, 128)
+collision_mask = 3
 mass = 0.8
 gravity_scale = 0.8
 lock_rotation = false

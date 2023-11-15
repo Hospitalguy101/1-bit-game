@@ -9,12 +9,13 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _physics_process(delta):
 	move_and_slide()
 
 #default traj is for default light attack
-func initialize(time, traj=null, height=0, start_now=true):
+func initialize(time, traj=null, h=0, start_now=true):
 	if traj: $Hurtbox.launch_trajectory = traj;
+	$Hurtbox.height = h;
 	
 	#attack timer determines how long sword will exist before disappearing
 	if start_now: start_timer(time);
