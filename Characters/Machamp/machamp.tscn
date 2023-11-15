@@ -1,4 +1,4 @@
-[gd_scene load_steps=81 format=3 uid="uid://c7h8newfnrydq"]
+[gd_scene load_steps=163 format=3 uid="uid://c7h8newfnrydq"]
 
 [ext_resource type="PackedScene" uid="uid://cj5yffxhnvcji" path="res://Characters/base_character.tscn" id="1_qlep1"]
 [ext_resource type="Script" path="res://Characters/Machamp/machamp.gd" id="2_pa1cw"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://bttch4fgfvx07" path="res://Characters/Machamp/MachampArm2.png" id="6_ybx0m"]
 [ext_resource type="Texture2D" uid="uid://brhdl6k855qbj" path="res://Characters/Machamp/MachampArm3.png" id="7_vunw1"]
 [ext_resource type="Texture2D" uid="uid://cgaabs7h8k5ro" path="res://Characters/Machamp/MachampArm4.png" id="8_wbkgf"]
+[ext_resource type="Texture2D" uid="uid://cmt6h1yn23wfy" path="res://Characters/Machamp/wind.png" id="10_1edo8"]
 
 [sub_resource type="Gradient" id="Gradient_glovb"]
 offsets = PackedFloat32Array(0.896296, 1)
@@ -127,7 +128,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_p0t35"]
 resource_name = "Special2"
-length = 0.3
+length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -159,7 +160,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_esor4"]
 resource_name = "idlerun"
-length = 0.6
+length = 0.7
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -187,16 +188,91 @@ _data = {
 "idlerun": SubResource("Animation_esor4")
 }
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_fb0lc"]
+animation = &"ArmlessIdle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8ai61"]
+animation = &"Charge"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_vu6jh"]
+animation = &"Crouch"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7rudm"]
+animation = &"GroundPound"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_cmoci"]
+animation = &"JabPalm"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_78tk7"]
+animation = &"Special2"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_wjyjw"]
+animation = &"TornadoPalm"
+
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_18unr"]
 animation = &"idlerun"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_l26fx"]
 advance_mode = 2
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_bdrp8"]
+advance_mode = 2
+advance_condition = &"charge"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_7iyhj"]
+advance_mode = 2
+advance_condition = &"ncharge"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_y1lai"]
+advance_mode = 2
+advance_condition = &"crouch"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6odj3"]
+advance_mode = 2
+advance_condition = &"ncrouch"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1nq0k"]
+advance_mode = 2
+advance_condition = &"L1"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_wlb6u"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_njsth"]
+advance_mode = 2
+advance_condition = &"GP"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_240pv"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3056k"]
+advance_mode = 2
+advance_condition = &"S2"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_fuyr3"]
+switch_mode = 2
+advance_mode = 2
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_2o4cw"]
+states/ArmlessIdle/node = SubResource("AnimationNodeAnimation_fb0lc")
+states/ArmlessIdle/position = Vector2(343, 84)
+states/Charge/node = SubResource("AnimationNodeAnimation_8ai61")
+states/Charge/position = Vector2(550, 100)
+states/Crouch/node = SubResource("AnimationNodeAnimation_vu6jh")
+states/Crouch/position = Vector2(661, 197)
+states/GroundPound/node = SubResource("AnimationNodeAnimation_7rudm")
+states/GroundPound/position = Vector2(779, 322)
+states/JabPalm/node = SubResource("AnimationNodeAnimation_cmoci")
+states/JabPalm/position = Vector2(556, 402)
+states/Special2/node = SubResource("AnimationNodeAnimation_78tk7")
+states/Special2/position = Vector2(361, 402)
+states/TornadoPalm/node = SubResource("AnimationNodeAnimation_wjyjw")
+states/TornadoPalm/position = Vector2(126, 402)
 states/idlerun/node = SubResource("AnimationNodeAnimation_18unr")
-states/idlerun/position = Vector2(361, 100)
-transitions = ["Start", "idlerun", SubResource("AnimationNodeStateMachineTransition_l26fx")]
+states/idlerun/position = Vector2(368, 273)
+transitions = ["Start", "idlerun", SubResource("AnimationNodeStateMachineTransition_l26fx"), "idlerun", "Charge", SubResource("AnimationNodeStateMachineTransition_bdrp8"), "Charge", "idlerun", SubResource("AnimationNodeStateMachineTransition_7iyhj"), "idlerun", "Crouch", SubResource("AnimationNodeStateMachineTransition_y1lai"), "Crouch", "idlerun", SubResource("AnimationNodeStateMachineTransition_6odj3"), "idlerun", "JabPalm", SubResource("AnimationNodeStateMachineTransition_1nq0k"), "JabPalm", "idlerun", SubResource("AnimationNodeStateMachineTransition_wlb6u"), "idlerun", "GroundPound", SubResource("AnimationNodeStateMachineTransition_njsth"), "GroundPound", "idlerun", SubResource("AnimationNodeStateMachineTransition_240pv"), "idlerun", "Special2", SubResource("AnimationNodeStateMachineTransition_3056k"), "Special2", "idlerun", SubResource("AnimationNodeStateMachineTransition_fuyr3")]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0ev54"]
 size = Vector2(18.5, 7)
@@ -206,6 +282,25 @@ size = Vector2(20, 29)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b2rhh"]
 size = Vector2(64, 47)
+
+[sub_resource type="Gradient" id="Gradient_bf54y"]
+offsets = PackedFloat32Array(0.851852, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_cu10w"]
+gradient = SubResource("Gradient_bf54y")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_kf6p1"]
+emission_shape = 3
+emission_box_extents = Vector3(1, 20, 1)
+particle_flag_disable_z = true
+gravity = Vector3(-40, 0, 0)
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+linear_accel_max = 1.0
+scale_min = 0.3
+scale_max = 0.5
+color_ramp = SubResource("GradientTexture1D_cu10w")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_44kcv"]
 size = Vector2(61.5, 9.5)
@@ -290,7 +385,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_nlyeu"]
 resource_name = "Special 2"
-length = 0.3
+length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -349,16 +444,87 @@ _data = {
 "idlerun": SubResource("Animation_x7lqi")
 }
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_k7qkr"]
+animation = &"Charge"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_wb7qi"]
+animation = &"Crouch"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_mikv3"]
+animation = &"GroundSlam"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_15h0r"]
+animation = &"JabPalm"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_d2ts6"]
+animation = &"Special 2"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_v1c57"]
+animation = &"TornadoPalm"
+
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_i2260"]
 animation = &"idlerun"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_rirq1"]
 advance_mode = 2
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0x5k0"]
+advance_mode = 2
+advance_condition = &"charge"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0wu44"]
+advance_mode = 2
+advance_condition = &"ncharge"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5vbx7"]
+advance_mode = 2
+advance_condition = &"crouch"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_nabm8"]
+advance_mode = 2
+advance_condition = &"ncrouch"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3rods"]
+advance_mode = 2
+advance_condition = &"L1"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0xyum"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_8hecu"]
+advance_mode = 2
+advance_condition = &"GP"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_62oeq"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_dkvdo"]
+advance_mode = 2
+advance_condition = &"S2"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6ly1o"]
+switch_mode = 2
+advance_mode = 2
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_14pcv"]
+states/Charge/node = SubResource("AnimationNodeAnimation_k7qkr")
+states/Charge/position = Vector2(419, 77)
+states/Crouch/node = SubResource("AnimationNodeAnimation_wb7qi")
+states/Crouch/position = Vector2(256, 407)
+states/GroundSlam/node = SubResource("AnimationNodeAnimation_mikv3")
+states/GroundSlam/position = Vector2(558, 132)
+states/JabPalm/node = SubResource("AnimationNodeAnimation_15h0r")
+states/JabPalm/position = Vector2(250, 77)
+"states/Special 2/node" = SubResource("AnimationNodeAnimation_d2ts6")
+"states/Special 2/position" = Vector2(608, 272)
+states/Start/position = Vector2(115, 272)
+states/TornadoPalm/node = SubResource("AnimationNodeAnimation_v1c57")
+states/TornadoPalm/position = Vector2(535, 407)
 states/idlerun/node = SubResource("AnimationNodeAnimation_i2260")
-states/idlerun/position = Vector2(347, 100)
-transitions = ["Start", "idlerun", SubResource("AnimationNodeStateMachineTransition_rirq1")]
+states/idlerun/position = Vector2(301, 272)
+transitions = ["Start", "idlerun", SubResource("AnimationNodeStateMachineTransition_rirq1"), "idlerun", "Charge", SubResource("AnimationNodeStateMachineTransition_0x5k0"), "Charge", "idlerun", SubResource("AnimationNodeStateMachineTransition_0wu44"), "idlerun", "Crouch", SubResource("AnimationNodeStateMachineTransition_5vbx7"), "Crouch", "idlerun", SubResource("AnimationNodeStateMachineTransition_nabm8"), "idlerun", "JabPalm", SubResource("AnimationNodeStateMachineTransition_3rods"), "JabPalm", "idlerun", SubResource("AnimationNodeStateMachineTransition_0xyum"), "idlerun", "GroundSlam", SubResource("AnimationNodeStateMachineTransition_8hecu"), "GroundSlam", "idlerun", SubResource("AnimationNodeStateMachineTransition_62oeq"), "idlerun", "Special 2", SubResource("AnimationNodeStateMachineTransition_dkvdo"), "Special 2", "idlerun", SubResource("AnimationNodeStateMachineTransition_6ly1o")]
 
 [sub_resource type="Animation" id="Animation_he3ev"]
 resource_name = "Charge"
@@ -440,7 +606,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_sibl6"]
 resource_name = "Special 2"
-length = 0.3
+length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -499,16 +665,81 @@ _data = {
 "idlerun": SubResource("Animation_eapvu")
 }
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_d4evu"]
+animation = &"Charge"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3y5ue"]
+animation = &"Crouch"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_700rn"]
+animation = &"GroundSlam"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_bf37e"]
+animation = &"JabPalm"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_x8qa7"]
+animation = &"Special 2"
+
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ljxpb"]
 animation = &"idlerun"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_vi1bo"]
 advance_mode = 2
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_eshwf"]
+advance_mode = 2
+advance_condition = &"charge"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ns417"]
+advance_mode = 2
+advance_condition = &"ncharge"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_gkkp6"]
+advance_mode = 2
+advance_condition = &"crouch"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_qbb6b"]
+advance_mode = 2
+advance_condition = &"ncrouch"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_k6d2s"]
+advance_mode = 2
+advance_condition = &"L1"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_7s2t6"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ro2ga"]
+advance_mode = 2
+advance_condition = &"GP"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_gc1vi"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ash45"]
+advance_mode = 2
+advance_condition = &"S2"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5iq32"]
+switch_mode = 2
+advance_mode = 2
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_mpihq"]
+states/Charge/node = SubResource("AnimationNodeAnimation_d4evu")
+states/Charge/position = Vector2(751, 100)
+states/Crouch/node = SubResource("AnimationNodeAnimation_3y5ue")
+states/Crouch/position = Vector2(397, 362)
+states/GroundSlam/node = SubResource("AnimationNodeAnimation_700rn")
+states/GroundSlam/position = Vector2(704, 342)
+states/JabPalm/node = SubResource("AnimationNodeAnimation_bf37e")
+states/JabPalm/position = Vector2(225, 217)
+"states/Special 2/node" = SubResource("AnimationNodeAnimation_x8qa7")
+"states/Special 2/position" = Vector2(614, 49)
 states/idlerun/node = SubResource("AnimationNodeAnimation_ljxpb")
-states/idlerun/position = Vector2(353, 100)
-transitions = ["Start", "idlerun", SubResource("AnimationNodeStateMachineTransition_vi1bo")]
+states/idlerun/position = Vector2(559, 151)
+transitions = ["Start", "idlerun", SubResource("AnimationNodeStateMachineTransition_vi1bo"), "idlerun", "Charge", SubResource("AnimationNodeStateMachineTransition_eshwf"), "Charge", "idlerun", SubResource("AnimationNodeStateMachineTransition_ns417"), "idlerun", "Crouch", SubResource("AnimationNodeStateMachineTransition_gkkp6"), "Crouch", "idlerun", SubResource("AnimationNodeStateMachineTransition_qbb6b"), "idlerun", "JabPalm", SubResource("AnimationNodeStateMachineTransition_k6d2s"), "JabPalm", "idlerun", SubResource("AnimationNodeStateMachineTransition_7s2t6"), "idlerun", "GroundSlam", SubResource("AnimationNodeStateMachineTransition_ro2ga"), "GroundSlam", "idlerun", SubResource("AnimationNodeStateMachineTransition_gc1vi"), "idlerun", "Special 2", SubResource("AnimationNodeStateMachineTransition_ash45"), "Special 2", "idlerun", SubResource("AnimationNodeStateMachineTransition_5iq32")]
 
 [sub_resource type="Animation" id="Animation_cci4i"]
 resource_name = "Charge"
@@ -590,7 +821,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_1hax6"]
 resource_name = "Special 2"
-length = 0.3
+length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -649,16 +880,81 @@ _data = {
 "idlerun": SubResource("Animation_vpi3l")
 }
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_nqi2d"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_f21xy"]
+animation = &"Charge"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_uuqg3"]
+animation = &"Crouch"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_vylgk"]
+animation = &"GroundSlam"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_fjqns"]
+animation = &"JabPalm"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_f5my1"]
+animation = &"Special 2"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_61r2x"]
 animation = &"idlerun"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_fkxx0"]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_lb5td"]
 advance_mode = 2
 
-[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_dvhot"]
-states/idlerun/node = SubResource("AnimationNodeAnimation_nqi2d")
-states/idlerun/position = Vector2(333, 94)
-transitions = ["Start", "idlerun", SubResource("AnimationNodeStateMachineTransition_fkxx0")]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_m66g2"]
+advance_mode = 2
+advance_condition = &"crouch"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_kk0x6"]
+advance_mode = 2
+advance_condition = &"ncrouch"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1rk77"]
+advance_mode = 2
+advance_condition = &"GP"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_k8lrx"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_gj2mm"]
+advance_mode = 2
+advance_condition = &"L1"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_hbdh7"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_suawi"]
+advance_mode = 2
+advance_condition = &"charge"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ku1hp"]
+advance_mode = 2
+advance_condition = &"ncharge"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_gfegf"]
+advance_mode = 2
+advance_condition = &"S2"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_l3x78"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_sykhq"]
+states/Charge/node = SubResource("AnimationNodeAnimation_f21xy")
+states/Charge/position = Vector2(329, 270)
+states/Crouch/node = SubResource("AnimationNodeAnimation_uuqg3")
+states/Crouch/position = Vector2(508, 40)
+states/GroundSlam/node = SubResource("AnimationNodeAnimation_vylgk")
+states/GroundSlam/position = Vector2(547, 137)
+states/JabPalm/node = SubResource("AnimationNodeAnimation_fjqns")
+states/JabPalm/position = Vector2(456, 217)
+"states/Special 2/node" = SubResource("AnimationNodeAnimation_f5my1")
+"states/Special 2/position" = Vector2(183, 247)
+states/idlerun/node = SubResource("AnimationNodeAnimation_61r2x")
+states/idlerun/position = Vector2(343, 100)
+transitions = ["Start", "idlerun", SubResource("AnimationNodeStateMachineTransition_lb5td"), "idlerun", "Crouch", SubResource("AnimationNodeStateMachineTransition_m66g2"), "Crouch", "idlerun", SubResource("AnimationNodeStateMachineTransition_kk0x6"), "idlerun", "GroundSlam", SubResource("AnimationNodeStateMachineTransition_1rk77"), "GroundSlam", "idlerun", SubResource("AnimationNodeStateMachineTransition_k8lrx"), "idlerun", "JabPalm", SubResource("AnimationNodeStateMachineTransition_gj2mm"), "JabPalm", "idlerun", SubResource("AnimationNodeStateMachineTransition_hbdh7"), "idlerun", "Charge", SubResource("AnimationNodeStateMachineTransition_suawi"), "Charge", "idlerun", SubResource("AnimationNodeStateMachineTransition_ku1hp"), "idlerun", "Special 2", SubResource("AnimationNodeStateMachineTransition_gfegf"), "Special 2", "idlerun", SubResource("AnimationNodeStateMachineTransition_l3x78")]
 
 [sub_resource type="Animation" id="Animation_gf3t2"]
 resource_name = "Charge"
@@ -756,7 +1052,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_dyw76"]
 resource_name = "Special2"
-length = 0.3
+length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -816,16 +1112,81 @@ _data = {
 "idlerun": SubResource("Animation_w6oo4")
 }
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_l2dcn"]
+animation = &"Charge"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_gs83o"]
+animation = &"Crouch"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7geg3"]
+animation = &"GroundSlam"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_mbvwr"]
+animation = &"Jab"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_kli2e"]
+animation = &"Special2"
+
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_clltm"]
 animation = &"idlerun"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xrfax"]
 advance_mode = 2
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_qqpv0"]
+advance_mode = 2
+advance_condition = &"charge"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_543rn"]
+advance_mode = 2
+advance_condition = &"ncharge"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_7utc2"]
+advance_mode = 2
+advance_condition = &"crouch"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_7puii"]
+advance_mode = 2
+advance_condition = &"ncrouch"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_pa3ec"]
+advance_mode = 2
+advance_condition = &"L1"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_hgvpy"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ex2qg"]
+advance_mode = 2
+advance_condition = &"GP"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0xsoy"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_eu5m0"]
+advance_mode = 2
+advance_condition = &"S2"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_toigy"]
+switch_mode = 2
+advance_mode = 2
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_nqwf7"]
+states/Charge/node = SubResource("AnimationNodeAnimation_l2dcn")
+states/Charge/position = Vector2(481, 100)
+states/Crouch/node = SubResource("AnimationNodeAnimation_gs83o")
+states/Crouch/position = Vector2(353, 215)
+states/GroundSlam/node = SubResource("AnimationNodeAnimation_7geg3")
+states/GroundSlam/position = Vector2(515, 198)
+states/Jab/node = SubResource("AnimationNodeAnimation_mbvwr")
+states/Jab/position = Vector2(200, 210)
+states/Special2/node = SubResource("AnimationNodeAnimation_kli2e")
+states/Special2/position = Vector2(342, 30)
 states/idlerun/node = SubResource("AnimationNodeAnimation_clltm")
 states/idlerun/position = Vector2(342, 100)
-transitions = ["Start", "idlerun", SubResource("AnimationNodeStateMachineTransition_xrfax")]
+transitions = ["Start", "idlerun", SubResource("AnimationNodeStateMachineTransition_xrfax"), "idlerun", "Charge", SubResource("AnimationNodeStateMachineTransition_qqpv0"), "Charge", "idlerun", SubResource("AnimationNodeStateMachineTransition_543rn"), "idlerun", "Crouch", SubResource("AnimationNodeStateMachineTransition_7utc2"), "Crouch", "idlerun", SubResource("AnimationNodeStateMachineTransition_7puii"), "idlerun", "Jab", SubResource("AnimationNodeStateMachineTransition_pa3ec"), "Jab", "idlerun", SubResource("AnimationNodeStateMachineTransition_hgvpy"), "idlerun", "GroundSlam", SubResource("AnimationNodeStateMachineTransition_ex2qg"), "GroundSlam", "idlerun", SubResource("AnimationNodeStateMachineTransition_0xsoy"), "idlerun", "Special2", SubResource("AnimationNodeStateMachineTransition_eu5m0"), "Special2", "idlerun", SubResource("AnimationNodeStateMachineTransition_toigy")]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_46t5x"]
 size = Vector2(30, 18)
@@ -836,18 +1197,18 @@ script = ExtResource("2_pa1cw")
 [node name="BodyHitbox" parent="." index="0"]
 position = Vector2(0, 1)
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="." index="1"]
-position = Vector2(1, -11)
-amount = 15
-process_material = SubResource("ParticleProcessMaterial_julol")
-texture = ExtResource("4_4a6ve")
-lifetime = 0.6
-
-[node name="Sprite" parent="." index="2"]
+[node name="Sprite" parent="." index="1"]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_wy1bl")
 hframes = 30
 frame = 1
+
+[node name="Hair" type="GPUParticles2D" parent="." index="2"]
+position = Vector2(1, -11)
+amount = 15
+process_material = SubResource("ParticleProcessMaterial_julol")
+texture = ExtResource("4_4a6ve")
+lifetime = 0.2
 
 [node name="SArm" type="Sprite2D" parent="." index="3"]
 scale = Vector2(0.5, 0.5)
@@ -863,6 +1224,14 @@ libraries = {
 [node name="BodyTree" type="AnimationTree" parent="AnimationPlayer" index="0"]
 tree_root = SubResource("AnimationNodeStateMachine_2o4cw")
 anim_player = NodePath("..")
+active = true
+parameters/conditions/GP = false
+parameters/conditions/L1 = false
+parameters/conditions/S2 = false
+parameters/conditions/charge = false
+parameters/conditions/crouch = false
+parameters/conditions/ncharge = true
+parameters/conditions/ncrouch = false
 
 [node name="HArm" type="Sprite2D" parent="." index="5"]
 scale = Vector2(0.5, 0.5)
@@ -908,6 +1277,13 @@ position = Vector2(55, -5.5)
 shape = SubResource("RectangleShape2D_b2rhh")
 debug_color = Color(0.796078, 0.188235, 0.921569, 0.419608)
 
+[node name="Wind" type="GPUParticles2D" parent="Hurtboxes/Windbox" index="2"]
+position = Vector2(30, 0.5)
+amount = 25
+process_material = SubResource("ParticleProcessMaterial_kf6p1")
+texture = ExtResource("10_1edo8")
+lifetime = 1.8
+
 [node name="DownHeavyHurtbox" parent="Hurtboxes" index="3" instance=ExtResource("5_jnegw")]
 position = Vector2(46, 17)
 launch_trajectory = Vector2(100, -100)
@@ -937,6 +1313,14 @@ libraries = {
 [node name="SArmTree" type="AnimationTree" parent="SArmAnim" index="0"]
 tree_root = SubResource("AnimationNodeStateMachine_14pcv")
 anim_player = NodePath("..")
+active = true
+parameters/conditions/GP = false
+parameters/conditions/L1 = false
+parameters/conditions/S2 = false
+parameters/conditions/charge = false
+parameters/conditions/crouch = false
+parameters/conditions/ncharge = true
+parameters/conditions/ncrouch = true
 
 [node name="HArmAnim" type="AnimationPlayer" parent="." index="11"]
 root_node = NodePath("../SArmAnim")
@@ -947,6 +1331,14 @@ libraries = {
 [node name="HArmTree" type="AnimationTree" parent="HArmAnim" index="0"]
 tree_root = SubResource("AnimationNodeStateMachine_mpihq")
 anim_player = NodePath("..")
+active = true
+parameters/conditions/GP = false
+parameters/conditions/L1 = false
+parameters/conditions/S2 = false
+parameters/conditions/charge = false
+parameters/conditions/crouch = false
+parameters/conditions/ncharge = true
+parameters/conditions/ncrouch = true
 
 [node name="GArmAnim" type="AnimationPlayer" parent="." index="12"]
 libraries = {
@@ -954,8 +1346,16 @@ libraries = {
 }
 
 [node name="GArmTree" type="AnimationTree" parent="GArmAnim" index="0"]
-tree_root = SubResource("AnimationNodeStateMachine_dvhot")
+tree_root = SubResource("AnimationNodeStateMachine_sykhq")
 anim_player = NodePath("..")
+active = true
+parameters/conditions/GP = false
+parameters/conditions/L1 = false
+parameters/conditions/S2 = false
+parameters/conditions/charge = false
+parameters/conditions/crouch = false
+parameters/conditions/ncharge = false
+parameters/conditions/ncrouch = true
 
 [node name="LArmAnim" type="AnimationPlayer" parent="." index="13"]
 root_node = NodePath("../HArmAnim")
@@ -966,6 +1366,14 @@ libraries = {
 [node name="LArmTree" type="AnimationTree" parent="LArmAnim" index="0"]
 tree_root = SubResource("AnimationNodeStateMachine_nqwf7")
 anim_player = NodePath("..")
+active = true
+parameters/conditions/GP = false
+parameters/conditions/L1 = false
+parameters/conditions/S2 = false
+parameters/conditions/charge = false
+parameters/conditions/crouch = false
+parameters/conditions/ncharge = true
+parameters/conditions/ncrouch = true
 
 [node name="Grabbox" parent="." index="14"]
 position = Vector2(22, -3)
@@ -981,6 +1389,7 @@ debug_color = Color(0.0745098, 0.631373, 0.419608, 0.419608)
 [node name="FloorChecker" parent="." index="15"]
 target_position = Vector2(0, 18)
 
+[connection signal="animation_finished" from="AnimationPlayer/BodyTree" to="." method="_on_body_tree_animation_finished"]
 [connection signal="enemy_hit" from="Hurtboxes/ChargeHurtbox" to="." method="_on_charge_hurtbox_enemy_hit"]
 [connection signal="timeout" from="AttackTimers/LightAttackTimer" to="." method="_on_light_attack_timer_timeout"]
 [connection signal="timeout" from="AttackTimers/LightChargeTimer" to="." method="_on_light_charge_timer_timeout"]

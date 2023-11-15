@@ -12,6 +12,10 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
+	if blow_left:
+		$Wind.process_material.gravity = Vector3(-40, 0, 0)
+	else:
+		$Wind.process_material.gravity = Vector3(40, 0, 0)
 	if enemy and active: 
 		if blow_left: enemy.apply_force(Vector2(-1000, 0));
 		else: enemy.apply_force(Vector2(1000, 0));
