@@ -51,7 +51,6 @@ func _ready():
 func _physics_process(delta):
 	direction = Vector2(Input.get_joy_axis(id, JOY_AXIS_LEFT_X), Input.get_joy_axis(id, JOY_AXIS_LEFT_Y));
 	direction.y *= -1
-	print(direction);
 	
 	for p in Global.players:
 		if p.id != id:
@@ -59,7 +58,6 @@ func _physics_process(delta):
 				on_left = false;
 				direction.x *= -1;
 				set_scale(Vector2(-1,1))
-				print(name)
 			else:
 				on_left = true;
 				set_scale(Vector2(1,1))

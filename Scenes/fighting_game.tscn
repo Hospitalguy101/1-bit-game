@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://cgad0ck703hpn"]
+
+[ext_resource type="PackedScene" uid="uid://dkvw1gfhendya" path="res://Scenes/title_screen.tscn" id="1_sykqa"]
+
+[node name="FightingGame" type="Node2D"]
+
+[node name="Title Screen" parent="." instance=ExtResource("1_sykqa")]

@@ -67,7 +67,6 @@ func release_light_attack():
 		running_attack = true;
 		super_armor = true;
 		$Hurtboxes/ChargeHurtbox.activate()
-		print(charge_timer)
 		$AttackTimers/LightChargeTimer.start(charge_timer);
 		
 
