@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dog8xpvpd4vek"]
+[gd_scene load_steps=13 format=3 uid="uid://dog8xpvpd4vek"]
 
 [sub_resource type="Animation" id="Animation_sdcfj"]
 resource_name = "Crouch"
@@ -68,7 +68,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_5700e"]
 resource_name = "Jump"
-length = 0.8
+length = 0.4
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -76,7 +76,7 @@ tracks/0/path = NodePath(".:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8),
+"times": PackedFloat32Array(0, 0.0411365, 0.120967, 0.200385, 0.260868, 0.360868, 0.399947, 0.7, 0.8),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [13, 14, 15, 16, 17, 18, 19, 20, 21]
@@ -114,13 +114,81 @@ tracks/0/keys = {
 "values": [4, 5, 6, 7, 6, 5, 4]
 }
 
+[sub_resource type="Animation" id="Animation_2jl17"]
+resource_name = "Hit"
+length = 0.12
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0402275, 0.0999736, 0.974596, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [39, 32, 33, 39, 39]
+}
+
+[sub_resource type="Animation" id="Animation_nesd0"]
+resource_name = "Block"
+length = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0661994, 0.129856),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [39, 32, 27]
+}
+
+[sub_resource type="Animation" id="Animation_a7pxe"]
+resource_name = "Knockdown"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.100238, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [33, 34, 35]
+}
+
+[sub_resource type="Animation" id="Animation_vg5b4"]
+resource_name = "Getup"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [35, 36, 37, 38, 39]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xn3fq"]
 _data = {
+"Block": SubResource("Animation_nesd0"),
 "Crouch": SubResource("Animation_sdcfj"),
 "Flutter": SubResource("Animation_p4861"),
+"Getup": SubResource("Animation_vg5b4"),
 "Grab": SubResource("Animation_fpsv5"),
+"Hit": SubResource("Animation_2jl17"),
 "Idle": SubResource("Animation_yfe24"),
 "Jump": SubResource("Animation_5700e"),
+"Knockdown": SubResource("Animation_a7pxe"),
 "RESET": SubResource("Animation_ti6pq"),
 "Walk": SubResource("Animation_5f5ny")
 }

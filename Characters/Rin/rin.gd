@@ -447,6 +447,7 @@ func rotate_point(point, angle):
 
 func update_animation_param():
 	if floored:
+		animation["parameters/conditions/onGround"] = true
 		if linear_velocity.round() == Vector2.ZERO:
 			animation["parameters/conditions/is_idle"] = true
 			animation["parameters/conditions/is_walking"] = false
@@ -467,6 +468,7 @@ func update_animation_param():
 		if Input.is_action_just_pressed("p1_jump") and not is_grabbed and not grabbing:
 			animation["parameters/conditions/jump"] = true
 	else:
+		animation["parameters/conditions/onGround"] = false
 		if Input.is_action_just_pressed("p1_jump") and hasDoubleJump and not is_grabbed and not grabbing:
 			animation["parameters/conditions/jump"] = true
 		else:

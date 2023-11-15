@@ -72,6 +72,7 @@ advance_condition = &"jump"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0nnf1"]
 advance_mode = 2
+advance_condition = &"onGround"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ahdbi"]
 advance_mode = 2
@@ -146,7 +147,7 @@ shape = SubResource("RectangleShape2D_wjjwv")
 position = Vector2(0, 1)
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("3_jm4h2")
-hframes = 29
+hframes = 40
 
 [node name="RinAnimPlayer" parent="." index="2" instance=ExtResource("4_lxsc4")]
 root_node = NodePath("../Sprite")
@@ -164,6 +165,7 @@ parameters/conditions/is_not_crouching = false
 parameters/conditions/is_not_guarding = false
 parameters/conditions/is_walking = false
 parameters/conditions/jump = false
+parameters/conditions/onGround = false
 
 [node name="Portals" type="Node2D" parent="." index="4"]
 
