@@ -1,9 +1,13 @@
-[gd_scene load_steps=21 format=3 uid="uid://c7h8newfnrydq"]
+[gd_scene load_steps=74 format=3 uid="uid://c7h8newfnrydq"]
 
 [ext_resource type="PackedScene" uid="uid://cj5yffxhnvcji" path="res://Characters/base_character.tscn" id="1_qlep1"]
 [ext_resource type="Script" path="res://machamp.gd" id="2_mqwap"]
 [ext_resource type="Texture2D" uid="uid://cv545nif8yum2" path="res://Characters/Machamp/haripart.png" id="4_4a6ve"]
 [ext_resource type="Texture2D" uid="uid://xpfbarecmwx6" path="res://Characters/Machamp/MachampBody.png" id="4_wy1bl"]
+[ext_resource type="Texture2D" uid="uid://dkqshcc5t28cu" path="res://Characters/Machamp/MachampArm1.png" id="5_ul8yo"]
+[ext_resource type="Texture2D" uid="uid://bttch4fgfvx07" path="res://Characters/Machamp/MachampArm2.png" id="6_ybx0m"]
+[ext_resource type="Texture2D" uid="uid://brhdl6k855qbj" path="res://Characters/Machamp/MachampArm3.png" id="7_vunw1"]
+[ext_resource type="Texture2D" uid="uid://cgaabs7h8k5ro" path="res://Characters/Machamp/MachampArm4.png" id="8_wbkgf"]
 
 [sub_resource type="Gradient" id="Gradient_glovb"]
 offsets = PackedFloat32Array(0.896296, 1)
@@ -24,54 +28,6 @@ scale_min = 0.5
 scale_max = 1.2
 color_ramp = SubResource("GradientTexture1D_e6gbv")
 
-[sub_resource type="Animation" id="Animation_wnmai"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [1]
-}
-
-[sub_resource type="Animation" id="Animation_esor4"]
-resource_name = "idlerun"
-length = 0.6
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 1]
-}
-
-[sub_resource type="Animation" id="Animation_o4jv1"]
-resource_name = "Crouch"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 1,
-"values": [3, 4, 5, 6, 7]
-}
-
 [sub_resource type="Animation" id="Animation_rxh7a"]
 resource_name = "ArmlessIdle"
 length = 0.5
@@ -87,38 +43,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
 "values": [8, 9, 10, 9, 8]
-}
-
-[sub_resource type="Animation" id="Animation_ppm61"]
-resource_name = "JabPalm"
-length = 0.3
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [11, 12, 13]
-}
-
-[sub_resource type="Animation" id="Animation_j4xsr"]
-resource_name = "TornadoPalm"
-length = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [18]
 }
 
 [sub_resource type="Animation" id="Animation_xclgs"]
@@ -137,8 +61,8 @@ tracks/0/keys = {
 "values": [19, 20]
 }
 
-[sub_resource type="Animation" id="Animation_1igpw"]
-resource_name = "GroundPound"
+[sub_resource type="Animation" id="Animation_o4jv1"]
+resource_name = "Crouch"
 length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -147,10 +71,56 @@ tracks/0/path = NodePath(".:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [3, 4, 5, 6, 7]
+}
+
+[sub_resource type="Animation" id="Animation_1igpw"]
+resource_name = "GroundPound"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.5, 0.9, 1),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [21, 22, 23, 24, 25, 26]
+}
+
+[sub_resource type="Animation" id="Animation_ppm61"]
+resource_name = "JabPalm"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [11, 12, 13]
+}
+
+[sub_resource type="Animation" id="Animation_wnmai"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
 }
 
 [sub_resource type="Animation" id="Animation_p0t35"]
@@ -167,6 +137,39 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [27, 28, 29]
+}
+
+[sub_resource type="Animation" id="Animation_j4xsr"]
+resource_name = "TornadoPalm"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [18]
+}
+
+[sub_resource type="Animation" id="Animation_esor4"]
+resource_name = "idlerun"
+length = 0.7
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_uw1tv"]
@@ -193,6 +196,623 @@ states/idlerun/node = SubResource("AnimationNodeAnimation_18unr")
 states/idlerun/position = Vector2(361, 100)
 transitions = ["Start", "idlerun", SubResource("AnimationNodeStateMachineTransition_l26fx")]
 
+[sub_resource type="Animation" id="Animation_x7lqi"]
+resource_name = "idlerun"
+length = 0.7
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../../SArm:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+
+[sub_resource type="Animation" id="Animation_ffb15"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../../SArm:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_1p8m1"]
+resource_name = "Crouch"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../../SArm:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [3, 4, 5, 6, 7]
+}
+
+[sub_resource type="Animation" id="Animation_doo6e"]
+resource_name = "JabPalm"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../../SArm:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [11, 12, 13]
+}
+
+[sub_resource type="Animation" id="Animation_sen4d"]
+resource_name = "TornadoPalm"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../../SArm:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [17, 18]
+}
+
+[sub_resource type="Animation" id="Animation_20px4"]
+resource_name = "Charge"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../../SArm:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [19, 20]
+}
+
+[sub_resource type="Animation" id="Animation_exjpg"]
+resource_name = "GroundSlam"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../../SArm:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.5, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [21, 22, 23, 24, 25, 26]
+}
+
+[sub_resource type="Animation" id="Animation_nlyeu"]
+resource_name = "Special 2"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../../SArm:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [27, 28, 29]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7851n"]
+_data = {
+"Charge": SubResource("Animation_20px4"),
+"Crouch": SubResource("Animation_1p8m1"),
+"GroundSlam": SubResource("Animation_exjpg"),
+"JabPalm": SubResource("Animation_doo6e"),
+"RESET": SubResource("Animation_ffb15"),
+"Special 2": SubResource("Animation_nlyeu"),
+"TornadoPalm": SubResource("Animation_sen4d"),
+"idlerun": SubResource("Animation_x7lqi")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_i2260"]
+animation = &"idlerun"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_rirq1"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_14pcv"]
+states/idlerun/node = SubResource("AnimationNodeAnimation_i2260")
+states/idlerun/position = Vector2(347, 100)
+transitions = ["Start", "idlerun", SubResource("AnimationNodeStateMachineTransition_rirq1")]
+
+[sub_resource type="Animation" id="Animation_eapvu"]
+resource_name = "idlerun"
+length = 0.7
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../HArm:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+
+[sub_resource type="Animation" id="Animation_re46u"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../HArm:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_wq051"]
+resource_name = "Crouch"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../HArm:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [3, 4, 5, 6, 7]
+}
+
+[sub_resource type="Animation" id="Animation_sen5s"]
+resource_name = "JabPalm"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../HArm:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [11, 12, 13]
+}
+
+[sub_resource type="Animation" id="Animation_nxcx2"]
+resource_name = "TornadoPalm"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../HArm:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [16, 17]
+}
+
+[sub_resource type="Animation" id="Animation_he3ev"]
+resource_name = "Charge"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../HArm:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [19, 20]
+}
+
+[sub_resource type="Animation" id="Animation_7pebk"]
+resource_name = "GroundSlam"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../HArm:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.5, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [21, 22, 23, 24, 25, 26]
+}
+
+[sub_resource type="Animation" id="Animation_sibl6"]
+resource_name = "Special 2"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../HArm:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [27, 28, 29]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0mwru"]
+_data = {
+"Charge": SubResource("Animation_he3ev"),
+"Crouch": SubResource("Animation_wq051"),
+"GroundSlam": SubResource("Animation_7pebk"),
+"JabPalm": SubResource("Animation_sen5s"),
+"RESET": SubResource("Animation_re46u"),
+"Special 2": SubResource("Animation_sibl6"),
+"TornadoPalm": SubResource("Animation_nxcx2"),
+"idlerun": SubResource("Animation_eapvu")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ljxpb"]
+animation = &"idlerun"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_vi1bo"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_mpihq"]
+states/idlerun/node = SubResource("AnimationNodeAnimation_ljxpb")
+states/idlerun/position = Vector2(353, 100)
+transitions = ["Start", "idlerun", SubResource("AnimationNodeStateMachineTransition_vi1bo")]
+
+[sub_resource type="Animation" id="Animation_vpi3l"]
+resource_name = "idlerun"
+length = 0.7
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GArm:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+
+[sub_resource type="Animation" id="Animation_tf7jx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GArm:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_qgxqo"]
+resource_name = "Crouch"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GArm:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [3, 4, 5, 6, 7]
+}
+
+[sub_resource type="Animation" id="Animation_dypht"]
+resource_name = "JabPalm"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GArm:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [11, 12, 13]
+}
+
+[sub_resource type="Animation" id="Animation_qt8ew"]
+resource_name = "TornadoPalm"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GArm:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [17, 18]
+}
+
+[sub_resource type="Animation" id="Animation_cci4i"]
+resource_name = "Charge"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GArm:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [19, 20]
+}
+
+[sub_resource type="Animation" id="Animation_cam54"]
+resource_name = "GroundSlam"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GArm:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.5, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [21, 22, 23, 24, 25, 26]
+}
+
+[sub_resource type="Animation" id="Animation_1hax6"]
+resource_name = "Special 2"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GArm:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [27, 28, 29]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dsg1o"]
+_data = {
+"Charge": SubResource("Animation_cci4i"),
+"Crouch": SubResource("Animation_qgxqo"),
+"GroundSlam": SubResource("Animation_cam54"),
+"JabPalm": SubResource("Animation_dypht"),
+"RESET": SubResource("Animation_tf7jx"),
+"Special 2": SubResource("Animation_1hax6"),
+"TornadoPalm": SubResource("Animation_qt8ew"),
+"idlerun": SubResource("Animation_vpi3l")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_nqi2d"]
+animation = &"idlerun"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_fkxx0"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_dvhot"]
+states/idlerun/node = SubResource("AnimationNodeAnimation_nqi2d")
+states/idlerun/position = Vector2(333, 94)
+transitions = ["Start", "idlerun", SubResource("AnimationNodeStateMachineTransition_fkxx0")]
+
+[sub_resource type="Animation" id="Animation_w6oo4"]
+resource_name = "idlerun"
+length = 0.7
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../LArm:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+
+[sub_resource type="Animation" id="Animation_w12g1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../LArm:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_5qb4t"]
+resource_name = "Crouch"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../LArm:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [3, 4, 5, 6, 7]
+}
+
+[sub_resource type="Animation" id="Animation_83meq"]
+resource_name = "TornadoPalm"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../LArm:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [17, 18]
+}
+
+[sub_resource type="Animation" id="Animation_gf3t2"]
+resource_name = "Charge"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../LArm:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [19, 20]
+}
+
+[sub_resource type="Animation" id="Animation_1nvif"]
+resource_name = "GroundSlam"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../LArm:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.5, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [21, 22, 23, 24, 25, 26]
+}
+
+[sub_resource type="Animation" id="Animation_dyw76"]
+resource_name = "Special2"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../LArm:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [27, 28, 29]
+}
+
+[sub_resource type="Animation" id="Animation_wid12"]
+resource_name = "Palm"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../LArm:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [14, 15, 16]
+}
+
+[sub_resource type="Animation" id="Animation_pyq2w"]
+resource_name = "Jab"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../LArm:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [11, 12, 13]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_syivd"]
+_data = {
+"Charge": SubResource("Animation_gf3t2"),
+"Crouch": SubResource("Animation_5qb4t"),
+"GroundSlam": SubResource("Animation_1nvif"),
+"Jab": SubResource("Animation_pyq2w"),
+"Palm": SubResource("Animation_wid12"),
+"RESET": SubResource("Animation_w12g1"),
+"Special2": SubResource("Animation_dyw76"),
+"TornadoPalm": SubResource("Animation_83meq"),
+"idlerun": SubResource("Animation_w6oo4")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_clltm"]
+animation = &"idlerun"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xrfax"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_nqwf7"]
+states/idlerun/node = SubResource("AnimationNodeAnimation_clltm")
+states/idlerun/position = Vector2(342, 100)
+transitions = ["Start", "idlerun", SubResource("AnimationNodeStateMachineTransition_xrfax")]
+
 [node name="Machamp" instance=ExtResource("1_qlep1")]
 script = ExtResource("2_mqwap")
 
@@ -212,14 +832,76 @@ texture = ExtResource("4_wy1bl")
 hframes = 30
 frame = 1
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="4"]
+[node name="SArm" type="Sprite2D" parent="." index="3"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_ul8yo")
+hframes = 30
+
+[node name="HArm" type="Sprite2D" parent="." index="4"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_ybx0m")
+hframes = 30
+frame = 1
+
+[node name="GArm" type="Sprite2D" parent="." index="5"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_vunw1")
+hframes = 30
+frame = 1
+
+[node name="LArm" type="Sprite2D" parent="." index="6"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("8_wbkgf")
+hframes = 30
+frame = 1
+
+[node name="BodyAnimation" type="AnimationPlayer" parent="." index="7"]
 root_node = NodePath("../Sprite")
 libraries = {
 "": SubResource("AnimationLibrary_uw1tv")
 }
 
-[node name="AnimationTree" type="AnimationTree" parent="." index="5"]
+[node name="BodyTree" type="AnimationTree" parent="BodyAnimation" index="0"]
 tree_root = SubResource("AnimationNodeStateMachine_2o4cw")
-anim_player = NodePath("../AnimationPlayer")
+anim_player = NodePath("..")
+
+[node name="SArmAnim" type="AnimationPlayer" parent="." index="8"]
+root_node = NodePath("../BodyAnimation/BodyTree")
+libraries = {
+"": SubResource("AnimationLibrary_7851n")
+}
+
+[node name="SArmTree" type="AnimationTree" parent="SArmAnim" index="0"]
+tree_root = SubResource("AnimationNodeStateMachine_14pcv")
+anim_player = NodePath("..")
+
+[node name="HArmAnim" type="AnimationPlayer" parent="." index="9"]
+root_node = NodePath("../SArmAnim")
+libraries = {
+"": SubResource("AnimationLibrary_0mwru")
+}
+
+[node name="HArmTree" type="AnimationTree" parent="HArmAnim" index="0"]
+tree_root = SubResource("AnimationNodeStateMachine_mpihq")
+anim_player = NodePath("..")
+
+[node name="GArmAnim" type="AnimationPlayer" parent="." index="10"]
+libraries = {
+"": SubResource("AnimationLibrary_dsg1o")
+}
+
+[node name="GArmTree" type="AnimationTree" parent="GArmAnim" index="0"]
+tree_root = SubResource("AnimationNodeStateMachine_dvhot")
+anim_player = NodePath("..")
+
+[node name="LArmAnim" type="AnimationPlayer" parent="." index="11"]
+root_node = NodePath("../HArmAnim")
+libraries = {
+"": SubResource("AnimationLibrary_syivd")
+}
+
+[node name="LArmTree" type="AnimationTree" parent="LArmAnim" index="0"]
+tree_root = SubResource("AnimationNodeStateMachine_nqwf7")
+anim_player = NodePath("..")
 
 [editable path="Grabbox"]

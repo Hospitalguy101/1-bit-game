@@ -32,4 +32,5 @@ gravity_scale = 0.8
 lock_rotation = false
 run_speed = 1250.0
 max_air_speed = 20.0
+
 [node name="Projectiles" type="Node2D" parent="."]
