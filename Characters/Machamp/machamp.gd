@@ -14,6 +14,7 @@ var S2 = false
 @onready var harm : AnimationTree = $HArmAnim/HArmTree
 @onready var garm : AnimationTree = $GArmAnim/GArmTree
 @onready var larm : AnimationTree = $LArmAnim/LArmTree
+@onready var hand : AnimationTree = $HandPlayer/HandTree
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -152,7 +153,17 @@ func update_animation_param():
 		harm["parameters/conditions/S2"] = true
 		garm["parameters/conditions/S2"] = true
 		larm["parameters/conditions/S2"] = true
-
+	if Global.Grab:
+		hand["parameters/conditions/grabEnd"] = false
+		hand["parameters/conditions/form"] = true
+	if Global.Grabbed:
+		hand["parameters/conditions/grab"] = true
+	elif Global.throwingDown:
+		hand["parameters/conditions/smack"] = true
+	else:
+		hand["parameters/conditions/grab"] = false
+		hand["parameters/conditions/smack"] = false
+		
 func _on_light_attack_timer_timeout():
 	chain_light = false;
 
@@ -177,7 +188,7 @@ func _on_charge_hurtbox_enemy_hit(enemy):
 	$AttackTimers/LightChargeTimer.stop();
 
 
-func _on_body_tree_animation_finished(JabPalm):
+func _on_body_tree_animation_finished():
 	body["parameters/conditions/L1"] = false
 	sarm["parameters/conditions/L1"] = false
 	harm["parameters/conditions/L1"] = false
@@ -197,4 +208,9 @@ func _on_body_tree_animation_finished(JabPalm):
 		harm["parameters/conditions/S2"] = false
 		garm["parameters/conditions/S2"] = false
 		larm["parameters/conditions/S2"] = false
-
+		
+func _on_hand_tree_animation_finished(anim_name):
+	if !Global.Grabbed:
+		hand["parameters/conditions/grabEnd"] = true
+		hand["parameters/conditions/form"] = false
+		

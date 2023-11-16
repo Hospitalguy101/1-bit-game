@@ -175,6 +175,7 @@ func _unhandled_input(event):
 		elif event.is_action_pressed("p1_grab"):
 			$Grabbox.grab();
 			
+			
 		if event.is_action_released("p1_light_attack"):
 			release_light_attack();
 		elif event.is_action_released("p1_slash_attack"):

@@ -91,41 +91,42 @@ offset_bottom = 40.0
 
 [node name="Timer" type="TextureRect" parent="Camera/UI"]
 layout_mode = 0
-offset_left = -35.0
-offset_top = -54.0
-offset_right = 36.0
-offset_bottom = 10.0
+offset_left = -53.0
+offset_top = -59.0
+offset_right = 18.0
+offset_bottom = 5.0
+scale = Vector2(1.5, 1.5)
 texture = ExtResource("2_nugjy")
 
 [node name="HP1" type="TextureProgressBar" parent="Camera/UI"]
 layout_mode = 0
-offset_left = -80.0
+offset_left = -83.0
 offset_top = -51.0
-offset_right = 116.0
+offset_right = 113.0
 offset_bottom = -11.0
-scale = Vector2(0.35, 0.4)
+scale = Vector2(0.33, 0.4)
 value = 100.0
 texture_progress = ExtResource("3_qvp57")
 
 [node name="HP2" type="TextureProgressBar" parent="Camera/UI"]
 layout_mode = 0
-offset_left = 11.0
+offset_left = 19.0
 offset_top = -51.0
-offset_right = 207.0
+offset_right = 215.0
 offset_bottom = -11.0
-scale = Vector2(0.35, 0.4)
+scale = Vector2(0.33, 0.4)
 value = 100.0
 fill_mode = 1
 texture_progress = ExtResource("3_qvp57")
 
 [node name="P1Icon" type="AnimatedSprite2D" parent="Camera/UI"]
-position = Vector2(-82, -45)
+position = Vector2(-85.4, -44.4)
 scale = Vector2(0.3, 0.3)
 sprite_frames = SubResource("SpriteFrames_kil46")
 animation = &"Machamp"
 
 [node name="P2Icon" type="AnimatedSprite2D" parent="Camera/UI"]
-position = Vector2(82, -45)
+position = Vector2(86, -45)
 scale = Vector2(0.3, 0.3)
 sprite_frames = SubResource("SpriteFrames_itykv")
 animation = &"Machamp"
@@ -152,17 +153,17 @@ theme_override_font_sizes/normal_font_size = 60
 bbcode_enabled = true
 text = "[center]fight!"
 
-[node name="time" type="RichTextLabel" parent="Camera/UI"]
+[node name="time" type="Label" parent="Camera/UI"]
 layout_mode = 0
-offset_left = -19.0
-offset_top = -45.0
-offset_right = 21.0
-offset_bottom = -5.0
-theme_override_colors/default_color = Color(0, 0, 0, 1)
-theme_override_fonts/normal_font = ExtResource("8_iyl2k")
-theme_override_font_sizes/normal_font_size = 5
-bbcode_enabled = true
-text = "[center]99"
+offset_left = -21.0
+offset_top = -47.0
+offset_right = 23.0
+offset_bottom = -7.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("8_iyl2k")
+theme_override_font_sizes/font_size = 8
+text = "99"
+horizontal_alignment = 1
 
 [node name="Projectiles" type="Node2D" parent="."]
 
@@ -171,6 +172,7 @@ text = "[center]99"
 [node name="Rin" parent="Players" instance=ExtResource("2_klfh5")]
 position = Vector2(334, 135)
 lock_rotation = false
+id = 1
 
 [node name="Machamp" parent="Players" instance=ExtResource("3_us6aj")]
 position = Vector2(172, 128)
@@ -178,7 +180,6 @@ collision_mask = 3
 mass = 0.8
 gravity_scale = 0.8
 lock_rotation = false
-id = 1
 run_speed = 1250.0
 
 [node name="Projectiles2" type="Node2D" parent="."]

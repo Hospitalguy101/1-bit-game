@@ -5,6 +5,10 @@ var DEADZONE = 0.1;
 var color_modifier = 1;
 var color = Color.WHITE;
 
+var throwingDown = false
+var Grabbed = false
+var Grab = false
+
 var volume;
 
 var players = [0, 0];

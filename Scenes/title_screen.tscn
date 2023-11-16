@@ -345,6 +345,7 @@ offset_bottom = 484.0
 theme_override_styles/focus = SubResource("StyleBoxEmpty_uhkq2")
 
 [node name="Controller2List" type="ItemList" parent="OptionsMenu"]
+layout_mode = 0
 offset_left = 401.0
 offset_top = 361.0
 offset_right = 683.0
@@ -363,6 +364,7 @@ text = "Player 1 Controller"
 horizontal_alignment = 1
 
 [node name="Controller2Label" type="Label" parent="OptionsMenu"]
+layout_mode = 0
 offset_left = 420.0
 offset_top = 486.0
 offset_right = 666.0

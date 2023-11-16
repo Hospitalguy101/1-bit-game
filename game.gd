@@ -10,7 +10,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	$Camera/UI/time.text = "[center]" + str(int($MatchTime.time_left))
+	$Camera/UI/time.text = str(int($MatchTime.time_left))
 
 func _on_ready_timer_timeout():
 	$Camera/UI/ready.visible = false
