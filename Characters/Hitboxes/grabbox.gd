@@ -21,8 +21,8 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if active:
-		if command_grab and enemy: enemy.position = get_node("/root/Game/GrabPointNode").position + Vector2(0, -10);
-		elif enemy: enemy.position = get_node("/root/Game/GrabPointNode").position;
+		if command_grab and enemy: enemy.position = get_node("/root/FightingGame/Game/GrabPointNode").position + Vector2(0, -10);
+		elif enemy: enemy.position = get_node("/root/FightingGame/Game/GrabPointNode").position;
 		enemy.sleeping = true;
 		if enemy.get_linear_velocity() != Vector2.ZERO: enemy.set_linear_velocity(Vector2.ZERO)
 
@@ -52,7 +52,7 @@ func throw(direction):
 			1: enemy.set_axis_velocity(left_traj);
 			2: enemy.set_axis_velocity(right_traj);
 		active = false;
-		get_node("/root/Game/GrabPointNode").call_deferred("queue_free");
+		get_node("/root/FightingGame/Game/GrabPointNode").call_deferred("queue_free");
 		return true;
 	return false;
 	
@@ -65,7 +65,7 @@ func down_throw(point:Vector2):
 		enemy.position = point;
 		enemy.set_axis_velocity(down_traj);
 		active = false;
-		get_node("/root/Game/GrabPointNode").call_deferred("queue_free");
+		get_node("/root/FightingGame/Game/GrabPointNode").call_deferred("queue_free");
 		return true;
 	return false;
 
@@ -80,7 +80,7 @@ func _on_grab_timer_timeout():
 	enemy.is_grabbed = false;
 	active = false;
 	$Cooldown.start(.5);
-	if get_node_or_null("/root/Game/GrabPointNode"): get_node("/root/Game/GrabPointNode").call_deferred("queue_free");
+	if get_node_or_null("/root/FightingGame/Game/GrabPointNode"): get_node("/root/FightingGame/Game/GrabPointNode").call_deferred("queue_free");
 	if command_grab:
 		get_parent().get_parent().get_parent().grabbing = false;
 	else:
@@ -89,11 +89,11 @@ func _on_grab_timer_timeout():
 
 func _on_clash_timer_timeout():
 	#create a node2d at the grab point to prevent both players from flying off screen
-		if !get_node_or_null("/root/Game/GrabPointNode"):
+		if !get_node_or_null("/root/FightingGame/Game/GrabPointNode"):
 			var node = Node2D.new();
 			node.name = "GrabPointNode";
 			node.position = global_position;
-			get_node("/root/Game").call_deferred("add_child", node);
+			get_node("/root/FightingGame/Game").call_deferred("add_child", node);
 		
 		if command_grab: get_parent().top_level = true;
 		else: get_parent().grabbing = true;

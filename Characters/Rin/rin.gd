@@ -5,7 +5,7 @@ var sword_timer = 8;
 @onready var swordPath = load("res://Characters/Rin/sword.tscn")
 
 @onready var currPortal = $Portals/Portal;
-var floor_port = false
+
 #0 = default, 1 = up right, 2 = down, 3 = down right
 var last_heavy_attack = 0;
 
@@ -31,6 +31,7 @@ func _physics_process(delta):
 func light_attack(direction):
 	#check is sword is availible
 	if ready_swords > 0:
+		print(direction)
 		#stick tilted left
 		if direction.x < -Global.DEADZONE:
 			#back light
@@ -38,6 +39,7 @@ func light_attack(direction):
 			sword.initialize(0.1, Vector2(40, -80));
 			
 		#stick tilted up right
+		
 		elif direction.x > Global.DEADZONE and direction.y > Global.DEADZONE:
 			var sword = create_sword(Vector2(0, -5), Vector2(.5, .2), Vector2(150, -150), -PI/4);
 			sword.initialize(0.2, Vector2(35, -100), 1);
@@ -57,11 +59,9 @@ func light_attack(direction):
 
 func slash_attack(direction):
 	#stick down
-	floor_port = true
 	if direction.y < -Global.DEADZONE and currPortal and !grabbing:
 		currPortal.get_node("Grabbox").grab();
 		currPortal.use_portal();
-		grabbing = true;
 	
 	elif ready_swords >= 3:
 		#stick right
@@ -90,7 +90,6 @@ func slash_attack(direction):
 		$AttackTimers/PortalRecallTimer.start(0.1);
 
 func release_slash_attack():
-	floor_port = false
 	if $AttackTimers/PortalRecallTimer.is_stopped() and currPortal: currPortal.velocity.x = 0;
 	elif currPortal:
 		currPortal.position = Vector2(0, 10);
@@ -106,11 +105,12 @@ func heavy_attack(direction):
 			portal = p;
 			break;
 	if !portal: portal = currPortal;
+	portal.ground = false;
 		
 	if ready_swords >= 2 and portal and $AttackTimers/HeavyTimer.is_stopped():
 		#down right
 		if direction.x > Global.DEADZONE and direction.y < -Global.DEADZONE:
-			var sword = create_sword(position + Vector2(5, -10), Vector2(.5, .2), Vector2(1, .5)*80, PI/6, true);
+			var sword = create_sword(Vector2(5, -10), Vector2(.5, .2), Vector2(1, .5)*80, PI/6, true);
 			sword.get_node("Hurtbox").set_collision_mask_value(2, true)
 			sword.initialize(3, Vector2(100, -100));
 			sword.add_to_group("HeavySwords");
@@ -128,15 +128,15 @@ func heavy_attack(direction):
 		#down
 		elif direction.y < -Global.DEADZONE:
 			#create 3 swords, add to group heavy sword, and dont have them break on hit
-			var smallSword = create_sword(position + Vector2(12, -30), Vector2(.35, .2), Vector2.ZERO, PI/2, true);
+			var smallSword = create_sword(Vector2(12, -30), Vector2(.35, .2), Vector2.ZERO, PI/2, true);
 			smallSword.initialize(0.15, Vector2(0, 200), 0, false);
 			smallSword.add_to_group("HeavySwords");
 			smallSword.get_node("Hurtbox").break_on_hit = false;
-			var smallSword1 = create_sword(position + Vector2(18, -30), Vector2(.35, .2), Vector2.ZERO, PI/2, true);
+			var smallSword1 = create_sword(Vector2(18, -30), Vector2(.35, .2), Vector2.ZERO, PI/2, true);
 			smallSword1.initialize(0.15, Vector2(0, 200), 0, false);
 			smallSword1.add_to_group("HeavySwords");
 			smallSword1.get_node("Hurtbox").break_on_hit = false;
-			var bigSword = create_sword(position + Vector2(15, -30), Vector2(.5, .2), Vector2.ZERO, PI/2, true);
+			var bigSword = create_sword(Vector2(15, -30), Vector2(.5, .2), Vector2.ZERO, PI/2, true);
 			bigSword.initialize(0.15, Vector2(0, 200), 0, false);
 			bigSword.add_to_group("HeavySwords");
 			bigSword.get_node("Hurtbox").break_on_hit = false;
@@ -156,15 +156,15 @@ func heavy_attack(direction):
 		elif direction.x > Global.DEADZONE and direction.y > Global.DEADZONE:
 			#create 3 swords, add to group heavy sword, and dont have them break on hit
 			#using rotate_point to keep the swords in proper formation while having different rotation
-			var smallSword = create_sword(position + rotate_point(Vector2(4, 5), -PI/4), Vector2(.35, .2), Vector2.ZERO, -PI/4, true);
+			var smallSword = create_sword(rotate_point(Vector2(4, 5), -PI/4), Vector2(.35, .2), Vector2.ZERO, -PI/4, true);
 			smallSword.initialize(0.15, Vector2(150, -200), 0, false);
 			smallSword.add_to_group("HeavySwords");
 			smallSword.get_node("Hurtbox").break_on_hit = false;
-			var smallSword1 = create_sword(position + rotate_point(Vector2(4, -5), -PI/4), Vector2(.35, .2), Vector2.ZERO, -PI/4, true);
+			var smallSword1 = create_sword(rotate_point(Vector2(4, -5), -PI/4), Vector2(.35, .2), Vector2.ZERO, -PI/4, true);
 			smallSword1.initialize(0.15, Vector2(150, -200), 0, false);
 			smallSword1.add_to_group("HeavySwords");
 			smallSword1.get_node("Hurtbox").break_on_hit = false;
-			var bigSword = create_sword(position + rotate_point(Vector2(4, 0), -PI/4), Vector2(.5, .2), Vector2.ZERO, -PI/4, true);
+			var bigSword = create_sword(rotate_point(Vector2(4, 0), -PI/4), Vector2(.5, .2), Vector2.ZERO, -PI/4, true);
 			bigSword.initialize(0.15, Vector2(150, -200), 0, false);
 			bigSword.add_to_group("HeavySwords");
 			bigSword.get_node("Hurtbox").break_on_hit = false;
@@ -183,15 +183,15 @@ func heavy_attack(direction):
 			
 		else:
 			#create 3 swords, add to group heavy sword, and dont have them break on hit
-			var smallSword = create_sword(position + Vector2(5, 5), Vector2(.35, .2), Vector2.ZERO, 0, true);
+			var smallSword = create_sword(Vector2(5, 5), Vector2(.35, .2), Vector2.ZERO, 0, true);
 			smallSword.initialize(0.15, Vector2(150, -200), 0, false);
 			smallSword.add_to_group("HeavySwords");
 			smallSword.get_node("Hurtbox").break_on_hit = false;
-			var smallSword1 = create_sword(position + Vector2(5, -5), Vector2(.35, .2), Vector2.ZERO, 0, true);
+			var smallSword1 = create_sword(Vector2(5, -5), Vector2(.35, .2), Vector2.ZERO, 0, true);
 			smallSword1.initialize(0.15, Vector2(150, -200), 0, false);
 			smallSword1.add_to_group("HeavySwords");
 			smallSword1.get_node("Hurtbox").break_on_hit = false;
-			var bigSword = create_sword(position + Vector2(5, 0), Vector2(.5, .2), Vector2.ZERO, 0, true);
+			var bigSword = create_sword(Vector2(5, 0), Vector2(.5, .2), Vector2.ZERO, 0, true);
 			bigSword.initialize(0.15, Vector2(150, -200), 0, false);
 			bigSword.add_to_group("HeavySwords");
 			bigSword.get_node("Hurtbox").break_on_hit = false;
@@ -423,11 +423,17 @@ func create_sword(_position, _scale, _speed, _rotation, absolute=false):
 	sword.position = _position;
 	sword.scale = _scale;
 	sword.velocity = _speed;
+	if !on_left:
+		sword.position.x *= -1;
+		sword.scale.y *= -1;
+		sword.velocity.x *= -1;
 	sword.rotate(_rotation)
 	sword.id = id;
 	sword.get_node("Hurtbox").activate();
-	if absolute: get_node("/root/Game/Projectiles").call_deferred("add_child", sword);
-	else: $Swords.call_deferred("add_child", sword);
+	if absolute:
+		top_level = true;
+		sword.position += position;
+	$Swords.call_deferred("add_child", sword);
 	return sword;
 
 
@@ -483,21 +489,21 @@ func _on_sword_timer_timeout():
 func _on_heavy_timer_timeout():
 	#normal heavy
 	if last_heavy_attack == 0:
-		for s in get_node("/root/Game/Projectiles").get_children():
+		for s in $Swords.get_children():
 			if s.is_in_group("HeavySwords"):
 				s.start_timer(0.3);
 				s.velocity.x = 150;
 				
 	#up right heavy
 	if last_heavy_attack == 1:
-		for s in get_node("/root/Game/Projectiles").get_children():
+		for s in $Swords.get_children():
 			if s.is_in_group("HeavySwords"):
 				s.start_timer(0.3);
 				s.velocity = Vector2(1, -1)*150;
 				
 	#down heavy
 	if last_heavy_attack == 2:
-		for s in get_node("/root/Game/Projectiles").get_children():
+		for s in $Swords.get_children():
 			if s.is_in_group("HeavySwords"):
 				s.start_timer(0.3);
 				s.velocity.y = 150;
@@ -510,7 +516,8 @@ func _on_heavy_timer_timeout():
 
 
 func _on_portal_recall_timer_timeout():
-	currPortal.velocity.x = 100;
+	if on_left: currPortal.velocity.x = 100;
+	else: currPortal.velocity.x = -100;
 
 
 func _on_special_3_timer_timeout():

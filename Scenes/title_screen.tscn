@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://dkvw1gfhendya"]
+[gd_scene load_steps=46 format=3 uid="uid://dkvw1gfhendya"]
 
 [ext_resource type="Script" path="res://TitleScreen/title_screen.gd" id="1_ct7k0"]
 [ext_resource type="FontFile" uid="uid://by3aevm1ucjhc" path="res://Fonts/sd_auto_pilot.ttf" id="1_k6jlg"]
@@ -79,6 +79,10 @@
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4rkdg"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_okcc7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uhkq2"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fupwb"]
 
 [node name="Title Screen" type="Node2D"]
 script = ExtResource("1_ct7k0")
@@ -231,6 +235,16 @@ position = Vector2(49.9998, 64.0001)
 scale = Vector2(1.5, 1)
 texture = ExtResource("3_o5y7m")
 
+[node name="Label" type="Label" parent="Node/ColorLabel"]
+layout_mode = 0
+offset_left = -0.666763
+offset_top = 37.3333
+offset_right = 73.3332
+offset_bottom = 60.3333
+theme_override_fonts/font = ExtResource("1_k6jlg")
+theme_override_font_sizes/font_size = 30
+text = "1 x  DAMAGE"
+
 [node name="Start" type="Button" parent="Node"]
 offset_left = -108.0
 offset_top = 152.0
@@ -304,9 +318,9 @@ texture = ExtResource("3_o5y7m")
 [node name="OptionsBack" type="Button" parent="OptionsMenu"]
 layout_mode = 0
 offset_left = 73.0
-offset_top = 486.0
+offset_top = 521.0
 offset_right = 187.0
-offset_bottom = 566.0
+offset_bottom = 601.0
 theme_override_fonts/font = ExtResource("1_k6jlg")
 theme_override_font_sizes/font_size = 109
 theme_override_styles/normal = SubResource("StyleBoxEmpty_hax6a")
@@ -321,6 +335,42 @@ visible = false
 position = Vector2(55, 100)
 scale = Vector2(1.5, 1)
 texture = ExtResource("3_o5y7m")
+
+[node name="Controller1List" type="ItemList" parent="OptionsMenu"]
+layout_mode = 0
+offset_left = 84.0
+offset_top = 362.0
+offset_right = 366.0
+offset_bottom = 484.0
+theme_override_styles/focus = SubResource("StyleBoxEmpty_uhkq2")
+
+[node name="Controller2List" type="ItemList" parent="OptionsMenu"]
+offset_left = 401.0
+offset_top = 361.0
+offset_right = 683.0
+offset_bottom = 483.0
+theme_override_styles/focus = SubResource("StyleBoxEmpty_fupwb")
+
+[node name="Controller1Label" type="Label" parent="OptionsMenu"]
+layout_mode = 0
+offset_left = 99.0
+offset_top = 486.0
+offset_right = 342.0
+offset_bottom = 522.0
+theme_override_fonts/font = ExtResource("1_k6jlg")
+theme_override_font_sizes/font_size = 50
+text = "Player 1 Controller"
+horizontal_alignment = 1
+
+[node name="Controller2Label" type="Label" parent="OptionsMenu"]
+offset_left = 420.0
+offset_top = 486.0
+offset_right = 666.0
+offset_bottom = 522.0
+theme_override_fonts/font = ExtResource("1_k6jlg")
+theme_override_font_sizes/font_size = 50
+text = "Player 2 Controller"
+horizontal_alignment = 1
 
 [connection signal="pressed" from="Node/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="Node/Options" to="." method="_on_options_pressed"]

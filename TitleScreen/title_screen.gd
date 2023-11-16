@@ -6,6 +6,8 @@ var rotating = 0;
 var color_index = 0
 var color_list = ["white", "orange", "red", "green", "blue", "purple"];
 
+var device_list = [];
+
 #0 = play, 1 = options, 2 = quit, 3 = back, 4 = volume, 5 = color, 6 = start 7 = options back
 @onready var selector = $Node/Play/PlaySelector;
 var moved_selector = false;
@@ -16,6 +18,8 @@ func _ready():
 	$Node/Back.disabled = true
 	$OptionsMenu.hide();
 	$Title.modulate.a = 1;
+	
+	Input.connect("joy_connection_changed", _on_joy_connection_changed);
 
 func _physics_process(delta):
 	$Node/ColorLabel.text = color_list[color_index];
@@ -40,9 +44,19 @@ func _physics_process(delta):
 	$OptionsMenu/OptionsBack/OptionsBackSelector.hide();
 	selector.show();
 	
+	#create list of connected devices
+#	for i in $OptionsMenu/Controller1List.item_count:
+#		$OptionsMenu/Controller1List.remove_item(0);
+#		$OptionsMenu/Controller2List.remove_item(0);
+#
+#	for d in Input.get_connected_joypads():
+#		$OptionsMenu/Controller1List.add_item(Input.get_joy_name(d));
+#		$OptionsMenu/Controller2List.add_item(Input.get_joy_name(d));
+		
+	print($OptionsMenu/Controller1List.get_selected_items())
+	
 
 func _unhandled_input(event):
-	print(moved_selector)
 	if event.is_action_pressed('p1_crouch') and !moved_selector:
 		if selector == $Node/Play/PlaySelector:
 			selector = $Node/Options/OptionsSelector;
@@ -170,12 +184,6 @@ func _on_options_back_pressed():
 	pass # Replace with function body.
 
 
-func _on_keybinds_button_pressed():
-	#Rafe will add this later, he is too tired right now
-	pass
-	
-
-
 func _on_color_left_pressed():
 	color_index -= 1;
 	if color_index < 0: color_index = 5;
@@ -187,17 +195,17 @@ func _on_color_left_pressed():
 		2:
 			Global.color_modifier = 3;
 		3:
-			Global.color_modifier = .5;
+			Global.color_modifier = 0.5;
 		4:
-			Global.color_modifier = .25;
+			Global.color_modifier = 0.25;
 		5:
 			Global.color_modifier = 0;
+	$Node/ColorLabel/Label.text = str(Global.color_modifier) + " x  DAMAGE";
 
 
 func _on_color_right_pressed():
 	color_index += 1;
 	if color_index > 5: color_index = 0;
-	
 	match color_index:
 		0:
 			Global.color_modifier = 1;
@@ -206,12 +214,13 @@ func _on_color_right_pressed():
 		2:
 			Global.color_modifier = 3;
 		3:
-			Global.color_modifier = .5;
+			Global.color_modifier = 0.5;
 		4:
-			Global.color_modifier = .25;
+			Global.color_modifier = 0.25;
 		5:
 			Global.color_modifier = 0;
-
+	$Node/ColorLabel/Label.text = str(Global.color_modifier) + " x  DAMAGE";
+	
 
 func _on_start_pressed():
 	var game = load("res://Scenes/game.tscn").instantiate();
@@ -220,3 +229,16 @@ func _on_start_pressed():
 		if p.id == 0: Global.players[0] = p;
 		else: Global.players[1] = p;
 	queue_free();
+	
+func _on_joy_connection_changed(device_id, connected):
+	if connected:
+		device_list.append(device_id);
+		$OptionsMenu/Controller1List.add_item(Input.get_joy_name(device_id));
+		$OptionsMenu/Controller2List.add_item(Input.get_joy_name(device_id));
+	else:
+		for i in $OptionsMenu/Controller1List.item_count:
+			if device_list[i] == device_id:
+				device_list.remove_at(i);
+				$OptionsMenu/Controller1List.remove_item(i);
+				$OptionsMenu/Controller2List.remove_item(i);
+				
