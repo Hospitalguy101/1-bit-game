@@ -160,11 +160,11 @@ text = "[center]99"
 [node name="Players" type="Node2D" parent="."]
 
 [node name="Rin" parent="Players" instance=ExtResource("2_klfh5")]
-position = Vector2(263, 135)
+position = Vector2(271, 121)
 lock_rotation = false
 
 [node name="Machamp" parent="Players" instance=ExtResource("3_us6aj")]
-position = Vector2(172, 128)
+position = Vector2(173, 123)
 collision_mask = 3
 mass = 0.8
 gravity_scale = 0.8

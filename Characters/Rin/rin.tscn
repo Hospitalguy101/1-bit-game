@@ -10,7 +10,7 @@
 friction = 0.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wjjwv"]
-size = Vector2(18, 18)
+size = Vector2(24, 24)
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_df755"]
 animation = &"Crouch"
@@ -130,23 +130,21 @@ transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition
 graph_offset = Vector2(0, 125.464)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6y1cp"]
-size = Vector2(6, 14)
+size = Vector2(9, 14)
 
 [node name="Rin" groups=["Rin"] instance=ExtResource("1_voviw")]
-mass = 0.8
 physics_material_override = SubResource("PhysicsMaterial_13oxu")
-gravity_scale = 0.8
 script = ExtResource("2_f2mt2")
-run_speed = 1500.0
-jump_height = 250
+run_speed = 800.0
+max_run_speed = 50.0
 
 [node name="BodyHitbox" parent="." index="0"]
-position = Vector2(0, 0)
+position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_wjjwv")
 
 [node name="Sprite" parent="." index="1"]
 position = Vector2(0, 1)
-scale = Vector2(0.3, 0.3)
+scale = Vector2(0.4, 0.4)
 texture = ExtResource("3_jm4h2")
 hframes = 40
 
@@ -170,26 +168,26 @@ parameters/conditions/onGround = false
 [node name="Portals" type="Node2D" parent="." index="4"]
 
 [node name="Portal" parent="Portals" index="0" instance=ExtResource("5_i85mh")]
-position = Vector2(0, 10)
+position = Vector2(0, 21)
 
 [node name="Portal2" parent="Portals" index="1" instance=ExtResource("5_i85mh")]
 visible = false
-position = Vector2(0, 10)
+position = Vector2(0, 6)
 id = 1
 
 [node name="Portal3" parent="Portals" index="2" instance=ExtResource("5_i85mh")]
 visible = false
-position = Vector2(0, 10)
+position = Vector2(0, 6)
 id = 2
 
 [node name="Portal4" parent="Portals" index="3" instance=ExtResource("5_i85mh")]
 visible = false
-position = Vector2(0, 10)
+position = Vector2(0, 6)
 id = 3
 
 [node name="Portal5" parent="Portals" index="4" instance=ExtResource("5_i85mh")]
 visible = false
-position = Vector2(0, 10)
+position = Vector2(0, 6)
 id = 4
 
 [node name="Swords" type="Node2D" parent="." index="5"]
@@ -202,6 +200,7 @@ down_traj = Vector2(0, 100)
 right_traj = Vector2(250, -100)
 
 [node name="CollisionShape2D" parent="Grabbox" index="0"]
+position = Vector2(2.5, 0)
 shape = SubResource("RectangleShape2D_6y1cp")
 
 [node name="SwordTimers" type="Node2D" parent="." index="7"]
@@ -258,7 +257,7 @@ scale = Vector2(0.5, 0.5)
 text = "P: 1"
 
 [node name="FloorChecker" parent="." index="11"]
-target_position = Vector2(0, 10)
+target_position = Vector2(0, 13)
 
 [connection signal="timeout" from="AttackTimers/HeavyTimer" to="." method="_on_heavy_timer_timeout"]
 [connection signal="timeout" from="AttackTimers/PortalRecallTimer" to="." method="_on_portal_recall_timer_timeout"]

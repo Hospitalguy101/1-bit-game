@@ -56,10 +56,9 @@ func _physics_process(delta):
 			if p.position.x < position.x:
 				on_left = false;
 				direction.x *= -1;
-				set_scale(Vector2(-1,1))
+				scale.x *= -1;
 			else:
 				on_left = true;
-				set_scale(Vector2(1,1))
 	#ignore friction unless we aren't moving, also progress dash if stick is not moving
 	if abs(direction.x) < 0.1:
 		dash_direction = 0;
@@ -92,7 +91,6 @@ func _physics_process(delta):
 				can_move = false;
 
 func _unhandled_input(event):
-	Input
 	if event.device != id: return;
 	#throw controls
 	if grabbing and $Grabbox.active:
@@ -130,7 +128,7 @@ func _unhandled_input(event):
 					$DashRecoil.start(.1);
 					dash_direction = -1;
 				apply_force(Vector2(run_speed, 0));
-		if Input.is_action_just_pressed("p1_jump") and !motion_combo:
+		if Input.is_action_just_pressed("p1_jump"):
 			#straight jump
 			if direction.x > -Global.DEADZONE and direction.x < Global.DEADZONE:
 				set_axis_velocity(Vector2(0, -jump_height));
