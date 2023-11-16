@@ -48,12 +48,18 @@ animations = [{
 "name": &"Guts",
 "speed": 5.0
 }, {
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_qvd4f")
+}],
 "loop": true,
 "name": &"Machamp",
 "speed": 5.0
 }, {
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_2bqhp")
+}],
 "loop": true,
 "name": &"Rin",
 "speed": 5.0
@@ -109,6 +115,7 @@ offset_right = 207.0
 offset_bottom = -11.0
 scale = Vector2(0.35, 0.4)
 value = 100.0
+fill_mode = 1
 texture_progress = ExtResource("3_qvp57")
 
 [node name="P1Icon" type="AnimatedSprite2D" parent="Camera/UI"]
@@ -118,8 +125,10 @@ sprite_frames = SubResource("SpriteFrames_kil46")
 animation = &"Machamp"
 
 [node name="P2Icon" type="AnimatedSprite2D" parent="Camera/UI"]
+position = Vector2(82, -45)
+scale = Vector2(0.3, 0.3)
 sprite_frames = SubResource("SpriteFrames_itykv")
-animation = &"Guts"
+animation = &"Machamp"
 
 [node name="ready" type="RichTextLabel" parent="Camera/UI"]
 layout_mode = 0
@@ -160,7 +169,7 @@ text = "[center]99"
 [node name="Players" type="Node2D" parent="."]
 
 [node name="Rin" parent="Players" instance=ExtResource("2_klfh5")]
-position = Vector2(271, 121)
+position = Vector2(334, 135)
 lock_rotation = false
 
 [node name="Machamp" parent="Players" instance=ExtResource("3_us6aj")]
