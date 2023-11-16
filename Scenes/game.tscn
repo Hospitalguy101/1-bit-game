@@ -1,8 +1,15 @@
-[gd_scene load_steps=6 format=3 uid="uid://bwefc52y2qpdh"]
+[gd_scene load_steps=15 format=3 uid="uid://bwefc52y2qpdh"]
 
+[ext_resource type="Script" path="res://game.gd" id="1_b8btr"]
 [ext_resource type="PackedScene" uid="uid://b7db2uskvgrby" path="res://Scenes/stage.tscn" id="1_sphns"]
 [ext_resource type="PackedScene" uid="uid://dwrvf7esucege" path="res://Characters/Rin/rin.tscn" id="2_klfh5"]
+[ext_resource type="Texture2D" uid="uid://eu3xwwqmmnhb" path="res://UI/matchtimer.png" id="2_nugjy"]
+[ext_resource type="Texture2D" uid="uid://bvcq5kqnkycbj" path="res://UI/healthbar.png" id="3_qvp57"]
 [ext_resource type="PackedScene" uid="uid://c7h8newfnrydq" path="res://Characters/Machamp/machamp.tscn" id="3_us6aj"]
+[ext_resource type="Texture2D" uid="uid://dbakhiyy1ob8w" path="res://UI/MachampProfile.png" id="5_qvd4f"]
+[ext_resource type="Texture2D" uid="uid://dmnpxcrsd81tj" path="res://UI/RinProfile.png" id="6_2bqhp"]
+[ext_resource type="FontFile" uid="uid://by3aevm1ucjhc" path="res://Fonts/sd_auto_pilot.ttf" id="7_a1hw6"]
+[ext_resource type="FontFile" uid="uid://bkjji1n7krf63" path="res://Fonts/m42.TTF" id="8_iyl2k"]
 
 [sub_resource type="Gradient" id="Gradient_60r4n"]
 
@@ -10,7 +17,50 @@
 gradient = SubResource("Gradient_60r4n")
 fill_from = Vector2(1, 0)
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_kil46"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"Guts",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_qvd4f")
+}],
+"loop": true,
+"name": &"Machamp",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_2bqhp")
+}],
+"loop": true,
+"name": &"Rin",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_itykv"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"Guts",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"Machamp",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"Rin",
+"speed": 5.0
+}]
+
 [node name="Game" type="Node2D"]
+script = ExtResource("1_b8btr")
 
 [node name="Background" type="Sprite2D" parent="."]
 position = Vector2(313.5, 70.5)
@@ -26,6 +76,84 @@ limit_left = 0
 limit_top = 0
 limit_right = 500
 limit_bottom = 150
+
+[node name="UI" type="Control" parent="Camera"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Timer" type="TextureRect" parent="Camera/UI"]
+layout_mode = 0
+offset_left = -35.0
+offset_top = -54.0
+offset_right = 36.0
+offset_bottom = 10.0
+texture = ExtResource("2_nugjy")
+
+[node name="HP1" type="TextureProgressBar" parent="Camera/UI"]
+layout_mode = 0
+offset_left = -80.0
+offset_top = -51.0
+offset_right = 116.0
+offset_bottom = -11.0
+scale = Vector2(0.35, 0.4)
+value = 100.0
+texture_progress = ExtResource("3_qvp57")
+
+[node name="HP2" type="TextureProgressBar" parent="Camera/UI"]
+layout_mode = 0
+offset_left = 11.0
+offset_top = -51.0
+offset_right = 207.0
+offset_bottom = -11.0
+scale = Vector2(0.35, 0.4)
+value = 100.0
+texture_progress = ExtResource("3_qvp57")
+
+[node name="P1Icon" type="AnimatedSprite2D" parent="Camera/UI"]
+position = Vector2(-82, -45)
+scale = Vector2(0.3, 0.3)
+sprite_frames = SubResource("SpriteFrames_kil46")
+animation = &"Machamp"
+
+[node name="P2Icon" type="AnimatedSprite2D" parent="Camera/UI"]
+sprite_frames = SubResource("SpriteFrames_itykv")
+animation = &"Guts"
+
+[node name="ready" type="RichTextLabel" parent="Camera/UI"]
+layout_mode = 0
+offset_left = -55.0
+offset_top = -23.0
+offset_right = 63.0
+offset_bottom = 17.0
+theme_override_fonts/normal_font = ExtResource("7_a1hw6")
+theme_override_font_sizes/normal_font_size = 60
+bbcode_enabled = true
+text = "[center]ready?"
+
+[node name="fight" type="RichTextLabel" parent="Camera/UI"]
+layout_mode = 0
+offset_left = -55.0
+offset_top = -23.0
+offset_right = 63.0
+offset_bottom = 17.0
+theme_override_fonts/normal_font = ExtResource("7_a1hw6")
+theme_override_font_sizes/normal_font_size = 60
+bbcode_enabled = true
+text = "[center]fight!"
+
+[node name="time" type="RichTextLabel" parent="Camera/UI"]
+layout_mode = 0
+offset_left = -19.0
+offset_top = -45.0
+offset_right = 21.0
+offset_bottom = -5.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("8_iyl2k")
+theme_override_font_sizes/normal_font_size = 5
+bbcode_enabled = true
+text = "[center]99"
 
 [node name="Projectiles" type="Node2D" parent="."]
 
@@ -46,3 +174,19 @@ run_speed = 1250.0
 controllable = false
 
 [node name="Projectiles2" type="Node2D" parent="."]
+
+[node name="MatchTime" type="Timer" parent="."]
+wait_time = 99.0
+one_shot = true
+
+[node name="ReadyTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="GoTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[connection signal="timeout" from="MatchTime" to="." method="_on_match_time_timeout"]
+[connection signal="timeout" from="ReadyTimer" to="." method="_on_ready_timer_timeout"]
+[connection signal="timeout" from="GoTimer" to="." method="_on_go_timer_timeout"]
