@@ -3,6 +3,8 @@ extends CharacterBody2D
 @export var id = 0;
 var isReady = true;
 var ground = true;
+var using_heavy = false;
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	top_level = true;
@@ -41,6 +43,8 @@ func use_portal():
 	for p in get_parent().get_children():
 		if p.isReady:
 			get_parent().get_parent().currPortal = p;
+			p.position.x = get_parent().get_parent().position.x;
+			p.position.y = get_parent().get_parent().position.y + 13;
 			p.show();
 			return;
 	get_parent().get_parent().currPortal = null;

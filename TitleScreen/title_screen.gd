@@ -44,17 +44,6 @@ func _physics_process(delta):
 	$OptionsMenu/OptionsBack/OptionsBackSelector.hide();
 	selector.show();
 	
-	#create list of connected devices
-#	for i in $OptionsMenu/Controller1List.item_count:
-#		$OptionsMenu/Controller1List.remove_item(0);
-#		$OptionsMenu/Controller2List.remove_item(0);
-#
-#	for d in Input.get_connected_joypads():
-#		$OptionsMenu/Controller1List.add_item(Input.get_joy_name(d));
-#		$OptionsMenu/Controller2List.add_item(Input.get_joy_name(d));
-		
-	print($OptionsMenu/Controller1List.get_selected_items())
-	
 
 func _unhandled_input(event):
 	if event.is_action_pressed('p1_crouch') and !moved_selector:

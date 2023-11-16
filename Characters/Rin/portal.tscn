@@ -12,7 +12,7 @@ size = Vector2(4, 4)
 size = Vector2(20, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pp1hv"]
-size = Vector2(6, 11)
+size = Vector2(6, 16.5)
 
 [node name="Portal" type="CharacterBody2D"]
 collision_layer = 0
@@ -53,7 +53,7 @@ shape = SubResource("RectangleShape2D_cubv5")
 command_grab = true
 
 [node name="CollisionShape2D" parent="Grabbox" index="0"]
-position = Vector2(0, -7.5)
+position = Vector2(0, -7.25)
 shape = SubResource("RectangleShape2D_pp1hv")
 
 [connection signal="timeout" from="Cooldown" to="." method="_on_cooldown_timeout"]
