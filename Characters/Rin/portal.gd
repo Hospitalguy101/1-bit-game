@@ -2,16 +2,20 @@ extends CharacterBody2D
 
 @export var id = 0;
 var isReady = true;
+var ground = true;
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
-	$FloorPort.visible = false
-	$SkyPort.visible = false
+	top_level = true;
+	position += get_parent().get_parent().position;
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
 	move_and_slide();
+	
+	if ground: $Sprite.texture = load("res://Characters/Rin/bkackportal.png");
+	else: $Sprite.texture = load("res://Characters/Rin/whiteportal.png");
+	
 	#set connectionbox to connect player to portal, always on ground
 	if get_parent().get_parent().currPortal == self:
 		$ConnectionBox/CollisionShape2D.shape.size.x = abs(position.x);
@@ -22,10 +26,6 @@ func break_portal():
 	for p in get_parent().get_children():
 		if p == self: continue;
 		if p.isReady:
-			if get_parent().get_parent().floor_port:
-				$FloorPort.visible = false
-			else:
-				$SkyPort.visible = false
 			get_parent().get_parent().currPortal = p;
 			p.show();
 			queue_free();
@@ -35,14 +35,11 @@ func break_portal():
 
 func use_portal():
 	hide();
+	ground = true;
 	isReady = false;
 	$Cooldown.start(30);
 	for p in get_parent().get_children():
 		if p.isReady:
-			if get_parent().get_parent().floor_port:
-				$FloorPort.visible = true
-			else:
-				$SkyPort.visible = true
 			get_parent().get_parent().currPortal = p;
 			p.show();
 			return;

@@ -49,8 +49,7 @@ func _ready():
 	pass;
 
 func _physics_process(delta):
-	direction = Vector2(Input.get_joy_axis(id, JOY_AXIS_LEFT_X), Input.get_joy_axis(id, JOY_AXIS_LEFT_Y));
-	direction.y *= -1
+	direction = Vector2(Input.get_joy_axis(id, JOY_AXIS_LEFT_X), -Input.get_joy_axis(id, JOY_AXIS_LEFT_Y));
 	
 	for p in Global.players:
 		if p.id != id:
@@ -61,7 +60,6 @@ func _physics_process(delta):
 			else:
 				on_left = true;
 				set_scale(Vector2(1,1))
-	
 	#ignore friction unless we aren't moving, also progress dash if stick is not moving
 	if abs(direction.x) < 0.1:
 		dash_direction = 0;
@@ -85,7 +83,17 @@ func _physics_process(delta):
 		$Grabbox._on_grab_timer_timeout();
 		if id == 0: Global.players[1]._on_grab_timer_timeout();
 		else: Global.players[0]._on_grab_timer_timeout();
-	
+			
+	can_move = !crouching and !is_grabbed and !grabbing;
+	#check movement variables
+	if move_vars.size() > 0 and can_move:
+		for v in move_vars:
+			if v:
+				can_move = false;
+
+func _unhandled_input(event):
+	Input
+	if event.device != id: return;
 	#throw controls
 	if grabbing and $Grabbox.active:
 		if Input.is_action_pressed("p1_jump"):
@@ -100,13 +108,7 @@ func _physics_process(delta):
 		if Input.is_action_pressed("p1_move_right"):
 			var thrown = $Grabbox.throw(2);
 			if thrown: grabbing = false;
-			
-	can_move = !crouching and !is_grabbed and !grabbing;
-	#check movement variables
-	if move_vars.size() > 0 and can_move:
-		for v in move_vars:
-			if v:
-				can_move = false;
+	
 	#momvement controls
 	if floored and controllable and can_move:
 		hasDoubleJump = true;
@@ -157,8 +159,7 @@ func _physics_process(delta):
 #		if Input.is_action_pressed("crouch"):
 #			#fall faster
 #			apply_force(Vector2(0, 1.5*gravity));
-
-func _unhandled_input(event):
+	
 	if !motion_combo and controllable:
 		if event.is_action_pressed("p1_crouch"):
 			crouching = true
