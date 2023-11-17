@@ -157,13 +157,17 @@ func heavy_attack(direction):
 			bigSword.initialize(0.15, Vector2(0, 200), 0, false);
 			bigSword.add_to_group("HeavySwords");
 			bigSword.get_node("Hurtbox").break_on_hit = false;
+			
+			if !on_left:
+				smallSword.rotate(PI);
+				smallSword1.rotate(PI);
+				bigSword.rotate(PI);
 		
 			portal.position = position + Vector2(15, -30);
-			if on_left: portal.rotation = PI/2;
-			else: portal.rotation = -PI/2;
+			portal.position.x = bigSword.position.x
+			if on_left: portal.rotation = PI;
+			else: portal.rotation = -PI;
 			portal.show();
-			#makes portal movement not based on player movement
-			portal.top_level = true;
 			portal.get_node("ConnectionBox/CollisionShape2D").disabled = true;
 			
 			last_heavy_attack = 2;
@@ -193,7 +197,6 @@ func heavy_attack(direction):
 			else: portal.rotation = -PI/4;
 			portal.show();
 			#makes portal movement not based on player movement
-			portal.top_level = true;
 			portal.get_node("ConnectionBox/CollisionShape2D").disabled = true;
 			
 			last_heavy_attack = 1;
@@ -221,7 +224,6 @@ func heavy_attack(direction):
 			else: portal.rotation = -PI/2;
 			portal.show();
 			#makes portal movement not based on player movement
-			portal.top_level = true;
 			portal.get_node("ConnectionBox/CollisionShape2D").disabled = true;
 			
 			last_heavy_attack = 0;
@@ -530,7 +532,7 @@ func _on_heavy_timer_timeout():
 		for s in $Swords.get_children():
 			if s.is_in_group("HeavySwords"):
 				s.get_node("AttackTimer").start(0.3);
-				s.velocity = Vector2(1, -1)*150;
+				s.velocity = Vector2(1, -1).normalized()*150;
 				if !on_left:
 					s.velocity.x *= -1;
 				
@@ -547,7 +549,6 @@ func _on_heavy_timer_timeout():
 		if p.using_heavy:
 			p.using_heavy = false;
 			p.use_portal();
-			p.top_level = false;
 			p.get_node("ConnectionBox/CollisionShape2D").disabled = false;
 
 

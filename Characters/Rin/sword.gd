@@ -22,7 +22,6 @@ func initialize(time, traj=null, h=0, start_now=true):
 	$Hurtbox.id = id;
 	
 func start_timer(time):
-	#$AttackTimer.start(time);
 	$AttackTimer.wait_time = time;
 	$AttackTimer.autostart = true;
 

@@ -14,6 +14,13 @@ var floored = true;
 var hasDoubleJump = false;
 var crouching = false
 
+var hp = 100;
+
+var blocking = false;
+var crouch_blocking = false;
+
+var damage_modifier = 1;
+
 var on_left = true;
 
 var can_move = true;
@@ -51,6 +58,8 @@ func _ready():
 func _physics_process(delta):
 	direction = Vector2(Input.get_joy_axis(id, JOY_AXIS_LEFT_X), -Input.get_joy_axis(id, JOY_AXIS_LEFT_Y));
 	
+	get_node("/root/FightingGame/Game/Camera/UI/HP" + str(id+1)).value = hp;
+	
 	for p in Global.players:
 		if p.id != id:
 			if p.position.x < position.x:
@@ -59,6 +68,7 @@ func _physics_process(delta):
 				scale.x *= -1;
 			else:
 				on_left = true;
+				
 	#ignore friction unless we aren't moving, also progress dash if stick is not moving
 	if abs(direction.x) < 0.1:
 		dash_direction = 0;
@@ -73,10 +83,10 @@ func _physics_process(delta):
 		if linear_velocity.x != 0 and floored: apply_force(Vector2(-linear_velocity.x*mass*20, 0));
 	
 	rotation = 0;
+	
 	#Check if raycast is colliding with the floor
 	if $FloorChecker.is_colliding() and $FloorChecker.get_collider().is_in_group("FloorCollider"): floored = true;
 	else: floored = false;
-	
 	#grab clashes
 	if is_grabbed and !$Grabbox/ClashTimer.is_stopped():
 		$Grabbox._on_grab_timer_timeout();
@@ -89,6 +99,12 @@ func _physics_process(delta):
 		for v in move_vars:
 			if v:
 				can_move = false;
+				
+	#blocking code
+	blocking = false;
+	crouch_blocking = false;
+	if can_move and direction.x < -Global.DEADZONE: blocking = true;
+	elif crouching and direction.x < -Global.DEADZONE: crouch_blocking = true;
 
 func _unhandled_input(event):
 	if event.device != id: return;
@@ -106,7 +122,7 @@ func _unhandled_input(event):
 		if Input.is_action_pressed("p1_move_right"):
 			var thrown = $Grabbox.throw(2);
 			if thrown: grabbing = false;
-	
+			
 	#momvement controls
 	if floored and controllable and can_move:
 		hasDoubleJump = true;
@@ -214,7 +230,8 @@ func _on_input_timer_timeout():
 
 
 func _on_stun_timer_timeout():
-	pass # Replace with function body.
+	blockstun = false;
+	hitstun = false;
 
 
 func _on_dash_timer_timeout():

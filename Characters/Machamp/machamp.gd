@@ -188,7 +188,7 @@ func _on_charge_hurtbox_enemy_hit(enemy):
 	$AttackTimers/LightChargeTimer.stop();
 
 
-func _on_body_tree_animation_finished():
+func _on_body_tree_animation_finished(anim_name):
 	body["parameters/conditions/L1"] = false
 	sarm["parameters/conditions/L1"] = false
 	harm["parameters/conditions/L1"] = false

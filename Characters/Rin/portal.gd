@@ -20,34 +20,37 @@ func _physics_process(delta):
 	
 	#set connectionbox to connect player to portal, always on ground
 	if get_parent().get_parent().currPortal == self:
-		$ConnectionBox/CollisionShape2D.shape.size.x = abs(position.x);
+		$ConnectionBox/CollisionShape2D.set_deferred("shape.size.x", abs(position.x));
 		$ConnectionBox/CollisionShape2D.position.x = -position.x/2;
 
 
 func break_portal():
-	for p in get_parent().get_children():
-		if p == self: continue;
-		if p.isReady:
-			get_parent().get_parent().currPortal = p;
-			p.show();
-			queue_free();
-			return;
-	get_parent().get_parent().currPortal = null;
+	if get_parent().get_parent().currPortal == self:
+		get_parent().get_parent().currPortal = null;
+		for p in get_parent().get_children():
+			if p == self: continue;
+			if p.isReady:
+				get_parent().get_parent().currPortal = p;
+				p.show();
+				queue_free();
+				return;
 	queue_free();
 
 func use_portal():
 	hide();
 	ground = true;
 	isReady = false;
+	rotation = 0;
 	$Cooldown.start(30);
-	for p in get_parent().get_children():
-		if p.isReady:
-			get_parent().get_parent().currPortal = p;
-			p.position.x = get_parent().get_parent().position.x;
-			p.position.y = get_parent().get_parent().position.y + 13;
-			p.show();
-			return;
-	get_parent().get_parent().currPortal = null;
+	if get_parent().get_parent().currPortal == self:
+		get_parent().get_parent().currPortal = null;
+		for p in get_parent().get_children():
+			if p.isReady:
+				get_parent().get_parent().currPortal = p;
+				p.position.x = get_parent().get_parent().position.x;
+				p.position.y = get_parent().get_parent().position.y + 13;
+				p.show();
+				return;
 
 
 func _on_cooldown_timeout():
@@ -55,6 +58,7 @@ func _on_cooldown_timeout():
 	if !get_parent().get_parent().currPortal:
 		show();
 		get_parent().get_parent().currPortal = self;
+		position = get_parent().get_parent().position + Vector2(0, 13);
 
 
 func _on_connection_box_area_entered(area):

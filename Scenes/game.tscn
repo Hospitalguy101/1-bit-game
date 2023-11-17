@@ -69,7 +69,7 @@ animations = [{
 script = ExtResource("1_b8btr")
 
 [node name="Background" type="Sprite2D" parent="."]
-position = Vector2(313.5, 70.5)
+position = Vector2(272, 69)
 scale = Vector2(11.5781, 7.60938)
 texture = SubResource("GradientTexture2D_nqc6i")
 
@@ -170,9 +170,8 @@ horizontal_alignment = 1
 [node name="Players" type="Node2D" parent="."]
 
 [node name="Rin" parent="Players" instance=ExtResource("2_klfh5")]
-position = Vector2(334, 135)
+position = Vector2(322, 121)
 lock_rotation = false
-id = 1
 
 [node name="Machamp" parent="Players" instance=ExtResource("3_us6aj")]
 position = Vector2(173, 123)
@@ -180,6 +179,7 @@ collision_mask = 3
 mass = 0.8
 gravity_scale = 0.8
 lock_rotation = false
+id = 1
 run_speed = 1250.0
 
 [node name="Projectiles2" type="Node2D" parent="."]
