@@ -35,25 +35,25 @@ func _process(delta):
 	if active and enemy:
 		if enemy.blocking and (height == 1 or height == 0):
 			enemy.blockstun = true;
-			enemy.get_node("StunTimer").start(.1);
+			enemy.get_node("StunTimer").start(.15);
 		elif enemy.crouch_blocking and (height == -1 or height == 0):
 			enemy.blockstun = true;
-			enemy.get_node("StunTimer").start(.1);
-		
-		enemy_hit.emit(enemy);
-		if disable_on_hit: active = false;
-		if point_mode:
-			enemy.sleeping = true;
-			target = enemy;
+			enemy.get_node("StunTimer").start(.05);
 		else:
-			var owner;
-			for p in Global.players:
-				if p.id == id:
-					owner = p;
-			if owner.on_left: enemy.set_axis_velocity(launch_trajectory);
-			else: enemy.set_axis_velocity(Vector2(-launch_trajectory.x, launch_trajectory.y));
-			enemy.hp -= damage * Global.color_modifier * owner.damage_modifier;
-		if break_on_hit: get_parent().queue_free();
+			enemy_hit.emit(enemy);
+			if disable_on_hit: active = false;
+			if point_mode:
+				enemy.sleeping = true;
+				target = enemy;
+			else:
+				var owner;
+				for p in Global.players:
+					if p.id == id:
+						owner = p;
+				if owner.on_left: enemy.set_axis_velocity(launch_trajectory);
+				else: enemy.set_axis_velocity(Vector2(-launch_trajectory.x, launch_trajectory.y));
+				enemy.hp -= damage * Global.color_modifier * owner.damage_modifier;
+			if break_on_hit: get_parent().queue_free();
 	
 func activate(time=null):
 	active = true;

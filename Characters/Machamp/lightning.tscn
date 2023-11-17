@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=3 uid="uid://mcepsf41uwg"]
+
+[ext_resource type="Script" path="res://Characters/Machamp/lightning.gd" id="1_jq4h6"]
+[ext_resource type="Texture2D" uid="uid://ccpsmc02qvrq6" path="res://Characters/Machamp/Lightning Bolt1.png" id="1_vhbgs"]
+[ext_resource type="PackedScene" uid="uid://dfii823rul1pv" path="res://Characters/Hitboxes/hurtbox.tscn" id="2_r6yqu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f5smi"]
+size = Vector2(5, 15.5)
+
+[node name="Lightning" type="CharacterBody2D"]
+scale = Vector2(1, 2)
+script = ExtResource("1_jq4h6")
+
+[node name="TopSprite" type="Sprite2D" parent="."]
+position = Vector2(-0.0307212, -10.2879)
+rotation = -0.436332
+texture = ExtResource("1_vhbgs")
+
+[node name="BottomSprite" type="Sprite2D" parent="."]
+position = Vector2(-0.0509989, -3.69998)
+rotation = -0.329867
+texture = ExtResource("1_vhbgs")
+
+[node name="Hurtbox" parent="." instance=ExtResource("2_r6yqu")]
+launch_trajectory = Vector2(50, -200)
+disable_on_hit = true
+height = -1
+
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+position = Vector2(0.5, -7.25)
+shape = SubResource("RectangleShape2D_f5smi")
+
+[node name="MoveTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Hurtbox/Duration" to="." method="_on_duration_timeout"]
+[connection signal="timeout" from="MoveTimer" to="." method="_on_move_timer_timeout"]
+
+[editable path="Hurtbox"]

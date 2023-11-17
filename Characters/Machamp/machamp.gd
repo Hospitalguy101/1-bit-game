@@ -9,6 +9,12 @@ var running_attack = false;
 var groundSlam = false
 var S2 = false
 
+var has_light = true;
+var has_heavy = true;
+var has_slash = true;
+
+var special_enemy;
+
 @onready var body : AnimationTree = $AnimationPlayer/BodyTree
 @onready var sarm : AnimationTree = $SArmAnim/SArmTree
 @onready var harm : AnimationTree = $HArmAnim/HArmTree
@@ -36,15 +42,26 @@ func _physics_process(delta):
 		$Hair.set_position(Vector2(2, -7))
 	else:
 		$Hair.set_position(Vector2(1, -11));
+		
 	update_animation_param()
 	if charging: charge_timer += delta;
 	if running_attack: apply_force(Vector2(2000, 0));
 	
 	down_throw_point = position + Vector2(20, -20);
 	
+	
+	#cancel special channel
+	if motion_combo and special_channel and direction.y > -Global.DEADZONE:
+		print("PROCESS")
+		motion_combo = false;
+		special_step = 0;
+		special_channel = false;
+		crouching = false;
+	print(str(special_step) + " " + str(motion_combo));
 	super._physics_process(delta);
 
 func light_attack(direction):
+	if !has_light: return;
 	#hard down
 	if direction.y < -Global.DEADZONE and direction.x < Global.DEADZONE and direction.x > -Global.DEADZONE and !charging:
 		charging = true;
@@ -72,19 +89,111 @@ func release_light_attack():
 		
 
 func slash_attack(direction):
+	if !has_slash: return;
 	#hard left
 	if direction.x < -Global.DEADZONE and abs(direction.y) < Global.DEADZONE:
 		$Hurtboxes/Windbox.activate(1.5);
 		S2 = true
-
+	
+	#no direction
+	elif abs(direction.x) < Global.DEADZONE and abs(direction.y) < Global.DEADZONE and !get_node_or_null("Tornado"):
+		var tornado = load("res://Characters/Machamp/tornado.tscn").instantiate();
+		tornado.top_level = true;
+		if on_left:
+			tornado.position = position + Vector2(20, 13);
+			tornado.velocity = Vector2(.5, -.2).normalized()*50;
+		else:
+			tornado.position = position + Vector2(-20, 13);
+			tornado.velocity = Vector2(-.5, -.2).normalized()*50;
+		tornado.scale = Vector2(.2, .2);
+		call_deferred("add_child", tornado);
+		tornado.get_node("Hurtbox/Duration").wait_time = 1.2;
+		tornado.get_node("Hurtbox/Duration").autostart = true;
 
 func heavy_attack(direction):
+	if !has_heavy: return;
 	#hard down
 	if abs(direction.x) < Global.DEADZONE and direction.y < -Global.DEADZONE:
 		groundSlam = true
 		$AttackTimers/DownHeavyTimer.start(1);
 		$Hurtboxes/DownHeavyHurtbox.top_level = true;
 		$Hurtboxes/DownHeavyHurtbox.position += position;
+		
+	#no direction
+	elif abs(direction.x) < Global.DEADZONE and abs(direction.y) < Global.DEADZONE and !get_node_or_null("Lightning"):
+		var lightning = load("res://Characters/Machamp/lightning.tscn").instantiate();
+		lightning.top_level = true;
+		if on_left: lightning.position = position + Vector2(20, 50);
+		else: lightning.position = position + Vector2(-20, 50);
+		lightning.velocity = Vector2(0, -150);
+		call_deferred("add_child", lightning);
+		lightning.get_node("Hurtbox/Duration").wait_time = .7;
+		lightning.get_node("Hurtbox/Duration").autostart = true;
+		lightning.get_node("MoveTimer").wait_time = .2;
+		lightning.get_node("MoveTimer").autostart = true;
+
+
+#0 = light, 1 = heavy, 2 = slash, 3 = grab
+func special(arm):
+	print("arm: " + str(arm))
+	$Hurtboxes/SpecialHurtbox.top_level = true;
+	$Hurtboxes/SpecialHurtbox.position += position;
+	$Hurtboxes/SpecialHurtbox.activate(2);
+	match arm:
+		0:
+			has_light = false;
+			$LArm.hide();
+		1:
+			has_heavy = false;
+			$HArm.hide();
+		2:
+			has_slash = false;
+			$SArm.hide();
+		3:
+			has_grab = false;
+			$GArm.hide();
+
+func _unhandled_input(event):
+	if motion_combo and !$ComboTimer.is_stopped() and special_channel and special_step < 2 and (event is InputEventJoypadButton or event is InputEventKey):
+		print("INPUT")
+		motion_combo = false;
+		special_step = 0;
+		special_channel = false;
+	if !motion_combo:
+		#hard down
+		if event is InputEventJoypadMotion and abs(direction.x) < Global.DEADZONE and direction.y < -Global.DEADZONE:
+			special_step = 0;
+			current_special = 1;
+			motion_combo = true;
+			special_channel = true;
+			$ComboTimer.stop();
+			$ComboTimer.start(1);
+	else:
+		match special_step:
+			1:
+				if event is InputEventJoypadMotion and abs(direction.x) < Global.DEADZONE and direction.y > Global.DEADZONE:
+					progress_combo();
+				elif event is InputEventJoypadButton or event is InputEventKey:
+						print("STEP 1")
+						motion_combo = false;
+			2:
+				if event is InputEventJoypadMotion and abs(direction.x) < Global.DEADZONE and direction.y < -Global.DEADZONE:
+					progress_combo();
+				elif event is InputEventJoypadButton or event is InputEventKey or (event is InputEventJoypadMotion and direction.x > -Global.DEADZONE and direction.x < Global.DEADZONE and direction.y < -Global.DEADZONE):
+						motion_combo = false;
+			3:
+				if event.is_action_pressed("p1_light_attack"):
+					special(0);
+				elif event.is_action_pressed("p1_heavy_attack"):
+					special(1);
+				elif event.is_action_pressed("p1_slash_attack"):
+					special(2);
+				elif event.is_action_pressed("p1_grab"):
+					special(3);
+				elif event is InputEventJoypadButton or event is InputEventKey:
+						motion_combo = false;
+	super._unhandled_input(event);
+
 
 func update_animation_param():
 	if running_attack:
@@ -109,7 +218,28 @@ func update_animation_param():
 		garm["parameters/conditions/ncharge"] = true
 		larm["parameters/conditions/charge"] = false
 		larm["parameters/conditions/ncharge"] = true
+		
+	if Input.is_action_pressed("p1_light_attack") and !charging and !running_attack and has_light:
+		body["parameters/conditions/L1"] = true
+		sarm["parameters/conditions/L1"] = true
+		harm["parameters/conditions/L1"] = true
+		garm["parameters/conditions/L1"] = true
+		larm["parameters/conditions/L1"] = true
 	
+	if groundSlam:
+		body["parameters/conditions/GP"] = true
+		sarm["parameters/conditions/GP"] = true
+		harm["parameters/conditions/GP"] = true
+		garm["parameters/conditions/GP"] = true
+		larm["parameters/conditions/GP"] = true
+		
+	if S2:
+		body["parameters/conditions/S2"] = true
+		sarm["parameters/conditions/S2"] = true
+		harm["parameters/conditions/S2"] = true
+		garm["parameters/conditions/S2"] = true
+		larm["parameters/conditions/S2"] = true
+		
 	if crouching:
 		body["parameters/conditions/crouch"] = true
 		body["parameters/conditions/ncrouch"] = false
@@ -133,26 +263,6 @@ func update_animation_param():
 		larm["parameters/conditions/crouch"] = false
 		larm["parameters/conditions/ncrouch"] = true
 		
-	if Input.is_action_pressed("p1_light_attack") and !charging and !running_attack:
-		body["parameters/conditions/L1"] = true
-		sarm["parameters/conditions/L1"] = true
-		harm["parameters/conditions/L1"] = true
-		garm["parameters/conditions/L1"] = true
-		larm["parameters/conditions/L1"] = true
-	
-	if groundSlam:
-		body["parameters/conditions/GP"] = true
-		sarm["parameters/conditions/GP"] = true
-		harm["parameters/conditions/GP"] = true
-		garm["parameters/conditions/GP"] = true
-		larm["parameters/conditions/GP"] = true
-		
-	if S2:
-		body["parameters/conditions/S2"] = true
-		sarm["parameters/conditions/S2"] = true
-		harm["parameters/conditions/S2"] = true
-		garm["parameters/conditions/S2"] = true
-		larm["parameters/conditions/S2"] = true
 	if Global.Grab:
 		hand["parameters/conditions/grabEnd"] = false
 		hand["parameters/conditions/form"] = true
@@ -214,3 +324,13 @@ func _on_hand_tree_animation_finished(anim_name):
 		hand["parameters/conditions/grabEnd"] = true
 		hand["parameters/conditions/form"] = false
 		
+
+
+func _on_special_hurtbox_enemy_hit(enemy):
+	special_enemy = enemy;
+	enemy.sleeping = true; #TODO: TEST SLEEPING, PROB WONT WORK
+
+
+func _on_duration_timeout():
+	if special_enemy: special_enemy.sleeping = false;
+	special_enemy = null;

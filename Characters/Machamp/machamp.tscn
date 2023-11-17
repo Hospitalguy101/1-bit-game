@@ -1,4 +1,4 @@
-[gd_scene load_steps=199 format=3 uid="uid://c7h8newfnrydq"]
+[gd_scene load_steps=200 format=3 uid="uid://c7h8newfnrydq"]
 
 [ext_resource type="PackedScene" uid="uid://cj5yffxhnvcji" path="res://Characters/base_character.tscn" id="1_qlep1"]
 [ext_resource type="Script" path="res://Characters/Machamp/machamp.gd" id="2_pa1cw"]
@@ -62,6 +62,9 @@ color_ramp = SubResource("GradientTexture1D_cu10w")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_44kcv"]
 size = Vector2(61.5, 9.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_82oen"]
+size = Vector2(85.5, 57.5)
 
 [sub_resource type="Animation" id="Animation_is0ab"]
 resource_name = "Form"
@@ -490,6 +493,7 @@ states/TornadoPalm/position = Vector2(126, 402)
 states/idlerun/node = SubResource("AnimationNodeAnimation_18unr")
 states/idlerun/position = Vector2(368, 273)
 transitions = ["Start", "idlerun", SubResource("AnimationNodeStateMachineTransition_l26fx"), "idlerun", "Charge", SubResource("AnimationNodeStateMachineTransition_bdrp8"), "Charge", "idlerun", SubResource("AnimationNodeStateMachineTransition_7iyhj"), "idlerun", "Crouch", SubResource("AnimationNodeStateMachineTransition_y1lai"), "Crouch", "idlerun", SubResource("AnimationNodeStateMachineTransition_6odj3"), "idlerun", "JabPalm", SubResource("AnimationNodeStateMachineTransition_1nq0k"), "JabPalm", "idlerun", SubResource("AnimationNodeStateMachineTransition_wlb6u"), "idlerun", "GroundPound", SubResource("AnimationNodeStateMachineTransition_njsth"), "GroundPound", "idlerun", SubResource("AnimationNodeStateMachineTransition_240pv"), "idlerun", "Special2", SubResource("AnimationNodeStateMachineTransition_3056k"), "Special2", "idlerun", SubResource("AnimationNodeStateMachineTransition_fuyr3")]
+graph_offset = Vector2(-28, 71)
 
 [sub_resource type="Animation" id="Animation_wax34"]
 resource_name = "Block"
@@ -1692,6 +1696,7 @@ hframes = 41
 frame = 1
 
 [node name="GrabHand" type="Sprite2D" parent="." index="7"]
+visible = false
 position = Vector2(22, -9)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("9_3c25l")
@@ -1742,6 +1747,14 @@ height = -1
 [node name="CollisionShape2D" parent="Hurtboxes/DownHeavyHurtbox" index="0"]
 shape = SubResource("RectangleShape2D_44kcv")
 debug_color = Color(0.647059, 0.521569, 0, 0.419608)
+
+[node name="SpecialHurtbox" parent="Hurtboxes" index="4" instance=ExtResource("5_jnegw")]
+damage = 30
+
+[node name="CollisionShape2D" parent="Hurtboxes/SpecialHurtbox" index="0"]
+position = Vector2(70.25, -10.25)
+shape = SubResource("RectangleShape2D_82oen")
+debug_color = Color(0, 0, 0, 0.419608)
 
 [node name="AttackTimers" type="Node2D" parent="." index="9"]
 
@@ -1873,6 +1886,8 @@ debug_color = Color(0.0745098, 0.631373, 0.419608, 0.419608)
 target_position = Vector2(0, 18)
 
 [connection signal="enemy_hit" from="Hurtboxes/ChargeHurtbox" to="." method="_on_charge_hurtbox_enemy_hit"]
+[connection signal="enemy_hit" from="Hurtboxes/SpecialHurtbox" to="." method="_on_special_hurtbox_enemy_hit"]
+[connection signal="timeout" from="Hurtboxes/SpecialHurtbox/Duration" to="." method="_on_duration_timeout"]
 [connection signal="timeout" from="AttackTimers/LightAttackTimer" to="." method="_on_light_attack_timer_timeout"]
 [connection signal="timeout" from="AttackTimers/LightChargeTimer" to="." method="_on_light_charge_timer_timeout"]
 [connection signal="timeout" from="AttackTimers/DownHeavyTimer" to="." method="_on_down_heavy_timer_timeout"]
@@ -1883,4 +1898,5 @@ target_position = Vector2(0, 18)
 [editable path="Hurtboxes/ChargeHurtbox"]
 [editable path="Hurtboxes/Windbox"]
 [editable path="Hurtboxes/DownHeavyHurtbox"]
+[editable path="Hurtboxes/SpecialHurtbox"]
 [editable path="Grabbox"]

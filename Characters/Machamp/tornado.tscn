@@ -1,0 +1,65 @@
+[gd_scene load_steps=10 format=3 uid="uid://crwesole1by5s"]
+
+[ext_resource type="Script" path="res://Characters/Machamp/tornado.gd" id="1_22i00"]
+[ext_resource type="Texture2D" uid="uid://dbmo5msffxii1" path="res://Characters/Machamp/tornado.png" id="1_xb746"]
+[ext_resource type="PackedScene" uid="uid://dfii823rul1pv" path="res://Characters/Hitboxes/hurtbox.tscn" id="2_71c0d"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5aohs"]
+atlas = ExtResource("1_xb746")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_032cd"]
+atlas = ExtResource("1_xb746")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ygdjd"]
+atlas = ExtResource("1_xb746")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8q3ep"]
+atlas = ExtResource("1_xb746")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dyou2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5aohs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_032cd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ygdjd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8q3ep")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xki0o"]
+size = Vector2(50, 53)
+
+[node name="Tornado" type="CharacterBody2D"]
+script = ExtResource("1_22i00")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_dyou2")
+autoplay = "default"
+frame = 2
+frame_progress = 0.600399
+
+[node name="Hurtbox" parent="." instance=ExtResource("2_71c0d")]
+launch_trajectory = Vector2(-300, -150)
+disable_on_hit = true
+
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+position = Vector2(0, -1.5)
+shape = SubResource("RectangleShape2D_xki0o")
+
+[connection signal="timeout" from="Hurtbox/Duration" to="." method="_on_duration_timeout"]
+
+[editable path="Hurtbox"]

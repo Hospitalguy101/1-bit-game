@@ -35,11 +35,14 @@ var dash_step = 0;
 var dash_direction = 0;
 
 var direction = Vector2.ZERO;
+
 #true if player currently inputting a motion input
 var motion_combo = false;
 var current_special;
 var special_step = 0;
+var special_channel = false;
 
+var has_grab = true;
 var is_grabbed = false;
 var grabbing = false;
 var down_throw_point = Vector2.ZERO;
@@ -155,10 +158,6 @@ func _unhandled_input(event):
 			elif direction.x < -Global.DEADZONE:
 				set_axis_velocity(Vector2(-.1, -.9)*jump_height);
 	elif controllable and !is_grabbed and can_move:
-#		if Input.is_action_pressed("move_left") and get_linear_velocity().x > -max_air_speed:
-#			apply_force(Vector2(-air_speed, 0));
-#		if Input.is_action_pressed("move_right") and get_linear_velocity().x < max_air_speed:
-#			apply_force(Vector2(air_speed, 0));
 		if Input.is_action_just_pressed("p1_jump") and hasDoubleJump and !motion_combo:
 			hasDoubleJump = false
 			#straight jump
@@ -170,23 +169,22 @@ func _unhandled_input(event):
 			#left jump
 			elif direction.x < -Global.DEADZONE:
 				set_axis_velocity(Vector2(-.1, -.9)*jump_height);
-#		if Input.is_action_pressed("crouch"):
-#			#fall faster
-#			apply_force(Vector2(0, 1.5*gravity));
 	
-	if !motion_combo and controllable:
-		if event.is_action_pressed("p1_crouch"):
-			crouching = true
-		if event.is_action_released("p1_crouch"):
-			crouching = false
+	if event.is_action_pressed("p1_crouch"):
+		crouching = true;
+	if event.is_action_released("p1_crouch"):
+		crouching = false;
 		
+	if !motion_combo and controllable:
 		if event.is_action_pressed("p1_light_attack"):
 			light_attack(direction);
 		elif event.is_action_pressed("p1_slash_attack"):
 			slash_attack(direction);
 		elif event.is_action_pressed("p1_heavy_attack"):
 			heavy_attack(direction);
-		elif event.is_action_pressed("p1_grab"):
+		elif event.is_action_pressed("p1_grab") and has_grab:
+			if get_node_or_null("GrabHand"):
+				get_node("GrabHand").show();
 			$Grabbox.grab();
 			
 			
@@ -216,17 +214,23 @@ func release_heavy_attack():
 	pass;
 
 func progress_combo():
-	special_step += 1;
-	$ComboTimer.stop();
-	$ComboTimer.start(.6);
+	print(special_step)
+	if special_channel:
+		special_channel = false;
+		special_step += 1;
+	else:
+		special_step += 1;
+		$ComboTimer.stop();
+		$ComboTimer.start(.6);
 	
 func progress_dash():
 	dash_step += 1;
 	$DashTimer.stop();
 	$DashTimer.start(.6);
 
-func _on_input_timer_timeout():
-	motion_combo = false;
+func _on_combo_timer_timeout():
+	if special_channel: progress_combo();
+	else: motion_combo = false;
 
 
 func _on_stun_timer_timeout():
