@@ -55,6 +55,7 @@ func throw(direction):
 	if $DeferTimer.is_stopped():
 		$GrabTimer.stop();
 		enemy.is_grabbed = false;
+		enemy.knocked_down = true;
 		$Cooldown.start(.5);
 		match direction:
 			0: enemy.set_axis_velocity(up_traj);
@@ -68,13 +69,14 @@ func throw(direction):
 
 func down_throw(point:Vector2):
 	if has_down and $DeferTimer.is_stopped():
+		active = false;
+		enemy.position = Vector2(-100, -100)
 		Global.throwingDown = true
 		$GrabTimer.stop();
 		enemy.is_grabbed = false;
 		$Cooldown.start(.5);
 		enemy.position = point;
 		enemy.set_axis_velocity(down_traj);
-		active = false;
 		get_node("/root/FightingGame/Game/GrabPointNode").call_deferred("queue_free");
 		return true;
 	return false;

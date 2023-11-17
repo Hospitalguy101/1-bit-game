@@ -1707,7 +1707,6 @@ frame = 1
 
 [node name="LightHurtbox" parent="Hurtboxes" index="0" instance=ExtResource("5_jnegw")]
 damage = 3
-disable_on_hit = true
 
 [node name="CollisionShape2D" parent="Hurtboxes/LightHurtbox" index="0"]
 position = Vector2(12.875, 3.25)
@@ -1717,7 +1716,7 @@ debug_color = Color(0, 0.376471, 0.839216, 0.419608)
 [node name="ChargeHurtbox" parent="Hurtboxes" index="1" instance=ExtResource("5_jnegw")]
 damage = 6
 launch_trajectory = Vector2(250, -100)
-disable_on_hit = true
+knockdown = true
 
 [node name="CollisionShape2D" parent="Hurtboxes/ChargeHurtbox" index="0"]
 position = Vector2(4, 1.5)
@@ -1742,6 +1741,7 @@ lifetime = 1.8
 position = Vector2(46, 17)
 damage = 10
 launch_trajectory = Vector2(100, -100)
+knockdown = true
 height = -1
 
 [node name="CollisionShape2D" parent="Hurtboxes/DownHeavyHurtbox" index="0"]

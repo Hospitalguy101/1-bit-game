@@ -172,7 +172,6 @@ horizontal_alignment = 1
 [node name="Rin" parent="Players" instance=ExtResource("2_klfh5")]
 position = Vector2(322, 121)
 lock_rotation = false
-id = 1
 
 [node name="Machamp" parent="Players" instance=ExtResource("3_us6aj")]
 position = Vector2(173, 123)
@@ -180,6 +179,7 @@ collision_mask = 3
 mass = 0.8
 gravity_scale = 0.8
 lock_rotation = false
+id = 1
 run_speed = 1250.0
 
 [node name="Projectiles2" type="Node2D" parent="."]

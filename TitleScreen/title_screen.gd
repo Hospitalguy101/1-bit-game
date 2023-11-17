@@ -217,7 +217,7 @@ func _on_start_pressed():
 	for p in game.get_node("Players").get_children():
 		if p.id == 0: Global.players[0] = p;
 		else: Global.players[1] = p;
-	queue_free();
+	call_deferred("queue_free");
 	
 func _on_joy_connection_changed(device_id, connected):
 	if connected:

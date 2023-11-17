@@ -31,15 +31,17 @@ func break_portal():
 			if p == self: continue;
 			if p.isReady:
 				get_parent().get_parent().currPortal = p;
+				p.ground = true;
+				p.rotation = 0;
 				p.show();
-				queue_free();
+				call_deferred("queue_free");
 				return;
-	queue_free();
+	call_deferred("queue_free");
 
 func use_portal():
 	hide();
 	ground = true;
-	isReady = false;
+	isReady = true;
 	rotation = 0;
 	$Cooldown.start(30);
 	if get_parent().get_parent().currPortal == self:
@@ -47,6 +49,8 @@ func use_portal():
 		for p in get_parent().get_children():
 			if p.isReady:
 				get_parent().get_parent().currPortal = p;
+				p.ground = true;
+				p.rotation = 0;
 				p.position.x = get_parent().get_parent().position.x;
 				p.position.y = get_parent().get_parent().position.y + 13;
 				p.show();
@@ -57,6 +61,8 @@ func _on_cooldown_timeout():
 	isReady = true;
 	if !get_parent().get_parent().currPortal:
 		show();
+		ground = false;
+		rotation = 0;
 		get_parent().get_parent().currPortal = self;
 		position = get_parent().get_parent().position + Vector2(0, 13);
 

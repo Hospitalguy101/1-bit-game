@@ -10,4 +10,4 @@ func _physics_process(delta):
 
 
 func _on_duration_timeout():
-	queue_free();
+	call_deferred("queue_free");

@@ -6,6 +6,8 @@ var sword_timer = 8;
 
 @onready var currPortal = $Portals/Portal;
 
+var special_portal;
+
 #0 = default, 1 = up right, 2 = down, 3 = down right
 var last_heavy_attack = 0;
 
@@ -13,6 +15,7 @@ var last_heavy_attack = 0;
 
 func _ready():
 	super._ready();
+	down_throw_point = Vector2(1500, -15);
 	for t in $SwordTimers.get_children():
 		t.connect("timeout", _on_sword_timer_timeout);
 
@@ -47,6 +50,7 @@ func light_attack(direction):
 		elif direction.y < -Global.DEADZONE:
 			var sword = create_sword(Vector2(-2, 8), Vector2(.5, .2), Vector2(150, 0), 0);
 			sword.initialize(0.1, Vector2(80, -120), -1);
+			sword.get_node("Hurtbox").knockdown = true;
 			use_sword(1);
 			
 		#default move
@@ -64,7 +68,7 @@ func slash_attack(direction):
 	elif ready_swords >= 3 and currPortal:
 		#stick right
 		if direction.x > Global.DEADZONE:
-			var sword = create_sword(Vector2(-5, 5), Vector2(.35, .2), Vector2(1, -1)*150, PI/4, true, currPortal.position);
+			var sword = create_sword(Vector2(-5, 5), Vector2(.35, .2), Vector2(1, -1).normalized()*150, PI/4, true, currPortal.position);
 			if on_left:
 				sword.rotation = -PI/4;
 				sword.velocity = Vector2(1, -1).normalized()*150;
@@ -72,20 +76,21 @@ func slash_attack(direction):
 				sword.rotation = PI/4;
 				sword.velocity = Vector2(-1, -1).normalized()*150;
 			sword.initialize(0.1, Vector2(150, -120), -1);
+			sword.get_node("Hurtbox").knockdown = true;
 			use_sword(3);
 			currPortal.use_portal();
 		
 		#stick left
 		elif direction.x < -Global.DEADZONE:
-			var sword = create_sword(Vector2(5, 5), Vector2(.35, .2), Vector2(-1, -1)*150, -PI/4, true, currPortal.position);
+			var sword = create_sword(Vector2(5, 5), Vector2(.35, .2), Vector2(-1, -1).normalized()*150, -PI/4, true, currPortal.position);
 			if on_left:
 				sword.rotation = -PI*3/4;
 				sword.velocity = Vector2(-1, -1).normalized()*150;
 			else:
 				sword.rotation = PI*3/4;
 				sword.velocity = Vector2(1, -1).normalized()*150;
-				print(sword.rotation/PI)
 			sword.initialize(0.1, Vector2(-150, -120), -1);
+			sword.get_node("Hurtbox").knockdown = true;
 			use_sword(3);
 			currPortal.use_portal();
 			
@@ -93,6 +98,7 @@ func slash_attack(direction):
 		elif direction.y > Global.DEADZONE:
 			var sword = create_sword(Vector2(0, 5), Vector2(.35, .2), Vector2(0, -150), -PI/2, true, currPortal.position);
 			sword.initialize(0.1, Vector2(0, -200), -1);
+			sword.get_node("Hurtbox").knockdown = true;
 			use_sword(3);
 			currPortal.use_portal();
 	
@@ -122,7 +128,7 @@ func heavy_attack(direction):
 		portal.ground = false;
 		#down right
 		if direction.x > Global.DEADZONE and direction.y < -Global.DEADZONE:
-			var sword = create_sword(Vector2(5, -10), Vector2(.5, .2), Vector2(1, .5)*80, PI/6, true, position);
+			var sword = create_sword(Vector2(5, -10), Vector2(.5, .2), Vector2(1, .5).normalized()*80, PI/6, true, position);
 			if on_left:
 				sword.rotation = PI/6;
 				sword.velocity.x *= -1;
@@ -136,7 +142,7 @@ func heavy_attack(direction):
 			if on_left: portal.rotation = 3*PI/4;
 			else: portal.rotation = -3*PI/4;
 			portal.show();
-			portal.get_node("ConnectionBox/CollisionShape2D").disabled = true;
+			portal.get_node("ConnectionBox/CollisionShape2D").set_deferred("disabled", true);
 			
 			last_heavy_attack = 3;
 			$AttackTimers/HeavyTimer.start(3);
@@ -148,15 +154,21 @@ func heavy_attack(direction):
 			var smallSword = create_sword(Vector2(12, -30), Vector2(.35, .2), Vector2.ZERO, PI/2, true, position);
 			smallSword.initialize(0.15, Vector2(0, 200), 0, false);
 			smallSword.add_to_group("HeavySwords");
-			smallSword.get_node("Hurtbox").break_on_hit = false;
+			var hurtbox = smallSword.get_node("Hurtbox");
+			hurtbox.break_on_hit = false;
+			
 			var smallSword1 = create_sword(Vector2(18, -30), Vector2(.35, .2), Vector2.ZERO, PI/2, true, position);
 			smallSword1.initialize(0.15, Vector2(0, 200), 0, false);
 			smallSword1.add_to_group("HeavySwords");
-			smallSword1.get_node("Hurtbox").break_on_hit = false;
+			hurtbox = smallSword1.get_node("Hurtbox");
+			hurtbox.break_on_hit = false;
+			
 			var bigSword = create_sword(Vector2(15, -30), Vector2(.5, .2), Vector2.ZERO, PI/2, true, position);
 			bigSword.initialize(0.15, Vector2(0, 200), 0, false);
 			bigSword.add_to_group("HeavySwords");
 			bigSword.get_node("Hurtbox").break_on_hit = false;
+			hurtbox = bigSword.get_node("Hurtbox");
+			hurtbox.break_on_hit = false;
 			
 			if !on_left:
 				smallSword.rotate(PI);
@@ -168,7 +180,7 @@ func heavy_attack(direction):
 			if on_left: portal.rotation = PI;
 			else: portal.rotation = -PI;
 			portal.show();
-			portal.get_node("ConnectionBox/CollisionShape2D").disabled = true;
+			portal.get_node("ConnectionBox/CollisionShape2D").set_deferred("disabled", true);
 			
 			last_heavy_attack = 2;
 			$AttackTimers/HeavyTimer.start(.8);
@@ -196,8 +208,7 @@ func heavy_attack(direction):
 			if on_left: portal.rotation = PI/4;
 			else: portal.rotation = -PI/4;
 			portal.show();
-			#makes portal movement not based on player movement
-			portal.get_node("ConnectionBox/CollisionShape2D").disabled = true;
+			portal.get_node("ConnectionBox/CollisionShape2D").set_deferred("disabled", true);
 			
 			last_heavy_attack = 1;
 			$AttackTimers/HeavyTimer.start(.8);
@@ -223,8 +234,7 @@ func heavy_attack(direction):
 			if on_left: portal.rotation = PI/2;
 			else: portal.rotation = -PI/2;
 			portal.show();
-			#makes portal movement not based on player movement
-			portal.get_node("ConnectionBox/CollisionShape2D").disabled = true;
+			portal.get_node("ConnectionBox/CollisionShape2D").set_deferred("disabled", true);
 			
 			last_heavy_attack = 0;
 			$AttackTimers/HeavyTimer.start(.8);
@@ -234,7 +244,44 @@ func heavy_attack(direction):
 
 #mode 1 = light, 2 = heavy
 func special1(mode):
-	motion_combo = false;
+	if floored and (ready_swords > 3 or (ready_swords > 2 and mode == 1)):
+		special_step = 0;
+		
+		var portal;
+		if currPortal: 
+			portal = currPortal;
+		for p in $Portals.get_children():
+			if p != currPortal:
+				portal = p;
+		for p in $Portals.get_children():
+			if p.visible == false:
+				portal = p;
+		if portal == currPortal:
+			currPortal = null;
+		special_portal = portal;
+		
+		var enemy;
+		for p in Global.players:
+			if p.id != id:
+				enemy = p;
+		var sword = create_sword(Vector2(30, 0), Vector2(.2, .2), Vector2(-150, 0), PI, true, enemy.position);
+		sword.initialize(0.1, Vector2(-100, -80));
+		if mode == 1: use_sword(3);
+		else:
+			sword.scale = Vector2(.3, .5);
+			sword.get_node("Hurtbox").launch_trajectory = Vector2(-200, -150);
+			use_sword(4);
+			if !on_left: sword.rotate(PI);
+		if on_left: sword.velocity.x *= -1;
+		
+		portal.position = sword.position + Vector2(2, 0);
+		if on_left: portal.rotation = PI/2;
+		else: portal.rotation = -PI/2;
+		portal.ground = false;
+		portal.show();
+		portal.get_node("ConnectionBox/CollisionShape2D").set_deferred("disabled", true);
+		$AttackTimers/Special1PortalTimer.start(0.2);
+		
 
 func special2():
 	special_step = 0;
@@ -250,7 +297,7 @@ func special2():
 			portal_to_delete = p;
 	if portal_to_delete == currPortal:
 		currPortal = null;
-	portal_to_delete.queue_free();
+	portal_to_delete.call_deferred("queue_free");
 	
 	for t in $SwordTimers.get_children():
 		t.stop();
@@ -273,18 +320,19 @@ func special3():
 				portal_to_delete = p;
 		if portal_to_delete == currPortal:
 			currPortal = null;
-		portal_to_delete.queue_free();
+		portal_to_delete.call_deferred("queue_free");
 		
-		var sword = create_sword(Vector2(15, -10), Vector2(.5, .5), Vector2(0, -150), -PI/2, true);
+		var sword = create_sword(Vector2(19, 20), Vector2(.7, .7), Vector2.ZERO, -PI/2, true, position);
 		sword.id = id;
 		var hurtbox = sword.get_node("Hurtbox")
-		hurtbox.id = id;
+		hurtbox.knockdown = true;
 		hurtbox.point_mode = true;
 		hurtbox.launch_point = position + Vector2(15, -20);
 		hurtbox.disable_on_hit = true;
-		sword.height = -1;
-		sword.add_to_group("SpecialSwords")
-		$AttackTimers/Special3Timer.start(0.1);
+		sword.initialize(1, Vector2.ZERO, -1);
+		sword.add_to_group("SpecialSwords");
+		$AttackTimers/Special3Timer.wait_time = 1;
+		$AttackTimers/Special3Timer.autostart = true;
 
 
 func _unhandled_input(event):
@@ -305,6 +353,7 @@ func _unhandled_input(event):
 		match special_step:
 			1:
 				if current_special == 1:
+					
 					#down left, special 1
 					if event is InputEventJoypadMotion and direction.x < -Global.DEADZONE and direction.y < -Global.DEADZONE:
 						progress_combo();
@@ -313,7 +362,7 @@ func _unhandled_input(event):
 						current_special = 2;
 						progress_combo();
 					#if a move is used or jump is pressed, break combo
-					elif event is InputEventJoypadButton or event is InputEventKey or (event is InputEventJoypadMotion and direction.x > -Global.DEADZONE and direction.x < Global.DEADZONE and direction.y < -Global.DEADZONE):
+					elif event is InputEventJoypadButton or event is InputEventKey:# or (event is InputEventJoypadMotion and direction.x > -Global.DEADZONE and direction.x < Global.DEADZONE and direction.y < -Global.DEADZONE):
 						motion_combo = false;
 						#super._unhandled_input(event);
 						
@@ -321,7 +370,7 @@ func _unhandled_input(event):
 					#down right
 					if event is InputEventJoypadMotion and direction.x > Global.DEADZONE and direction.y < -Global.DEADZONE:
 						progress_combo();
-					elif event is InputEventJoypadButton or event is InputEventKey or (event is InputEventJoypadMotion and direction.x > -Global.DEADZONE and direction.x < Global.DEADZONE and direction.y < -Global.DEADZONE):
+					elif event is InputEventJoypadButton or event is InputEventKey:# or (event is InputEventJoypadMotion and direction.x > -Global.DEADZONE and direction.x < Global.DEADZONE and direction.y < -Global.DEADZONE):
 						motion_combo = false;
 						#super._unhandled_input(event);
 			2:
@@ -329,7 +378,7 @@ func _unhandled_input(event):
 					#hard left
 					if event is InputEventJoypadMotion and direction.x < -Global.DEADZONE and abs(direction.y) < Global.DEADZONE:
 						progress_combo();
-					elif event is InputEventJoypadButton or event is InputEventKey or (event is InputEventJoypadMotion and direction.x > -Global.DEADZONE and direction.x < Global.DEADZONE and direction.y < -Global.DEADZONE):
+					elif event is InputEventJoypadButton or event is InputEventKey:# or (event is InputEventJoypadMotion and direction.x > -Global.DEADZONE and direction.x < Global.DEADZONE and direction.y < -Global.DEADZONE):
 						motion_combo = false;
 						#super._unhandled_input(event);
 				
@@ -337,7 +386,7 @@ func _unhandled_input(event):
 					#hard right
 					if event is InputEventJoypadMotion and direction.x > Global.DEADZONE and abs(direction.y) < Global.DEADZONE:
 						progress_combo();
-					elif event is InputEventJoypadButton or event is InputEventKey or (event is InputEventJoypadMotion and direction.x > -Global.DEADZONE and direction.x < Global.DEADZONE and direction.y < -Global.DEADZONE):
+					elif event is InputEventJoypadButton or event is InputEventKey:# or (event is InputEventJoypadMotion and direction.x > -Global.DEADZONE and direction.x < Global.DEADZONE and direction.y < -Global.DEADZONE):
 						motion_combo = false;
 						#super._unhandled_input(event);
 				
@@ -345,16 +394,16 @@ func _unhandled_input(event):
 					#hard down
 					if event is InputEventJoypadMotion and abs(direction.x) < Global.DEADZONE and direction.y < -Global.DEADZONE:
 						progress_combo()
-					elif event is InputEventJoypadButton or event is InputEventKey or (event is InputEventJoypadMotion and direction.x > -Global.DEADZONE and direction.x < Global.DEADZONE and direction.y < -Global.DEADZONE):
+					elif event is InputEventJoypadButton or event is InputEventKey:# or (event is InputEventJoypadMotion and direction.x > -Global.DEADZONE and direction.x < Global.DEADZONE and direction.y < -Global.DEADZONE):
 						motion_combo = false;
 						#super._unhandled_input(event);
 			3:
 				if current_special == 1:
 					if Input.is_action_pressed("p1_light_attack"):
-						special1(0);
-					elif Input.is_action_pressed("p1_heavy_attack"):
 						special1(1);
-					elif event is InputEventJoypadButton or event is InputEventKey or (event is InputEventJoypadMotion and direction.x > -Global.DEADZONE and direction.x < Global.DEADZONE and direction.y < -Global.DEADZONE):
+					elif Input.is_action_pressed("p1_heavy_attack"):
+						special1(2);
+					elif event is InputEventJoypadButton or event is InputEventKey:# or (event is InputEventJoypadMotion and direction.x > -Global.DEADZONE and direction.x < Global.DEADZONE and direction.y < -Global.DEADZONE):
 						motion_combo = false;
 						#super._unhandled_input(event);
 				
@@ -362,7 +411,7 @@ func _unhandled_input(event):
 					#no direction
 					if event is InputEventJoypadMotion and abs(direction.x) < Global.DEADZONE and abs(direction.y) < Global.DEADZONE:
 						progress_combo();
-					elif event is InputEventJoypadButton or event is InputEventKey or (event is InputEventJoypadMotion and abs(direction.x) < Global.DEADZONE and direction.y < -Global.DEADZONE):
+					elif event is InputEventJoypadButton or event is InputEventKey:# or (event is InputEventJoypadMotion and abs(direction.x) < Global.DEADZONE and direction.y < -Global.DEADZONE):
 						motion_combo = false;
 						#super._unhandled_input(event);
 				
@@ -370,7 +419,7 @@ func _unhandled_input(event):
 					#down left
 					if event is InputEventJoypadMotion and direction.x < -Global.DEADZONE and direction.y < -Global.DEADZONE:
 						progress_combo();
-					elif event is InputEventJoypadButton or event is InputEventKey or (event is InputEventJoypadMotion and direction.x > -Global.DEADZONE and direction.x < Global.DEADZONE and direction.y < -Global.DEADZONE):
+					elif event is InputEventJoypadButton or event is InputEventKey:# or (event is InputEventJoypadMotion and direction.x > -Global.DEADZONE and direction.x < Global.DEADZONE and direction.y < -Global.DEADZONE):
 						motion_combo = false;
 						#super._unhandled_input(event);
 			4:
@@ -378,7 +427,7 @@ func _unhandled_input(event):
 					#hard right
 					if event is InputEventJoypadMotion and direction.x > Global.DEADZONE and abs(direction.y) < Global.DEADZONE:
 						progress_combo();
-					elif event is InputEventJoypadButton or event is InputEventKey or (event is InputEventJoypadMotion and direction.x > -Global.DEADZONE and direction.x < Global.DEADZONE and direction.y < -Global.DEADZONE):
+					elif event is InputEventJoypadButton or event is InputEventKey:# or (event is InputEventJoypadMotion and direction.x > -Global.DEADZONE and direction.x < Global.DEADZONE and direction.y < -Global.DEADZONE):
 						motion_combo = false;
 						#super._unhandled_input(event);
 				
@@ -386,14 +435,14 @@ func _unhandled_input(event):
 					#hard left
 					if event is InputEventJoypadMotion and direction.x < -Global.DEADZONE and abs(direction.y) < Global.DEADZONE:
 						progress_combo();
-					elif event is InputEventJoypadButton or event is InputEventKey or (event is InputEventJoypadMotion and direction.x > -Global.DEADZONE and direction.x < Global.DEADZONE and direction.y < -Global.DEADZONE):
+					elif event is InputEventJoypadButton or event is InputEventKey:# or (event is InputEventJoypadMotion and direction.x > -Global.DEADZONE and direction.x < Global.DEADZONE and direction.y < -Global.DEADZONE):
 						motion_combo = false;
 						#super._unhandled_input(event);
 			5:
 				if current_special == 2:
 					if Input.is_action_pressed("p1_slash_attack"):
 						special2();
-					elif event is InputEventJoypadButton or event is InputEventKey or (event is InputEventJoypadMotion and direction.x > -Global.DEADZONE and direction.x < Global.DEADZONE and direction.y < -Global.DEADZONE):
+					elif event is InputEventJoypadButton or event is InputEventKey:# or (event is InputEventJoypadMotion and direction.x > -Global.DEADZONE and direction.x < Global.DEADZONE and direction.y < -Global.DEADZONE):
 						motion_combo = false;
 						#super._unhandled_input(event);
 				
@@ -422,19 +471,19 @@ func _unhandled_input(event):
 				#hard right
 				if event is InputEventJoypadMotion and direction.x > Global.DEADZONE and abs(direction.y) < Global.DEADZONE:
 					progress_combo();
-				elif event is InputEventJoypadButton or event is InputEventKey or (event is InputEventJoypadMotion and direction.x > -Global.DEADZONE and direction.x < Global.DEADZONE and direction.y < -Global.DEADZONE):
+				elif event is InputEventJoypadButton or event is InputEventKey:# or (event is InputEventJoypadMotion and direction.x > -Global.DEADZONE and direction.x < Global.DEADZONE and direction.y < -Global.DEADZONE):
 					motion_combo = false;
 					#super._unhandled_input(event);
 			9:
 				if Input.is_action_pressed("p1_heavy_attack"):
 					progress_combo();
-				elif event is InputEventJoypadButton or event is InputEventKey or (event is InputEventJoypadMotion and direction.x > -Global.DEADZONE and direction.x < Global.DEADZONE and direction.y < -Global.DEADZONE):
+				elif event is InputEventJoypadButton or event is InputEventKey:# or (event is InputEventJoypadMotion and direction.x > -Global.DEADZONE and direction.x < Global.DEADZONE and direction.y < -Global.DEADZONE):
 					motion_combo = false;
 					super._unhandled_input(event);
 			10:
-				if Input.is_action_pressed("p1_slash_attack"):
+				if Input.is_action_pressed("p1_slash_attack", false) or Input.is_action_just_released("p1_slash_attack", false):
 					special3();
-				elif event is InputEventJoypadButton or event is InputEventKey or (event is InputEventJoypadMotion and direction.x > -Global.DEADZONE and direction.x < Global.DEADZONE and direction.y < -Global.DEADZONE):
+				elif event is InputEventJoypadButton or event is InputEventKey:# or (event is InputEventJoypadMotion and direction.x > -Global.DEADZONE and direction.x < Global.DEADZONE and direction.y < -Global.DEADZONE):
 					motion_combo = false;
 					#super._unhandled_input(event);
 				
@@ -549,7 +598,7 @@ func _on_heavy_timer_timeout():
 		if p.using_heavy:
 			p.using_heavy = false;
 			p.use_portal();
-			p.get_node("ConnectionBox/CollisionShape2D").disabled = false;
+			p.get_node("ConnectionBox/CollisionShape2D").set_deferred("disabled", true);
 
 
 func _on_portal_recall_timer_timeout():
@@ -562,3 +611,9 @@ func _on_special_3_timer_timeout():
 		if s.is_in_group("SpecialSwords"):
 			s.velocity = Vector2.ZERO;
 			s.get_node("AttackTimer").start(1);
+
+
+func _on_special_1_portal_timer_timeout():
+	if special_portal:
+		special_portal.use_portal();
+		special_portal = null;
