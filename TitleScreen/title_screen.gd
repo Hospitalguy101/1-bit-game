@@ -47,6 +47,7 @@ func _physics_process(delta):
 
 func _unhandled_input(event):
 	if event.is_action_pressed('p1_crouch') and !moved_selector:
+		$SFX.play();
 		if selector == $Node/Play/PlaySelector:
 			selector = $Node/Options/OptionsSelector;
 			moved_selector = true;
@@ -73,6 +74,7 @@ func _unhandled_input(event):
 			moved_selector = true;
 				
 	elif event.is_action_pressed('p1_jump') and !moved_selector:
+		$SFX.play();
 		if selector == $Node/Play/PlaySelector:
 			selector = $Node/Quit/QuitSelector;
 			moved_selector = true;

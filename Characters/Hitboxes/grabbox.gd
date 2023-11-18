@@ -53,6 +53,7 @@ func throw(direction):
 	if direction == 2 and !has_right: return false;
 	
 	if $DeferTimer.is_stopped():
+		get_node("/root/FightingGame/Game").play_sfx("woosh");
 		$GrabTimer.stop();
 		enemy.is_grabbed = false;
 		enemy.knocked_down = true;

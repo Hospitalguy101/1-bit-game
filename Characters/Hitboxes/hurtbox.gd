@@ -41,6 +41,7 @@ func _process(delta):
 			enemy.get_node("StunTimer").start(.05);
 		else:
 			enemy_hit.emit(enemy, self);
+			get_node("/root/FightingGame/Game").play_sfx("hit");
 			enemy.hitstun = true;
 			enemy.get_node("StunTimer").start(.15);
 			if knockdown or !enemy.floored: enemy.knocked_down = true;

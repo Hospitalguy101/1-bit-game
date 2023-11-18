@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://dkvw1gfhendya"]
+[gd_scene load_steps=47 format=3 uid="uid://dkvw1gfhendya"]
 
 [ext_resource type="Script" path="res://TitleScreen/title_screen.gd" id="1_ct7k0"]
 [ext_resource type="FontFile" uid="uid://by3aevm1ucjhc" path="res://Fonts/sd_auto_pilot.ttf" id="1_k6jlg"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://eu3xwwqmmnhb" path="res://UI/matchtimer.png" id="3_o5y7m"]
 [ext_resource type="Texture2D" uid="uid://bols05xhjlv23" path="res://TitleScreen/Puddle.png" id="4_32jgg"]
 [ext_resource type="AudioStream" uid="uid://b5bxkjoi4dsum" path="res://Music/TitleTheme.mp3" id="5_ug5pn"]
+[ext_resource type="AudioStream" uid="uid://bey7egnpx8m2a" path="res://Music/Sound Effects/SelectSound.mp3" id="8_683vu"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vgi2x"]
 
@@ -372,6 +373,9 @@ theme_override_fonts/font = ExtResource("1_k6jlg")
 theme_override_font_sizes/font_size = 50
 text = "Player 2 Controller"
 horizontal_alignment = 1
+
+[node name="SFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_683vu")
 
 [connection signal="pressed" from="Node/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="Node/Options" to="." method="_on_options_pressed"]
