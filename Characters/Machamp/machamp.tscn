@@ -1,4 +1,4 @@
-[gd_scene load_steps=200 format=3 uid="uid://c7h8newfnrydq"]
+[gd_scene load_steps=203 format=3 uid="uid://c7h8newfnrydq"]
 
 [ext_resource type="PackedScene" uid="uid://cj5yffxhnvcji" path="res://Characters/base_character.tscn" id="1_qlep1"]
 [ext_resource type="Script" path="res://Characters/Machamp/machamp.gd" id="2_pa1cw"]
@@ -1586,6 +1586,9 @@ animation = &"GroundSlam"
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_mbvwr"]
 animation = &"Jab"
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0wbbn"]
+animation = &"Palm"
+
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_kli2e"]
 animation = &"Special2"
 
@@ -1635,6 +1638,14 @@ advance_condition = &"S2"
 switch_mode = 2
 advance_mode = 2
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_si30k"]
+advance_mode = 2
+advance_condition = &"L2"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1lcd7"]
+switch_mode = 2
+advance_mode = 2
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_nqwf7"]
 states/Charge/node = SubResource("AnimationNodeAnimation_l2dcn")
 states/Charge/position = Vector2(481, 100)
@@ -1643,12 +1654,14 @@ states/Crouch/position = Vector2(353, 215)
 states/GroundSlam/node = SubResource("AnimationNodeAnimation_7geg3")
 states/GroundSlam/position = Vector2(515, 198)
 states/Jab/node = SubResource("AnimationNodeAnimation_mbvwr")
-states/Jab/position = Vector2(200, 210)
+states/Jab/position = Vector2(126, 198)
+states/Palm/node = SubResource("AnimationNodeAnimation_0wbbn")
+states/Palm/position = Vector2(239, 245)
 states/Special2/node = SubResource("AnimationNodeAnimation_kli2e")
 states/Special2/position = Vector2(342, 30)
 states/idlerun/node = SubResource("AnimationNodeAnimation_clltm")
 states/idlerun/position = Vector2(342, 100)
-transitions = ["Start", "idlerun", SubResource("AnimationNodeStateMachineTransition_xrfax"), "idlerun", "Charge", SubResource("AnimationNodeStateMachineTransition_qqpv0"), "Charge", "idlerun", SubResource("AnimationNodeStateMachineTransition_543rn"), "idlerun", "Crouch", SubResource("AnimationNodeStateMachineTransition_7utc2"), "Crouch", "idlerun", SubResource("AnimationNodeStateMachineTransition_7puii"), "idlerun", "Jab", SubResource("AnimationNodeStateMachineTransition_pa3ec"), "Jab", "idlerun", SubResource("AnimationNodeStateMachineTransition_hgvpy"), "idlerun", "GroundSlam", SubResource("AnimationNodeStateMachineTransition_ex2qg"), "GroundSlam", "idlerun", SubResource("AnimationNodeStateMachineTransition_0xsoy"), "idlerun", "Special2", SubResource("AnimationNodeStateMachineTransition_eu5m0"), "Special2", "idlerun", SubResource("AnimationNodeStateMachineTransition_toigy")]
+transitions = ["Start", "idlerun", SubResource("AnimationNodeStateMachineTransition_xrfax"), "idlerun", "Charge", SubResource("AnimationNodeStateMachineTransition_qqpv0"), "Charge", "idlerun", SubResource("AnimationNodeStateMachineTransition_543rn"), "idlerun", "Crouch", SubResource("AnimationNodeStateMachineTransition_7utc2"), "Crouch", "idlerun", SubResource("AnimationNodeStateMachineTransition_7puii"), "idlerun", "Jab", SubResource("AnimationNodeStateMachineTransition_pa3ec"), "Jab", "idlerun", SubResource("AnimationNodeStateMachineTransition_hgvpy"), "idlerun", "GroundSlam", SubResource("AnimationNodeStateMachineTransition_ex2qg"), "GroundSlam", "idlerun", SubResource("AnimationNodeStateMachineTransition_0xsoy"), "idlerun", "Special2", SubResource("AnimationNodeStateMachineTransition_eu5m0"), "Special2", "idlerun", SubResource("AnimationNodeStateMachineTransition_toigy"), "idlerun", "Palm", SubResource("AnimationNodeStateMachineTransition_si30k"), "Palm", "idlerun", SubResource("AnimationNodeStateMachineTransition_1lcd7")]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_46t5x"]
 size = Vector2(30, 18)
@@ -1865,6 +1878,7 @@ anim_player = NodePath("..")
 active = true
 parameters/conditions/GP = false
 parameters/conditions/L1 = false
+parameters/conditions/L2 = false
 parameters/conditions/S2 = false
 parameters/conditions/charge = false
 parameters/conditions/crouch = false

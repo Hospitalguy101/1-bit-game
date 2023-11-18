@@ -534,6 +534,14 @@ func rotate_point(point, angle):
 
 
 func update_animation_param():
+	if blocking or crouch_blocking:
+		animation["parameters/conditions/block"] = true
+		animation["parameters/conditions/nblock"] = false
+	else:
+		animation["parameters/conditions/block"] = false
+		animation["parameters/conditions/nblock"] = true
+	if hitstun or blockstun:
+		animation["parameters/conditions/hit"] = true
 	if floored:
 		animation["parameters/conditions/onGround"] = true
 		if linear_velocity.round() == Vector2.ZERO:
