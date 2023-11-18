@@ -12,6 +12,9 @@ var Grab = false
 var playerOneWins = 0
 var playerTwoWins = 0
 
+var playerOneChar
+var playerTwoChar
+
 var volume;
 
 var players = [2, 2];

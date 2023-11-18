@@ -1,12 +1,13 @@
-[gd_scene load_steps=16 format=3 uid="uid://cuffu6rbgiwpi"]
+[gd_scene load_steps=17 format=3 uid="uid://cuffu6rbgiwpi"]
 
 [ext_resource type="Script" path="res://Scenes/character_select.gd" id="1_1cf6l"]
 [ext_resource type="FontFile" uid="uid://by3aevm1ucjhc" path="res://Fonts/sd_auto_pilot.ttf" id="1_8evis"]
 [ext_resource type="Script" path="res://Scenes/Cursor.gd" id="3_1tqnk"]
 [ext_resource type="Texture2D" uid="uid://b7w1pho54nthn" path="res://UI/cursor.png" id="4_1ia0f"]
 [ext_resource type="FontFile" uid="uid://bkjji1n7krf63" path="res://Fonts/m42.TTF" id="5_1jf4b"]
-[ext_resource type="Texture2D" uid="uid://cqp0b2f52ds2q" path="res://UI/rincharselect.png" id="5_87iuj"]
+[ext_resource type="Texture2D" uid="uid://c0tpyd2frwcev" path="res://UI/RinImage.png" id="5_y2g8l"]
 [ext_resource type="Script" path="res://Scenes/Cursor2.gd" id="6_hi2mc"]
+[ext_resource type="Texture2D" uid="uid://c2irr3iegvhn0" path="res://UI/MachampImage.png" id="6_q6h8v"]
 [ext_resource type="Texture2D" uid="uid://b6vxpj1253d1f" path="res://UI/controller1.png" id="7_arx8v"]
 [ext_resource type="Texture2D" uid="uid://bv5ptausrs25q" path="res://UI/controller2.png" id="8_ed6mh"]
 [ext_resource type="Texture2D" uid="uid://dbakhiyy1ob8w" path="res://UI/MachampProfile.png" id="9_ek2gu"]
@@ -71,9 +72,11 @@ position = Vector2(512, 300)
 scale = Vector2(2, 2)
 texture = ExtResource("9_ek2gu")
 
-[node name="Area2D" type="Area2D" parent="MachampProfile"]
+[node name="MachampArea" type="Area2D" parent="MachampProfile"]
+collision_layer = 16
+collision_mask = 32
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="MachampProfile/Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MachampProfile/MachampArea"]
 position = Vector2(-0.5, 0)
 shape = SubResource("RectangleShape2D_4p7c4")
 
@@ -82,24 +85,66 @@ position = Vector2(640, 300)
 scale = Vector2(2, 2)
 texture = ExtResource("10_tebgk")
 
-[node name="Area2D" type="Area2D" parent="RinProfile"]
+[node name="RinArea" type="Area2D" parent="RinProfile"]
+collision_layer = 16
+collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RinProfile/Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RinProfile/RinArea"]
 position = Vector2(0.75, -1.25)
 shape = SubResource("RectangleShape2D_07q2d")
 
 [node name="Rincharselect1" type="Sprite2D" parent="."]
 visible = false
-position = Vector2(200, 275)
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("5_87iuj")
+position = Vector2(190, 320)
+scale = Vector2(5, 5)
+texture = ExtResource("5_y2g8l")
 
 [node name="Rincharselect2" type="Sprite2D" parent="."]
 visible = false
-position = Vector2(952, 275)
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("5_87iuj")
+position = Vector2(958, 320)
+scale = Vector2(5, 5)
+texture = ExtResource("5_y2g8l")
 flip_h = true
+
+[node name="Champcharselect1" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(190, 290)
+scale = Vector2(7, 7)
+texture = ExtResource("6_q6h8v")
+
+[node name="Champcharselect2" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(958, 290)
+scale = Vector2(7, 7)
+texture = ExtResource("6_q6h8v")
+flip_h = true
+
+[node name="CharName1" type="Label" parent="."]
+offset_left = 26.0
+offset_top = 549.0
+offset_right = 352.0
+offset_bottom = 651.0
+theme_override_fonts/font = ExtResource("1_8evis")
+theme_override_font_sizes/font_size = 150
+
+[node name="CharName2" type="Label" parent="."]
+offset_left = 706.0
+offset_top = 548.0
+offset_right = 1134.0
+offset_bottom = 650.0
+theme_override_fonts/font = ExtResource("1_8evis")
+theme_override_font_sizes/font_size = 150
+horizontal_alignment = 2
+
+[node name="PressStart" type="Label" parent="."]
+offset_left = 280.0
+offset_top = 68.0
+offset_right = 862.0
+offset_bottom = 150.0
+theme_override_fonts/font = ExtResource("1_8evis")
+theme_override_font_sizes/font_size = 120
+text = "Press Start To Play"
+horizontal_alignment = 1
 
 [node name="Cursor" type="CharacterBody2D" parent="."]
 position = Vector2(121, 331)
@@ -131,7 +176,11 @@ metadata/_edit_use_anchors_ = true
 
 [node name="RayCast2D" type="RayCast2D" parent="Cursor"]
 position = Vector2(30, -36)
+scale = Vector2(1, 1)
 target_position = Vector2(0, 0)
+collision_mask = 16
+hit_from_inside = true
+collide_with_areas = true
 
 [node name="Cursor2" type="CharacterBody2D" parent="."]
 position = Vector2(1020, 327)
@@ -164,6 +213,17 @@ metadata/_edit_use_anchors_ = true
 [node name="RayCast2D" type="RayCast2D" parent="Cursor2"]
 position = Vector2(30, -35)
 target_position = Vector2(0, 0)
+collision_mask = 16
+hit_from_inside = true
+collide_with_areas = true
+
+[node name="RayCast2D2" type="RayCast2D" parent="Cursor2"]
+position = Vector2(-869, -32)
+scale = Vector2(1, 1)
+target_position = Vector2(0, 0)
+collision_mask = 16
+hit_from_inside = true
+collide_with_areas = true
 
 [node name="ControllerIcon1" type="AnimatedSprite2D" parent="."]
 position = Vector2(120, 338)
