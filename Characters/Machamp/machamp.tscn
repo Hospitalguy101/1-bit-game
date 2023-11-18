@@ -1,4 +1,4 @@
-[gd_scene load_steps=203 format=3 uid="uid://c7h8newfnrydq"]
+[gd_scene load_steps=225 format=3 uid="uid://c7h8newfnrydq"]
 
 [ext_resource type="PackedScene" uid="uid://cj5yffxhnvcji" path="res://Characters/base_character.tscn" id="1_qlep1"]
 [ext_resource type="Script" path="res://Characters/Machamp/machamp.gd" id="2_pa1cw"]
@@ -137,51 +137,27 @@ _data = {
 "Smack": SubResource("Animation_kuq0w")
 }
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_vlaix"]
-animation = &"Form"
-
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_qpn7m"]
 animation = &"Grab"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_mmlgn"]
 animation = &"Smack"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ghfrc"]
-advance_mode = 2
-advance_condition = &"form"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_hmnml"]
-switch_mode = 2
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0jalq"]
 advance_mode = 2
 advance_condition = &"smack"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3wlhd"]
-switch_mode = 2
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_c0wj7"]
 advance_mode = 2
 advance_condition = &"grab"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_sejdo"]
-advance_mode = 2
-advance_condition = &"smack"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_rpdcm"]
-switch_mode = 2
-advance_mode = 2
-advance_condition = &"grabEnd"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_wtslv"]
-switch_mode = 2
-advance_mode = 2
-advance_condition = &"grabEnd"
-
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_vk1b5"]
-states/Form/node = SubResource("AnimationNodeAnimation_vlaix")
-states/Form/position = Vector2(354, 100)
 states/Grab/node = SubResource("AnimationNodeAnimation_qpn7m")
-states/Grab/position = Vector2(499, 142)
+states/Grab/position = Vector2(387, 145)
 states/Smack/node = SubResource("AnimationNodeAnimation_mmlgn")
-states/Smack/position = Vector2(499, 56)
-transitions = ["Start", "Form", SubResource("AnimationNodeStateMachineTransition_ghfrc"), "Form", "Smack", SubResource("AnimationNodeStateMachineTransition_hmnml"), "Form", "Grab", SubResource("AnimationNodeStateMachineTransition_3wlhd"), "Grab", "Smack", SubResource("AnimationNodeStateMachineTransition_sejdo"), "Smack", "Form", SubResource("AnimationNodeStateMachineTransition_rpdcm"), "Grab", "Form", SubResource("AnimationNodeStateMachineTransition_wtslv")]
+states/Smack/position = Vector2(398, 56)
+transitions = ["Start", "Smack", SubResource("AnimationNodeStateMachineTransition_0jalq"), "Start", "Grab", SubResource("AnimationNodeStateMachineTransition_c0wj7")]
+graph_offset = Vector2(-252, -4)
 
 [sub_resource type="Animation" id="Animation_rxh7a"]
 resource_name = "ArmlessIdle"
@@ -411,6 +387,9 @@ _data = {
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_fb0lc"]
 animation = &"ArmlessIdle"
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_yy2wu"]
+animation = &"Block"
+
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8ai61"]
 animation = &"Charge"
 
@@ -419,6 +398,9 @@ animation = &"Crouch"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7rudm"]
 animation = &"GroundPound"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_asx6p"]
+animation = &"Hit"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_cmoci"]
 animation = &"JabPalm"
@@ -475,25 +457,43 @@ advance_condition = &"S2"
 switch_mode = 2
 advance_mode = 2
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_t7edg"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_if3m7"]
+advance_mode = 2
+advance_condition = &"isBlock"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_k33q7"]
+advance_mode = 2
+advance_condition = &"isHit"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_mjvs3"]
+advance_mode = 2
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_2o4cw"]
 states/ArmlessIdle/node = SubResource("AnimationNodeAnimation_fb0lc")
 states/ArmlessIdle/position = Vector2(343, 84)
+states/Block/node = SubResource("AnimationNodeAnimation_yy2wu")
+states/Block/position = Vector2(147, 252)
 states/Charge/node = SubResource("AnimationNodeAnimation_8ai61")
 states/Charge/position = Vector2(550, 100)
 states/Crouch/node = SubResource("AnimationNodeAnimation_vu6jh")
 states/Crouch/position = Vector2(661, 197)
 states/GroundPound/node = SubResource("AnimationNodeAnimation_7rudm")
 states/GroundPound/position = Vector2(779, 322)
+states/Hit/node = SubResource("AnimationNodeAnimation_asx6p")
+states/Hit/position = Vector2(210, 336)
 states/JabPalm/node = SubResource("AnimationNodeAnimation_cmoci")
 states/JabPalm/position = Vector2(556, 402)
 states/Special2/node = SubResource("AnimationNodeAnimation_78tk7")
 states/Special2/position = Vector2(361, 402)
 states/TornadoPalm/node = SubResource("AnimationNodeAnimation_wjyjw")
-states/TornadoPalm/position = Vector2(126, 402)
+states/TornadoPalm/position = Vector2(86, 433)
 states/idlerun/node = SubResource("AnimationNodeAnimation_18unr")
 states/idlerun/position = Vector2(368, 273)
-transitions = ["Start", "idlerun", SubResource("AnimationNodeStateMachineTransition_l26fx"), "idlerun", "Charge", SubResource("AnimationNodeStateMachineTransition_bdrp8"), "Charge", "idlerun", SubResource("AnimationNodeStateMachineTransition_7iyhj"), "idlerun", "Crouch", SubResource("AnimationNodeStateMachineTransition_y1lai"), "Crouch", "idlerun", SubResource("AnimationNodeStateMachineTransition_6odj3"), "idlerun", "JabPalm", SubResource("AnimationNodeStateMachineTransition_1nq0k"), "JabPalm", "idlerun", SubResource("AnimationNodeStateMachineTransition_wlb6u"), "idlerun", "GroundPound", SubResource("AnimationNodeStateMachineTransition_njsth"), "GroundPound", "idlerun", SubResource("AnimationNodeStateMachineTransition_240pv"), "idlerun", "Special2", SubResource("AnimationNodeStateMachineTransition_3056k"), "Special2", "idlerun", SubResource("AnimationNodeStateMachineTransition_fuyr3")]
-graph_offset = Vector2(-28, 71)
+transitions = ["Start", "idlerun", SubResource("AnimationNodeStateMachineTransition_l26fx"), "idlerun", "Charge", SubResource("AnimationNodeStateMachineTransition_bdrp8"), "Charge", "idlerun", SubResource("AnimationNodeStateMachineTransition_7iyhj"), "idlerun", "Crouch", SubResource("AnimationNodeStateMachineTransition_y1lai"), "Crouch", "idlerun", SubResource("AnimationNodeStateMachineTransition_6odj3"), "idlerun", "JabPalm", SubResource("AnimationNodeStateMachineTransition_1nq0k"), "JabPalm", "idlerun", SubResource("AnimationNodeStateMachineTransition_wlb6u"), "idlerun", "GroundPound", SubResource("AnimationNodeStateMachineTransition_njsth"), "GroundPound", "idlerun", SubResource("AnimationNodeStateMachineTransition_240pv"), "idlerun", "Special2", SubResource("AnimationNodeStateMachineTransition_3056k"), "Special2", "idlerun", SubResource("AnimationNodeStateMachineTransition_fuyr3"), "Block", "idlerun", SubResource("AnimationNodeStateMachineTransition_t7edg"), "idlerun", "Block", SubResource("AnimationNodeStateMachineTransition_if3m7"), "idlerun", "Hit", SubResource("AnimationNodeStateMachineTransition_k33q7"), "Hit", "idlerun", SubResource("AnimationNodeStateMachineTransition_mjvs3")]
+graph_offset = Vector2(-139, 29)
 
 [sub_resource type="Animation" id="Animation_wax34"]
 resource_name = "Block"
@@ -702,6 +702,9 @@ _data = {
 "idlerun": SubResource("Animation_x7lqi")
 }
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_i8m5w"]
+animation = &"Block"
+
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_k7qkr"]
 animation = &"Charge"
 
@@ -710,6 +713,9 @@ animation = &"Crouch"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_mikv3"]
 animation = &"GroundSlam"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_lb8oi"]
+animation = &"Hit"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_15h0r"]
 animation = &"JabPalm"
@@ -766,13 +772,31 @@ advance_condition = &"S2"
 switch_mode = 2
 advance_mode = 2
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_cbac8"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_vv8xy"]
+advance_mode = 2
+advance_condition = &"isBlock"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_m33lp"]
+advance_mode = 2
+advance_condition = &"isHit"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_wvnm0"]
+advance_mode = 2
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_14pcv"]
+states/Block/node = SubResource("AnimationNodeAnimation_i8m5w")
+states/Block/position = Vector2(583, 206)
 states/Charge/node = SubResource("AnimationNodeAnimation_k7qkr")
 states/Charge/position = Vector2(419, 77)
 states/Crouch/node = SubResource("AnimationNodeAnimation_wb7qi")
 states/Crouch/position = Vector2(256, 407)
 states/GroundSlam/node = SubResource("AnimationNodeAnimation_mikv3")
 states/GroundSlam/position = Vector2(558, 132)
+states/Hit/node = SubResource("AnimationNodeAnimation_lb8oi")
+states/Hit/position = Vector2(401, 350)
 states/JabPalm/node = SubResource("AnimationNodeAnimation_15h0r")
 states/JabPalm/position = Vector2(250, 77)
 "states/Special 2/node" = SubResource("AnimationNodeAnimation_d2ts6")
@@ -782,7 +806,8 @@ states/TornadoPalm/node = SubResource("AnimationNodeAnimation_v1c57")
 states/TornadoPalm/position = Vector2(535, 407)
 states/idlerun/node = SubResource("AnimationNodeAnimation_i2260")
 states/idlerun/position = Vector2(301, 272)
-transitions = ["Start", "idlerun", SubResource("AnimationNodeStateMachineTransition_rirq1"), "idlerun", "Charge", SubResource("AnimationNodeStateMachineTransition_0x5k0"), "Charge", "idlerun", SubResource("AnimationNodeStateMachineTransition_0wu44"), "idlerun", "Crouch", SubResource("AnimationNodeStateMachineTransition_5vbx7"), "Crouch", "idlerun", SubResource("AnimationNodeStateMachineTransition_nabm8"), "idlerun", "JabPalm", SubResource("AnimationNodeStateMachineTransition_3rods"), "JabPalm", "idlerun", SubResource("AnimationNodeStateMachineTransition_0xyum"), "idlerun", "GroundSlam", SubResource("AnimationNodeStateMachineTransition_8hecu"), "GroundSlam", "idlerun", SubResource("AnimationNodeStateMachineTransition_62oeq"), "idlerun", "Special 2", SubResource("AnimationNodeStateMachineTransition_dkvdo"), "Special 2", "idlerun", SubResource("AnimationNodeStateMachineTransition_6ly1o")]
+transitions = ["Start", "idlerun", SubResource("AnimationNodeStateMachineTransition_rirq1"), "idlerun", "Charge", SubResource("AnimationNodeStateMachineTransition_0x5k0"), "Charge", "idlerun", SubResource("AnimationNodeStateMachineTransition_0wu44"), "idlerun", "Crouch", SubResource("AnimationNodeStateMachineTransition_5vbx7"), "Crouch", "idlerun", SubResource("AnimationNodeStateMachineTransition_nabm8"), "idlerun", "JabPalm", SubResource("AnimationNodeStateMachineTransition_3rods"), "JabPalm", "idlerun", SubResource("AnimationNodeStateMachineTransition_0xyum"), "idlerun", "GroundSlam", SubResource("AnimationNodeStateMachineTransition_8hecu"), "GroundSlam", "idlerun", SubResource("AnimationNodeStateMachineTransition_62oeq"), "idlerun", "Special 2", SubResource("AnimationNodeStateMachineTransition_dkvdo"), "Special 2", "idlerun", SubResource("AnimationNodeStateMachineTransition_6ly1o"), "Block", "idlerun", SubResource("AnimationNodeStateMachineTransition_cbac8"), "idlerun", "Block", SubResource("AnimationNodeStateMachineTransition_vv8xy"), "idlerun", "Hit", SubResource("AnimationNodeStateMachineTransition_m33lp"), "Hit", "idlerun", SubResource("AnimationNodeStateMachineTransition_wvnm0")]
+graph_offset = Vector2(-193, 112)
 
 [sub_resource type="Animation" id="Animation_k7yde"]
 resource_name = "Block"
@@ -991,6 +1016,9 @@ _data = {
 "idlerun": SubResource("Animation_eapvu")
 }
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_bbdsb"]
+animation = &"Block"
+
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_d4evu"]
 animation = &"Charge"
 
@@ -999,6 +1027,9 @@ animation = &"Crouch"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_700rn"]
 animation = &"GroundSlam"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_72kwn"]
+animation = &"Hit"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_bf37e"]
 animation = &"JabPalm"
@@ -1052,20 +1083,39 @@ advance_condition = &"S2"
 switch_mode = 2
 advance_mode = 2
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_rexcx"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_18vxi"]
+advance_mode = 2
+advance_condition = &"isBlock"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_y2cps"]
+advance_mode = 2
+advance_condition = &"isHit"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_x6x4a"]
+advance_mode = 2
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_mpihq"]
+states/Block/node = SubResource("AnimationNodeAnimation_bbdsb")
+states/Block/position = Vector2(441, 14)
 states/Charge/node = SubResource("AnimationNodeAnimation_d4evu")
 states/Charge/position = Vector2(751, 100)
 states/Crouch/node = SubResource("AnimationNodeAnimation_3y5ue")
 states/Crouch/position = Vector2(397, 362)
 states/GroundSlam/node = SubResource("AnimationNodeAnimation_700rn")
 states/GroundSlam/position = Vector2(704, 342)
+states/Hit/node = SubResource("AnimationNodeAnimation_72kwn")
+states/Hit/position = Vector2(773, 201)
 states/JabPalm/node = SubResource("AnimationNodeAnimation_bf37e")
 states/JabPalm/position = Vector2(225, 217)
 "states/Special 2/node" = SubResource("AnimationNodeAnimation_x8qa7")
 "states/Special 2/position" = Vector2(614, 49)
 states/idlerun/node = SubResource("AnimationNodeAnimation_ljxpb")
 states/idlerun/position = Vector2(559, 151)
-transitions = ["Start", "idlerun", SubResource("AnimationNodeStateMachineTransition_vi1bo"), "idlerun", "Charge", SubResource("AnimationNodeStateMachineTransition_eshwf"), "Charge", "idlerun", SubResource("AnimationNodeStateMachineTransition_ns417"), "idlerun", "Crouch", SubResource("AnimationNodeStateMachineTransition_gkkp6"), "Crouch", "idlerun", SubResource("AnimationNodeStateMachineTransition_qbb6b"), "idlerun", "JabPalm", SubResource("AnimationNodeStateMachineTransition_k6d2s"), "JabPalm", "idlerun", SubResource("AnimationNodeStateMachineTransition_7s2t6"), "idlerun", "GroundSlam", SubResource("AnimationNodeStateMachineTransition_ro2ga"), "GroundSlam", "idlerun", SubResource("AnimationNodeStateMachineTransition_gc1vi"), "idlerun", "Special 2", SubResource("AnimationNodeStateMachineTransition_ash45"), "Special 2", "idlerun", SubResource("AnimationNodeStateMachineTransition_5iq32")]
+transitions = ["Start", "idlerun", SubResource("AnimationNodeStateMachineTransition_vi1bo"), "idlerun", "Charge", SubResource("AnimationNodeStateMachineTransition_eshwf"), "Charge", "idlerun", SubResource("AnimationNodeStateMachineTransition_ns417"), "idlerun", "Crouch", SubResource("AnimationNodeStateMachineTransition_gkkp6"), "Crouch", "idlerun", SubResource("AnimationNodeStateMachineTransition_qbb6b"), "idlerun", "JabPalm", SubResource("AnimationNodeStateMachineTransition_k6d2s"), "JabPalm", "idlerun", SubResource("AnimationNodeStateMachineTransition_7s2t6"), "idlerun", "GroundSlam", SubResource("AnimationNodeStateMachineTransition_ro2ga"), "GroundSlam", "idlerun", SubResource("AnimationNodeStateMachineTransition_gc1vi"), "idlerun", "Special 2", SubResource("AnimationNodeStateMachineTransition_ash45"), "Special 2", "idlerun", SubResource("AnimationNodeStateMachineTransition_5iq32"), "Block", "idlerun", SubResource("AnimationNodeStateMachineTransition_rexcx"), "idlerun", "Block", SubResource("AnimationNodeStateMachineTransition_18vxi"), "idlerun", "Hit", SubResource("AnimationNodeStateMachineTransition_y2cps"), "Hit", "idlerun", SubResource("AnimationNodeStateMachineTransition_x6x4a")]
+graph_offset = Vector2(39, 77)
 
 [sub_resource type="Animation" id="Animation_8hrma"]
 resource_name = "Block"
@@ -1274,6 +1324,9 @@ _data = {
 "idlerun": SubResource("Animation_vpi3l")
 }
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_jx4n7"]
+animation = &"Block"
+
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_f21xy"]
 animation = &"Charge"
 
@@ -1282,6 +1335,9 @@ animation = &"Crouch"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_vylgk"]
 animation = &"GroundSlam"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xi2pd"]
+animation = &"Hit"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_fjqns"]
 animation = &"JabPalm"
@@ -1335,20 +1391,39 @@ advance_condition = &"S2"
 switch_mode = 2
 advance_mode = 2
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_8onnv"]
+advance_mode = 2
+advance_condition = &"isBlock"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_x51be"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_eiyg7"]
+advance_mode = 2
+advance_condition = &"isHit"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ynyy8"]
+advance_mode = 2
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_sykhq"]
+states/Block/node = SubResource("AnimationNodeAnimation_jx4n7")
+states/Block/position = Vector2(236, -16)
 states/Charge/node = SubResource("AnimationNodeAnimation_f21xy")
 states/Charge/position = Vector2(329, 270)
 states/Crouch/node = SubResource("AnimationNodeAnimation_uuqg3")
 states/Crouch/position = Vector2(508, 40)
 states/GroundSlam/node = SubResource("AnimationNodeAnimation_vylgk")
 states/GroundSlam/position = Vector2(547, 137)
+states/Hit/node = SubResource("AnimationNodeAnimation_xi2pd")
+states/Hit/position = Vector2(407, -24)
 states/JabPalm/node = SubResource("AnimationNodeAnimation_fjqns")
 states/JabPalm/position = Vector2(456, 217)
 "states/Special 2/node" = SubResource("AnimationNodeAnimation_f5my1")
 "states/Special 2/position" = Vector2(183, 247)
 states/idlerun/node = SubResource("AnimationNodeAnimation_61r2x")
 states/idlerun/position = Vector2(343, 100)
-transitions = ["Start", "idlerun", SubResource("AnimationNodeStateMachineTransition_lb5td"), "idlerun", "Crouch", SubResource("AnimationNodeStateMachineTransition_m66g2"), "Crouch", "idlerun", SubResource("AnimationNodeStateMachineTransition_kk0x6"), "idlerun", "GroundSlam", SubResource("AnimationNodeStateMachineTransition_1rk77"), "GroundSlam", "idlerun", SubResource("AnimationNodeStateMachineTransition_k8lrx"), "idlerun", "JabPalm", SubResource("AnimationNodeStateMachineTransition_gj2mm"), "JabPalm", "idlerun", SubResource("AnimationNodeStateMachineTransition_hbdh7"), "idlerun", "Charge", SubResource("AnimationNodeStateMachineTransition_suawi"), "Charge", "idlerun", SubResource("AnimationNodeStateMachineTransition_ku1hp"), "idlerun", "Special 2", SubResource("AnimationNodeStateMachineTransition_gfegf"), "Special 2", "idlerun", SubResource("AnimationNodeStateMachineTransition_l3x78")]
+transitions = ["Start", "idlerun", SubResource("AnimationNodeStateMachineTransition_lb5td"), "idlerun", "Crouch", SubResource("AnimationNodeStateMachineTransition_m66g2"), "Crouch", "idlerun", SubResource("AnimationNodeStateMachineTransition_kk0x6"), "idlerun", "GroundSlam", SubResource("AnimationNodeStateMachineTransition_1rk77"), "GroundSlam", "idlerun", SubResource("AnimationNodeStateMachineTransition_k8lrx"), "idlerun", "JabPalm", SubResource("AnimationNodeStateMachineTransition_gj2mm"), "JabPalm", "idlerun", SubResource("AnimationNodeStateMachineTransition_hbdh7"), "idlerun", "Charge", SubResource("AnimationNodeStateMachineTransition_suawi"), "Charge", "idlerun", SubResource("AnimationNodeStateMachineTransition_ku1hp"), "idlerun", "Special 2", SubResource("AnimationNodeStateMachineTransition_gfegf"), "Special 2", "idlerun", SubResource("AnimationNodeStateMachineTransition_l3x78"), "idlerun", "Block", SubResource("AnimationNodeStateMachineTransition_8onnv"), "Block", "idlerun", SubResource("AnimationNodeStateMachineTransition_x51be"), "idlerun", "Hit", SubResource("AnimationNodeStateMachineTransition_eiyg7"), "Hit", "idlerun", SubResource("AnimationNodeStateMachineTransition_ynyy8")]
+graph_offset = Vector2(-181, -116)
 
 [sub_resource type="Animation" id="Animation_l8ghn"]
 resource_name = "Block"
@@ -1574,6 +1649,9 @@ _data = {
 "idlerun": SubResource("Animation_w6oo4")
 }
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_o0xam"]
+animation = &"Block"
+
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_l2dcn"]
 animation = &"Charge"
 
@@ -1582,6 +1660,9 @@ animation = &"Crouch"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7geg3"]
 animation = &"GroundSlam"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_308nh"]
+animation = &"Hit"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_mbvwr"]
 animation = &"Jab"
@@ -1644,24 +1725,41 @@ advance_condition = &"L2"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1lcd7"]
 switch_mode = 2
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_pta5k"]
+advance_mode = 2
+advance_condition = &"isBlock"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_vbrv5"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5mwey"]
+advance_mode = 2
+advance_condition = &"isHit"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_lad2t"]
 advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_nqwf7"]
+states/Block/node = SubResource("AnimationNodeAnimation_o0xam")
+states/Block/position = Vector2(528, 24)
 states/Charge/node = SubResource("AnimationNodeAnimation_l2dcn")
 states/Charge/position = Vector2(481, 100)
 states/Crouch/node = SubResource("AnimationNodeAnimation_gs83o")
 states/Crouch/position = Vector2(353, 215)
 states/GroundSlam/node = SubResource("AnimationNodeAnimation_7geg3")
 states/GroundSlam/position = Vector2(515, 198)
+states/Hit/node = SubResource("AnimationNodeAnimation_308nh")
+states/Hit/position = Vector2(237, 10)
 states/Jab/node = SubResource("AnimationNodeAnimation_mbvwr")
 states/Jab/position = Vector2(126, 198)
 states/Palm/node = SubResource("AnimationNodeAnimation_0wbbn")
 states/Palm/position = Vector2(239, 245)
 states/Special2/node = SubResource("AnimationNodeAnimation_kli2e")
-states/Special2/position = Vector2(342, 30)
+states/Special2/position = Vector2(433, -12)
 states/idlerun/node = SubResource("AnimationNodeAnimation_clltm")
 states/idlerun/position = Vector2(342, 100)
-transitions = ["Start", "idlerun", SubResource("AnimationNodeStateMachineTransition_xrfax"), "idlerun", "Charge", SubResource("AnimationNodeStateMachineTransition_qqpv0"), "Charge", "idlerun", SubResource("AnimationNodeStateMachineTransition_543rn"), "idlerun", "Crouch", SubResource("AnimationNodeStateMachineTransition_7utc2"), "Crouch", "idlerun", SubResource("AnimationNodeStateMachineTransition_7puii"), "idlerun", "Jab", SubResource("AnimationNodeStateMachineTransition_pa3ec"), "Jab", "idlerun", SubResource("AnimationNodeStateMachineTransition_hgvpy"), "idlerun", "GroundSlam", SubResource("AnimationNodeStateMachineTransition_ex2qg"), "GroundSlam", "idlerun", SubResource("AnimationNodeStateMachineTransition_0xsoy"), "idlerun", "Special2", SubResource("AnimationNodeStateMachineTransition_eu5m0"), "Special2", "idlerun", SubResource("AnimationNodeStateMachineTransition_toigy"), "idlerun", "Palm", SubResource("AnimationNodeStateMachineTransition_si30k"), "Palm", "idlerun", SubResource("AnimationNodeStateMachineTransition_1lcd7")]
+transitions = ["Start", "idlerun", SubResource("AnimationNodeStateMachineTransition_xrfax"), "idlerun", "Charge", SubResource("AnimationNodeStateMachineTransition_qqpv0"), "Charge", "idlerun", SubResource("AnimationNodeStateMachineTransition_543rn"), "idlerun", "Crouch", SubResource("AnimationNodeStateMachineTransition_7utc2"), "Crouch", "idlerun", SubResource("AnimationNodeStateMachineTransition_7puii"), "idlerun", "Jab", SubResource("AnimationNodeStateMachineTransition_pa3ec"), "Jab", "idlerun", SubResource("AnimationNodeStateMachineTransition_hgvpy"), "idlerun", "GroundSlam", SubResource("AnimationNodeStateMachineTransition_ex2qg"), "GroundSlam", "idlerun", SubResource("AnimationNodeStateMachineTransition_0xsoy"), "idlerun", "Special2", SubResource("AnimationNodeStateMachineTransition_eu5m0"), "Special2", "idlerun", SubResource("AnimationNodeStateMachineTransition_toigy"), "idlerun", "Block", SubResource("AnimationNodeStateMachineTransition_pta5k"), "Block", "idlerun", SubResource("AnimationNodeStateMachineTransition_vbrv5"), "idlerun", "Hit", SubResource("AnimationNodeStateMachineTransition_5mwey"), "Hit", "idlerun", SubResource("AnimationNodeStateMachineTransition_lad2t")]
+graph_offset = Vector2(-168, -58)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_46t5x"]
 size = Vector2(30, 18)
@@ -1790,9 +1888,7 @@ libraries = {
 tree_root = SubResource("AnimationNodeStateMachine_vk1b5")
 anim_player = NodePath("..")
 active = true
-parameters/conditions/form = false
 parameters/conditions/grab = false
-parameters/conditions/grabEnd = false
 parameters/conditions/smack = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="11"]
@@ -1810,6 +1906,8 @@ parameters/conditions/L1 = false
 parameters/conditions/S2 = false
 parameters/conditions/charge = false
 parameters/conditions/crouch = false
+parameters/conditions/isBlock = false
+parameters/conditions/isHit = false
 parameters/conditions/ncharge = true
 parameters/conditions/ncrouch = false
 
@@ -1828,6 +1926,8 @@ parameters/conditions/L1 = false
 parameters/conditions/S2 = false
 parameters/conditions/charge = false
 parameters/conditions/crouch = false
+parameters/conditions/isBlock = false
+parameters/conditions/isHit = false
 parameters/conditions/ncharge = true
 parameters/conditions/ncrouch = true
 
@@ -1846,6 +1946,8 @@ parameters/conditions/L1 = false
 parameters/conditions/S2 = false
 parameters/conditions/charge = false
 parameters/conditions/crouch = false
+parameters/conditions/isBlock = false
+parameters/conditions/isHit = false
 parameters/conditions/ncharge = true
 parameters/conditions/ncrouch = true
 
@@ -1863,6 +1965,8 @@ parameters/conditions/L1 = false
 parameters/conditions/S2 = false
 parameters/conditions/charge = false
 parameters/conditions/crouch = false
+parameters/conditions/isBlock = false
+parameters/conditions/isHit = false
 parameters/conditions/ncharge = false
 parameters/conditions/ncrouch = true
 
@@ -1882,6 +1986,8 @@ parameters/conditions/L2 = false
 parameters/conditions/S2 = false
 parameters/conditions/charge = false
 parameters/conditions/crouch = false
+parameters/conditions/isBlock = false
+parameters/conditions/isHit = false
 parameters/conditions/ncharge = true
 parameters/conditions/ncrouch = true
 
@@ -1905,7 +2011,7 @@ target_position = Vector2(0, 18)
 [connection signal="timeout" from="AttackTimers/LightAttackTimer" to="." method="_on_light_attack_timer_timeout"]
 [connection signal="timeout" from="AttackTimers/LightChargeTimer" to="." method="_on_light_charge_timer_timeout"]
 [connection signal="timeout" from="AttackTimers/DownHeavyTimer" to="." method="_on_down_heavy_timer_timeout"]
-[connection signal="animation_finished" from="HandPlayer/HandTree" to="." method="_on_hand_tree_animation_finished"]
+[connection signal="animation_finished" from="HandPlayer" to="." method="_on_hand_player_animation_finished"]
 [connection signal="animation_finished" from="AnimationPlayer/BodyTree" to="." method="_on_body_tree_animation_finished"]
 
 [editable path="Hurtboxes/LightHurtbox"]

@@ -8,6 +8,13 @@ func _ready():
 	$Camera/UI/fight.visible = false
 
 
+func play_sfx(sfx):
+	if sfx == "hit": 
+		$SFX.stream = load("res://Music/Sound Effects/HitSound1.mp3");
+	if sfx == "woosh":
+		$SFX.stream = load("res://Music/Sound Effects/WooshSound.mp3");
+	$SFX.play();
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	$Camera/UI/time.text = str(int($MatchTime.time_left))

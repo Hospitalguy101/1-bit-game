@@ -11,7 +11,7 @@ var directiony
 func _ready():
 	self.visible = false
 
-func _process(delta):
+func _physics_process(delta):
 	id = Global.players[0]
 	if isControl:
 		self.visible = true

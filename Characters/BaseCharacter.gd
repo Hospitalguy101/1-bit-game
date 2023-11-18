@@ -44,6 +44,8 @@ var current_special;
 var special_step = 0;
 var special_channel = false;
 
+var in_grabbing_animation = false;
+
 var has_grab = true;
 var is_grabbed = false;
 var grabbing = false;
@@ -198,7 +200,7 @@ func _unhandled_input(event):
 			heavy_attack(direction);
 		elif event.is_action_pressed("p1_grab") and has_grab:
 			if get_node_or_null("GrabHand"):
-				get_node("GrabHand").show();
+				in_grabbing_animation = true;
 			$Grabbox.grab();
 			
 			

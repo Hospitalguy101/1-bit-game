@@ -13,6 +13,8 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
+	position.y = 142;
+	
 	move_and_slide();
 	
 	if ground: $Sprite.texture = load("res://Characters/Rin/bkackportal.png");

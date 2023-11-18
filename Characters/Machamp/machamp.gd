@@ -152,6 +152,7 @@ func special(arm):
 			$GArm.hide();
 
 func _unhandled_input(event):
+	if event.device != id: return;
 	if motion_combo and !$ComboTimer.is_stopped() and special_channel and special_step < 2 and (event is InputEventJoypadButton or event is InputEventKey):
 		motion_combo = false;
 		special_step = 0;
@@ -188,6 +189,23 @@ func _unhandled_input(event):
 					special(3);
 				elif event is InputEventJoypadButton or event is InputEventKey:
 						motion_combo = false;
+	
+	#attack animations
+	if event.device == id:
+		if Input.is_action_pressed("p1_light_attack") and !charging and !running_attack and has_light:
+			body["parameters/conditions/L1"] = true
+			sarm["parameters/conditions/L1"] = true
+			harm["parameters/conditions/L1"] = true
+			garm["parameters/conditions/L1"] = true
+			larm["parameters/conditions/L1"] = true
+			
+		if Input.is_action_pressed("p1_grab") and can_move:
+			$GrabHand.show();
+			$HandPlayer.play("Grab");
+		if grabbing and event is InputEventJoypadMotion:
+			$GrabHand.hide();
+			$HandPlayer.stop();
+		
 	super._unhandled_input(event);
 
 
@@ -229,6 +247,7 @@ func update_animation_param():
 			garm["parameters/conditions/L1"] = true
 			larm["parameters/conditions/L2"] = true
 	
+	
 	if groundSlam:
 		body["parameters/conditions/GP"] = true
 		sarm["parameters/conditions/GP"] = true
@@ -265,17 +284,32 @@ func update_animation_param():
 		garm["parameters/conditions/ncrouch"] = true
 		larm["parameters/conditions/crouch"] = false
 		larm["parameters/conditions/ncrouch"] = true
-		
-	if Global.Grab:
-		hand["parameters/conditions/grabEnd"] = false
-		hand["parameters/conditions/form"] = true
-	if Global.Grabbed:
-		hand["parameters/conditions/grab"] = true
-	elif Global.throwingDown:
-		hand["parameters/conditions/smack"] = true
+	
+	if blockstun:
+		body["parameters/conditions/isBlock"] = true;
+		sarm["parameters/conditions/isBlock"] = true;
+		harm["parameters/conditions/isBlock"] = true;
+		garm["parameters/conditions/isBlock"] = true;
+		larm["parameters/conditions/isBlock"] = true;
 	else:
-		hand["parameters/conditions/grab"] = false
-		hand["parameters/conditions/smack"] = false
+		body["parameters/conditions/isBlock"] = false;
+		sarm["parameters/conditions/isBlock"] = false;
+		harm["parameters/conditions/isBlock"] = false;
+		garm["parameters/conditions/isBlock"] = false;
+		larm["parameters/conditions/isBlock"] = false;
+		
+	if hitstun:
+		body["parameters/conditions/isHit"] = true;
+		sarm["parameters/conditions/isHit"] = true;
+		harm["parameters/conditions/isHit"] = true;
+		garm["parameters/conditions/isHit"] = true;
+		larm["parameters/conditions/isHit"] = true;
+	else:
+		body["parameters/conditions/isHit"] = false;
+		sarm["parameters/conditions/isHit"] = false;
+		harm["parameters/conditions/isHit"] = false;
+		garm["parameters/conditions/isHit"] = false;
+		larm["parameters/conditions/isHit"] = false;
 		
 func _on_light_attack_timer_timeout():
 	chain_light = false;
@@ -322,10 +356,6 @@ func _on_body_tree_animation_finished(anim_name):
 		garm["parameters/conditions/S2"] = false
 		larm["parameters/conditions/S2"] = false
 		
-func _on_hand_tree_animation_finished(anim_name):
-	if !Global.Grabbed:
-		hand["parameters/conditions/grabEnd"] = true
-		hand["parameters/conditions/form"] = false
 		
 
 
@@ -337,3 +367,9 @@ func _on_special_hurtbox_enemy_hit(enemy):
 func _on_duration_timeout():
 	if special_enemy: special_enemy.sleeping = false;
 	special_enemy = null;
+
+
+func _on_hand_player_animation_finished(anim_name):
+	if !grabbing:
+		$HandPlayer.stop();
+		$GrabHand.hide();

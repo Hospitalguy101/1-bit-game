@@ -6,8 +6,6 @@ var color_modifier = 1;
 var color = Color.WHITE;
 
 var throwingDown = false
-var Grabbed = false
-var Grab = false
 
 var playerOneWins = 0
 var playerTwoWins = 0
