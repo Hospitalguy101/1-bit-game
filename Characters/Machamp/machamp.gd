@@ -42,7 +42,6 @@ func _physics_process(delta):
 		$Hair.set_position(Vector2(2, -7))
 	else:
 		$Hair.set_position(Vector2(1, -11));
-		
 	update_animation_param()
 	if charging: charge_timer += delta;
 	if running_attack: apply_force(Vector2(2000, 0));
@@ -152,7 +151,7 @@ func special(arm):
 			$GArm.hide();
 
 func _unhandled_input(event):
-	if event.device != id: return;
+	if event.device != Global.device_ids[id]: return;
 	if motion_combo and !$ComboTimer.is_stopped() and special_channel and special_step < 2 and (event is InputEventJoypadButton or event is InputEventKey):
 		motion_combo = false;
 		special_step = 0;

@@ -53,8 +53,8 @@ frame = 2
 frame_progress = 0.600399
 
 [node name="Hurtbox" parent="." instance=ExtResource("2_71c0d")]
+damage = 10
 launch_trajectory = Vector2(-300, -150)
-disable_on_hit = true
 
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]
 position = Vector2(0, -1.5)

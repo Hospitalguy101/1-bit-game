@@ -16,6 +16,7 @@ var playerTwoChar
 var volume;
 
 var players = [2, 2];
+var device_ids = [2, 2];
 
 func _ready():
 	pass

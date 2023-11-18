@@ -141,7 +141,7 @@ func _unhandled_input(event):
 	if can_move and fallen_over:
 		$GetUpTimer.start(.2);
 		invincible = true;
-	
+		
 	#momvement controls
 	if floored and controllable and can_move:
 		hasDoubleJump = true;
@@ -173,6 +173,10 @@ func _unhandled_input(event):
 			#left jump
 			elif direction.x < -Global.DEADZONE:
 				set_axis_velocity(Vector2(-.1, -.9)*jump_height);
+		if event.is_action_pressed("p1_crouch"):
+			crouching = true;
+		if event.is_action_released("p1_crouch"):
+			crouching = false;
 	elif controllable and !is_grabbed and can_move:
 		if Input.is_action_just_pressed("p1_jump") and hasDoubleJump and !motion_combo:
 			hasDoubleJump = false
@@ -186,10 +190,6 @@ func _unhandled_input(event):
 			elif direction.x < -Global.DEADZONE:
 				set_axis_velocity(Vector2(-.1, -.9)*jump_height);
 
-		if event.is_action_pressed("p1_crouch"):
-			crouching = true;
-		if event.is_action_released("p1_crouch"):
-			crouching = false;
 		
 	if !motion_combo and can_move and controllable:
 		if event.is_action_pressed("p1_light_attack"):

@@ -9,7 +9,9 @@ var color_list = ["white", "orange", "red", "green", "blue", "purple"];
 var device_list = [];
 
 #disables char screen
-var debug_mode = true;
+var debug_mode = false;
+
+var on_char_screen = false;
 
 #0 = play, 1 = help, 2 = quit, 3 = back, 4 = color, 5 = start 6 = options back
 @onready var selector = $Node/Play/PlaySelector;
@@ -44,66 +46,69 @@ func _physics_process(delta):
 	
 
 func _unhandled_input(event):
-	if event.is_action_pressed('p1_crouch') and !moved_selector:
-		$SFX.play();
-		if selector == $Node/Play/PlaySelector:
-			selector = $Node/Help/HelpSelector;
-			moved_selector = true;
-		elif selector == $Node/Help/HelpSelector:
-			selector = $Node/Quit/QuitSelector;
-			moved_selector = true;
-		elif selector == $Node/Quit/QuitSelector:
-			selector = $Node/Play/PlaySelector;
-			moved_selector = true;
-		elif selector == $Node/Back/BackSelector:
-			selector = $Node/Start/StartSelector;
-			moved_selector = true;
-		elif selector == $Node/Start/StartSelector:
-			selector = $Node/ColorLabel/ColorSelector;
-			moved_selector = true;
-		elif selector == $Node/ColorLabel/ColorSelector:
-			selector = $Node/Back/BackSelector;
-			moved_selector = true;
-			
-	elif event.is_action_pressed('p1_jump') and !moved_selector:
-		$SFX.play();
-		if selector == $Node/Play/PlaySelector:
-			selector = $Node/Quit/QuitSelector;
-			moved_selector = true;
-		elif selector == $Node/Help/HelpSelector:
-			selector = $Node/Play/PlaySelector;
-			moved_selector = true;
-		elif selector == $Node/Quit/QuitSelector:
-			selector = $Node/Help/HelpSelector
-			moved_selector = true;
-		elif selector == $Node/Back/BackSelector:
-			selector = $Node/ColorLabel/ColorSelector;
-			moved_selector = true;
-		elif selector == $Node/Start/StartSelector:
-			selector = $Node/Back/BackSelector;
-			moved_selector = true;
-		elif selector == $Node/ColorLabel/ColorSelector:
-			selector = $Node/Start/StartSelector;
-			moved_selector = true;
-			
-	elif event.is_action_pressed("p1_light_attack"):
-		selector.get_parent().emit_signal("pressed");
-		if selector == $Node/Play/PlaySelector:
-			selector = $Node/Start/StartSelector;
-		elif selector == $Node/Back/BackSelector:
-			selector = $Node/Play/PlaySelector;
-		elif selector == $HelpMenu/HelpBack/HelpBackSelector:
-			selector = $Node/Play/PlaySelector;
-			
-	elif event.is_action_pressed("p1_move_left") and !moved_selector:
-		if selector == $Node/ColorLabel/ColorSelector:
-			moved_selector = true;
-			_on_color_left_pressed();
+	if !on_char_screen:
+		if event.is_action_pressed('p1_crouch') and !moved_selector:
+			$SFX.play();
+			if selector == $Node/Play/PlaySelector:
+				selector = $Node/Help/HelpSelector;
+				moved_selector = true;
+			elif selector == $Node/Help/HelpSelector:
+				selector = $Node/Quit/QuitSelector;
+				moved_selector = true;
+			elif selector == $Node/Quit/QuitSelector:
+				selector = $Node/Play/PlaySelector;
+				moved_selector = true;
+			elif selector == $Node/Back/BackSelector:
+				selector = $Node/Start/StartSelector;
+				moved_selector = true;
+			elif selector == $Node/Start/StartSelector:
+				selector = $Node/ColorLabel/ColorSelector;
+				moved_selector = true;
+			elif selector == $Node/ColorLabel/ColorSelector:
+				selector = $Node/Back/BackSelector;
+				moved_selector = true;
 				
-	elif event.is_action_pressed("p1_move_right") and !moved_selector:
-		if selector == $Node/ColorLabel/ColorSelector:
-			moved_selector = true;
-			_on_color_right_pressed();
+		elif event.is_action_pressed('p1_jump') and !moved_selector:
+			$SFX.play();
+			if selector == $Node/Play/PlaySelector:
+				selector = $Node/Quit/QuitSelector;
+				moved_selector = true;
+			elif selector == $Node/Help/HelpSelector:
+				selector = $Node/Play/PlaySelector;
+				moved_selector = true;
+			elif selector == $Node/Quit/QuitSelector:
+				selector = $Node/Help/HelpSelector
+				moved_selector = true;
+			elif selector == $Node/Back/BackSelector:
+				selector = $Node/ColorLabel/ColorSelector;
+				moved_selector = true;
+			elif selector == $Node/Start/StartSelector:
+				selector = $Node/Back/BackSelector;
+				moved_selector = true;
+			elif selector == $Node/ColorLabel/ColorSelector:
+				selector = $Node/Start/StartSelector;
+				moved_selector = true;
+				
+		elif event.is_action_pressed("p1_light_attack"):
+			selector.get_parent().emit_signal("pressed");
+			if selector == $Node/Play/PlaySelector:
+				selector = $Node/Start/StartSelector;
+			elif selector == $Node/Back/BackSelector:
+				selector = $Node/Play/PlaySelector;
+			elif selector == $HelpMenu/HelpBack/HelpBackSelector:
+				selector = $Node/Play/PlaySelector;
+			elif selector == $Node/Help/HelpSelector:
+				selector = $HelpMenu/HelpBack/HelpBackSelector;
+				
+		elif event.is_action_pressed("p1_move_left") and !moved_selector:
+			if selector == $Node/ColorLabel/ColorSelector:
+				moved_selector = true;
+				_on_color_left_pressed();
+					
+		elif event.is_action_pressed("p1_move_right") and !moved_selector:
+			if selector == $Node/ColorLabel/ColorSelector:
+				moved_selector = true;
+				_on_color_right_pressed();
 
 
 func _on_play_pressed():
@@ -126,7 +131,6 @@ func _on_play_pressed():
 func _on_options_pressed():
 	$Node.hide();
 	$HelpMenu.show();
-	pass # Replace with function body.
 
 func _on_quit_pressed():
 	get_tree().quit()
@@ -200,5 +204,7 @@ func _on_start_pressed():
 				Global.players[1] = p;
 		get_parent().add_child(game);
 		call_deferred("queue_free");
-	else: $CharacterSelect.show();
+	else:
+		on_char_screen = true; 
+		$CharacterSelect.show();
 	

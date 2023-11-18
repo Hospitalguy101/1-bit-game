@@ -25,7 +25,6 @@ func _unhandled_input(event):
 		$QuitButton/QuitSelector.hide();
 		show();
 		get_tree().paused = true;
-		return;
 	
 	if visible:
 		#disable pause menu

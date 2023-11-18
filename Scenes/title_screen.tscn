@@ -293,6 +293,7 @@ stream = ExtResource("5_ug5pn")
 autoplay = true
 
 [node name="HelpMenu" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 metadata/_edit_use_anchors_ = true

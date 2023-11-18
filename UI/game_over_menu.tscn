@@ -1,0 +1,96 @@
+[gd_scene load_steps=11 format=3 uid="uid://bw0dt711u0sub"]
+
+[ext_resource type="Script" path="res://GameOverMenu.gd" id="1_2k3uh"]
+[ext_resource type="FontFile" uid="uid://cjb5ux5st8343" path="res://Fonts/Crang.ttf" id="2_hatbw"]
+[ext_resource type="Texture2D" uid="uid://eu3xwwqmmnhb" path="res://UI/matchtimer.png" id="3_4noy0"]
+
+[sub_resource type="Gradient" id="Gradient_hc5u6"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_2ppd8"]
+gradient = SubResource("Gradient_hc5u6")
+fill_from = Vector2(1, 0)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5f67a"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8xt82"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vatfv"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8tvwr"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6ktt6"]
+
+[node name="GameOverMenu" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchor_right = 0.327
+anchor_bottom = 0.637
+offset_right = 0.295959
+offset_bottom = 0.223999
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2k3uh")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(188.5, 206.5)
+scale = Vector2(5.89063, 6.45313)
+texture = SubResource("GradientTexture2D_2ppd8")
+
+[node name="Line2D" type="Line2D" parent="."]
+points = PackedVector2Array(0, -5, 0, 413, 375, 413, 375, 0, 0, 0)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 35.0
+offset_top = 25.0
+offset_right = 355.0
+offset_bottom = 94.0
+theme_override_fonts/font = ExtResource("2_hatbw")
+theme_override_font_sizes/font_size = 50
+text = "Game Over"
+horizontal_alignment = 1
+
+[node name="MenuButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 125.0
+offset_top = 152.0
+offset_right = 239.0
+offset_bottom = 203.0
+theme_override_fonts/font = ExtResource("2_hatbw")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxEmpty_5f67a")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_8xt82")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_vatfv")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_8tvwr")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_6ktt6")
+text = "Menu"
+
+[node name="MenuSelector" type="Sprite2D" parent="MenuButton"]
+position = Vector2(55, 73)
+texture = ExtResource("3_4noy0")
+
+[node name="QuitButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 109.0
+offset_top = 223.0
+offset_right = 257.0
+offset_bottom = 274.0
+theme_override_fonts/font = ExtResource("2_hatbw")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxEmpty_5f67a")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_8xt82")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_vatfv")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_8tvwr")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_6ktt6")
+text = "Quit Game"
+
+[node name="QuitSelector" type="Sprite2D" parent="QuitButton"]
+visible = false
+position = Vector2(74, 71)
+scale = Vector2(1.9, 1)
+texture = ExtResource("3_4noy0")
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="pressed" from="QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

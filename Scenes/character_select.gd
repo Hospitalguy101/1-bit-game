@@ -7,7 +7,6 @@ var read = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	i = 0
-	print(Global.players)
 	
 
 
@@ -26,34 +25,36 @@ func _unhandled_input(event):
 		var game = load("res://Scenes/game.tscn").instantiate();
 		var p1;
 		var p2;
+		
 		match Global.playerOneChar:
-			"RIN":
+			"Rin":
 				p1 = load("res://Characters/Rin/rin.tscn").instantiate();
-			"CAELUM":
+			"Caelum":
 				p1 = load("res://Characters/Machamp/machamp.tscn").instantiate();
-				
-		match Global.playerTwoChar:
-			"RIN":
-				p2 = load("res://Characters/Rin/rin.tscn").instantiate();
-			"CAELUM":
-				p2 = load("res://Characters/Machamp/machamp.tscn").instantiate();
+		
+		if p2:
+			match Global.playerTwoChar:
+				"Rin":
+					p2 = load("res://Characters/Rin/rin.tscn").instantiate();
+				"Caelum":
+					p2 = load("res://Characters/Machamp/machamp.tscn").instantiate();
+		#if !p2: p2 = load("res://Characters/Rin/rin.tscn").instantiate();
 		p1.id = 0;
 		p2.id = 1;
+		Global.players[0] = p1;
+		Global.players[1] = p2;
 		
-		game.get_node("Players").call_deferred("add_child", p1);
-		game.get_node("Players").call_deferred("add_child", p1);
-		get_parent().call_deferred("add_child", game);
-		call_deferred("queue_free");
+		get_parent().get_node("SFX").stop();
+		get_parent().get_parent().call_deferred("add_child", game);
+		get_parent().call_deferred("queue_free");
 	if Input.is_action_pressed("bumper_L") and Input.is_action_pressed("bumper_R") and i < 2:
 		if i == 1:
-			if event.device == Global.players[0]:
+			if event.device == Global.device_ids[0]:
 				pass
 			else:
-				Global.players[i] = event.device
-				print(Global.players[i])
+				Global.device_ids[i] = event.device;
 				i += 1
 		else:
-			Global.players[i] = event.device
-			print(Global.players[i])
+			Global.device_ids[i] = event.device;
 			i += 1
 	

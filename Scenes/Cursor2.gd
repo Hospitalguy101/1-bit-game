@@ -12,7 +12,7 @@ func _ready():
 	self.visible = false
 
 func _process(delta):
-	id = Global.players[1]
+	id = Global.device_ids[1]
 	if isControl:
 		self.visible = true
 		if ($RayCast2D.get_collider() == get_parent().get_node("RinProfile/RinArea")):
@@ -24,8 +24,8 @@ func _process(delta):
 		else:
 			get_parent().get_node("Champcharselect2").visible = false
 		get_parent().get_node("ControllerIcon2").visible = false
-		directionx = Input.get_joy_axis(Global.players[1], JOY_AXIS_LEFT_X)
-		directiony = Input.get_joy_axis(Global.players[1], JOY_AXIS_LEFT_Y)
+		directionx = Input.get_joy_axis(Global.device_ids[1], JOY_AXIS_LEFT_X)
+		directiony = Input.get_joy_axis(Global.device_ids[1], JOY_AXIS_LEFT_Y)
 		move_and_slide()
 		if selected:
 			velocity = Vector2.ZERO
@@ -38,16 +38,13 @@ func _unhandled_input(event):
 		isControl = true
 		if event.is_action_pressed("Select") and $RayCast2D.get_collider() == get_parent().get_node("RinProfile/RinArea"):
 			selected = true
-			print("selected")
 			Global.playerOneChar = "Rin"
 			get_parent().get_node("CharName2").text = "RIN"
 		if event.is_action_pressed("Select") and $RayCast2D.get_collider() == get_parent().get_node("MachampProfile/MachampArea"):
 			selected = true
-			print("selected")
 			Global.playerOneChar = "Caelum"
 			get_parent().get_node("CharName2").text = "CAELUM"
 		if selected == true and event.is_action_pressed("Deselect"):
-			print("not static")
 			selected = false
 			Global.playerOneChar = ""
 			get_parent().get_node("CharName2").text = ""
