@@ -90,8 +90,6 @@ func _unhandled_input(event):
 		selector.get_parent().emit_signal("pressed");
 		if selector == $Node/Play/PlaySelector:
 			selector = $Node/Start/StartSelector;
-		elif selector == $Node/Options/OptionsSelector:
-			selector = $OptionsMenu/Volume/VolumeSelector;
 		elif selector == $Node/Back/BackSelector:
 			selector = $Node/Play/PlaySelector;
 		elif selector == $HelpMenu/HelpBack/HelpBackSelector:
@@ -127,7 +125,7 @@ func _on_play_pressed():
 
 func _on_options_pressed():
 	$Node.hide();
-	$OptionsMenu.show();
+	$HelpMenu.show();
 	pass # Replace with function body.
 
 func _on_quit_pressed():

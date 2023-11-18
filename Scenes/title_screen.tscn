@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://dkvw1gfhendya"]
+[gd_scene load_steps=49 format=3 uid="uid://dkvw1gfhendya"]
 
 [ext_resource type="Script" path="res://TitleScreen/title_screen.gd" id="1_ct7k0"]
 [ext_resource type="FontFile" uid="uid://by3aevm1ucjhc" path="res://Fonts/sd_auto_pilot.ttf" id="1_k6jlg"]
@@ -83,6 +83,12 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_okcc7"]
 
+[sub_resource type="Gradient" id="Gradient_ura33"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_d3161"]
+gradient = SubResource("Gradient_ura33")
+fill_from = Vector2(1, 0)
+
 [node name="Title Screen" type="Node2D"]
 script = ExtResource("1_ct7k0")
 
@@ -94,14 +100,15 @@ color = Color(0, 0, 0, 1)
 [node name="Title" type="RichTextLabel" parent="."]
 offset_left = 10.0
 offset_top = 314.0
-offset_right = 238.0
-offset_bottom = 354.0
+offset_right = 304.0
+offset_bottom = 342.0
 rotation = -9.91643e-05
 scale = Vector2(3, 4)
 pivot_offset = Vector2(-9, 87)
-theme_override_fonts/normal_font = ExtResource("1_k6jlg")
-theme_override_font_sizes/normal_font_size = 60
-text = "SEVERED"
+theme_override_fonts/normal_font = ExtResource("3_kykrs")
+theme_override_font_sizes/normal_font_size = 14
+text = "SACRIFIGHT"
+scroll_active = false
 
 [node name="Node" type="Node2D" parent="."]
 position = Vector2(0, 400)
@@ -286,7 +293,6 @@ stream = ExtResource("5_ug5pn")
 autoplay = true
 
 [node name="HelpMenu" type="Control" parent="."]
-visible = false
 layout_mode = 3
 anchors_preset = 0
 metadata/_edit_use_anchors_ = true
@@ -316,6 +322,11 @@ texture = ExtResource("3_o5y7m")
 position = Vector2(757, 408)
 scale = Vector2(0.35, 0.35)
 texture = ExtResource("8_x34mj")
+
+[node name="Sprite2D" type="Sprite2D" parent="HelpMenu"]
+position = Vector2(738.5, 205.5)
+scale = Vector2(3.98438, 1.39063)
+texture = SubResource("GradientTexture2D_d3161")
 
 [node name="SFX" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("8_683vu")

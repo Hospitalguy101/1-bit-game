@@ -341,6 +341,7 @@ func _on_body_tree_animation_finished(anim_name):
 	harm["parameters/conditions/L1"] = false
 	garm["parameters/conditions/L1"] = false
 	larm["parameters/conditions/L1"] = false
+	larm["parameters/conditions/L2"] = false
 	if groundSlam:
 		groundSlam = false
 		body["parameters/conditions/GP"] = false

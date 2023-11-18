@@ -1,4 +1,4 @@
-[gd_scene load_steps=225 format=3 uid="uid://c7h8newfnrydq"]
+[gd_scene load_steps=228 format=3 uid="uid://c7h8newfnrydq"]
 
 [ext_resource type="PackedScene" uid="uid://cj5yffxhnvcji" path="res://Characters/base_character.tscn" id="1_qlep1"]
 [ext_resource type="Script" path="res://Characters/Machamp/machamp.gd" id="2_pa1cw"]
@@ -1719,12 +1719,6 @@ advance_condition = &"S2"
 switch_mode = 2
 advance_mode = 2
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_si30k"]
-advance_mode = 2
-advance_condition = &"L2"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1lcd7"]
-switch_mode = 2
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_pta5k"]
 advance_mode = 2
 advance_condition = &"isBlock"
@@ -1737,6 +1731,14 @@ advance_mode = 2
 advance_condition = &"isHit"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_lad2t"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_rnbgk"]
+advance_mode = 2
+advance_condition = &"L2"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_364ew"]
+switch_mode = 2
 advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_nqwf7"]
@@ -1758,8 +1760,8 @@ states/Special2/node = SubResource("AnimationNodeAnimation_kli2e")
 states/Special2/position = Vector2(433, -12)
 states/idlerun/node = SubResource("AnimationNodeAnimation_clltm")
 states/idlerun/position = Vector2(342, 100)
-transitions = ["Start", "idlerun", SubResource("AnimationNodeStateMachineTransition_xrfax"), "idlerun", "Charge", SubResource("AnimationNodeStateMachineTransition_qqpv0"), "Charge", "idlerun", SubResource("AnimationNodeStateMachineTransition_543rn"), "idlerun", "Crouch", SubResource("AnimationNodeStateMachineTransition_7utc2"), "Crouch", "idlerun", SubResource("AnimationNodeStateMachineTransition_7puii"), "idlerun", "Jab", SubResource("AnimationNodeStateMachineTransition_pa3ec"), "Jab", "idlerun", SubResource("AnimationNodeStateMachineTransition_hgvpy"), "idlerun", "GroundSlam", SubResource("AnimationNodeStateMachineTransition_ex2qg"), "GroundSlam", "idlerun", SubResource("AnimationNodeStateMachineTransition_0xsoy"), "idlerun", "Special2", SubResource("AnimationNodeStateMachineTransition_eu5m0"), "Special2", "idlerun", SubResource("AnimationNodeStateMachineTransition_toigy"), "idlerun", "Block", SubResource("AnimationNodeStateMachineTransition_pta5k"), "Block", "idlerun", SubResource("AnimationNodeStateMachineTransition_vbrv5"), "idlerun", "Hit", SubResource("AnimationNodeStateMachineTransition_5mwey"), "Hit", "idlerun", SubResource("AnimationNodeStateMachineTransition_lad2t")]
-graph_offset = Vector2(-168, -58)
+transitions = ["Start", "idlerun", SubResource("AnimationNodeStateMachineTransition_xrfax"), "idlerun", "Charge", SubResource("AnimationNodeStateMachineTransition_qqpv0"), "Charge", "idlerun", SubResource("AnimationNodeStateMachineTransition_543rn"), "idlerun", "Crouch", SubResource("AnimationNodeStateMachineTransition_7utc2"), "Crouch", "idlerun", SubResource("AnimationNodeStateMachineTransition_7puii"), "idlerun", "Jab", SubResource("AnimationNodeStateMachineTransition_pa3ec"), "Jab", "idlerun", SubResource("AnimationNodeStateMachineTransition_hgvpy"), "idlerun", "GroundSlam", SubResource("AnimationNodeStateMachineTransition_ex2qg"), "GroundSlam", "idlerun", SubResource("AnimationNodeStateMachineTransition_0xsoy"), "idlerun", "Special2", SubResource("AnimationNodeStateMachineTransition_eu5m0"), "Special2", "idlerun", SubResource("AnimationNodeStateMachineTransition_toigy"), "idlerun", "Block", SubResource("AnimationNodeStateMachineTransition_pta5k"), "Block", "idlerun", SubResource("AnimationNodeStateMachineTransition_vbrv5"), "idlerun", "Hit", SubResource("AnimationNodeStateMachineTransition_5mwey"), "Hit", "idlerun", SubResource("AnimationNodeStateMachineTransition_lad2t"), "idlerun", "Palm", SubResource("AnimationNodeStateMachineTransition_rnbgk"), "Palm", "idlerun", SubResource("AnimationNodeStateMachineTransition_364ew")]
+graph_offset = Vector2(-198, 12)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_46t5x"]
 size = Vector2(30, 18)

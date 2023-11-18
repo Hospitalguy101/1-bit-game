@@ -535,12 +535,12 @@ func rotate_point(point, angle):
 
 func update_animation_param():
 	if blocking or crouch_blocking:
-		animation["parameters/conditions/block"] = true
-		animation["parameters/conditions/nblock"] = false
+		animation["parameters/conditions/Block"] = true
+		animation["parameters/conditions/nBlock"] = false
 	else:
-		animation["parameters/conditions/block"] = false
-		animation["parameters/conditions/nblock"] = true
-	if hitstun or blockstun:
+		animation["parameters/conditions/Block"] = false
+		animation["parameters/conditions/nBlock"] = true
+	if hitstun:
 		animation["parameters/conditions/hit"] = true
 	if floored:
 		animation["parameters/conditions/onGround"] = true
@@ -625,3 +625,7 @@ func _on_special_1_portal_timer_timeout():
 	if special_portal:
 		special_portal.use_portal();
 		special_portal = null;
+
+
+func _on_animation_tree_animation_finished(anim_name):
+	if anim_name == "Hit": animation["parameters/conditions/hit"] = false;
