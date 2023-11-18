@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://b7db2uskvgrby"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tgbhd"]
-size = Vector2(2.5, 152)
+size = Vector2(2.5, 150)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uft8e"]
 size = Vector2(1111.11, 4)
@@ -9,17 +9,19 @@ size = Vector2(1111.11, 4)
 [node name="Stage" type="Node2D"]
 
 [node name="LeftBorder" type="Line2D" parent="."]
-points = PackedVector2Array(1.25, 150, 1.25, 0)
+position = Vector2(153, 0)
+points = PackedVector2Array(1.25, 150, 1.25, 103.618, 1.25, 0)
 width = 2.5
 
 [node name="StaticBody2D" type="StaticBody2D" parent="LeftBorder"]
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LeftBorder/StaticBody2D"]
-position = Vector2(1.25, 76)
+position = Vector2(1.25, 75)
 shape = SubResource("RectangleShape2D_tgbhd")
 
 [node name="RightBorder" type="Line2D" parent="."]
+position = Vector2(-153, 0)
 points = PackedVector2Array(500, 150, 500, 0)
 width = 2.5
 
@@ -32,8 +34,8 @@ position = Vector2(-495.141, 74)
 shape = SubResource("RectangleShape2D_tgbhd")
 
 [node name="Floor" type="Line2D" parent="."]
-position = Vector2(-2.38419e-07, -173.25)
-scale = Vector2(1, 2.125)
+position = Vector2(151.571, -173.25)
+scale = Vector2(0.392734, 2.125)
 points = PackedVector2Array(0, 150, 250.534, 150, 501.25, 150)
 width = 4.0
 
