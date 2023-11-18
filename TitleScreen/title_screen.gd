@@ -214,9 +214,11 @@ func _on_color_right_pressed():
 	
 
 func _on_start_pressed():
-	var game = load("res://Scenes/game.tscn").instantiate();
-	get_parent().add_child(game);
-	call_deferred("queue_free");
+#	var game = load("res://Scenes/game.tscn").instantiate();
+#	get_parent().add_child(game);
+#	call_deferred("queue_free");
+	$CharacterSelect.show();
+	
 	
 func _on_joy_connection_changed(device_id, connected):
 	if connected:

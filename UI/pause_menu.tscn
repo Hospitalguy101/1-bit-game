@@ -71,6 +71,7 @@ scale = Vector2(1.5, 1)
 texture = ExtResource("3_qybgq")
 
 [node name="MenuButton" type="Button" parent="."]
+layout_mode = 0
 offset_left = 124.0
 offset_top = 225.0
 offset_right = 238.0
@@ -90,6 +91,7 @@ position = Vector2(55, 73)
 texture = ExtResource("3_qybgq")
 
 [node name="QuitButton" type="Button" parent="."]
+layout_mode = 0
 offset_left = 108.0
 offset_top = 296.0
 offset_right = 256.0

@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://cuffu6rbgiwpi"]
+[gd_scene load_steps=18 format=3 uid="uid://cuffu6rbgiwpi"]
 
 [ext_resource type="Script" path="res://Scenes/character_select.gd" id="1_1cf6l"]
 [ext_resource type="FontFile" uid="uid://by3aevm1ucjhc" path="res://Fonts/sd_auto_pilot.ttf" id="1_8evis"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://bv5ptausrs25q" path="res://UI/controller2.png" id="8_ed6mh"]
 [ext_resource type="Texture2D" uid="uid://dbakhiyy1ob8w" path="res://UI/MachampProfile.png" id="9_ek2gu"]
 [ext_resource type="Texture2D" uid="uid://dmnpxcrsd81tj" path="res://UI/RinProfile.png" id="10_tebgk"]
+[ext_resource type="FontFile" uid="uid://cjb5ux5st8343" path="res://Fonts/Crang.ttf" id="13_mf33j"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4p7c4"]
 size = Vector2(49, 50)
@@ -176,7 +177,6 @@ metadata/_edit_use_anchors_ = true
 
 [node name="RayCast2D" type="RayCast2D" parent="Cursor"]
 position = Vector2(30, -36)
-scale = Vector2(1, 1)
 target_position = Vector2(0, 0)
 collision_mask = 16
 hit_from_inside = true
@@ -219,7 +219,6 @@ collide_with_areas = true
 
 [node name="RayCast2D2" type="RayCast2D" parent="Cursor2"]
 position = Vector2(-869, -32)
-scale = Vector2(1, 1)
 target_position = Vector2(0, 0)
 collision_mask = 16
 hit_from_inside = true
@@ -241,6 +240,17 @@ theme_override_fonts/font = ExtResource("5_1jf4b")
 theme_override_font_sizes/font_size = 8
 text = "LB+RB"
 
+[node name="Tip1" type="Label" parent="ControllerIcon1"]
+offset_left = -36.0
+offset_top = 30.0
+offset_right = 208.0
+offset_bottom = 56.0
+scale = Vector2(0.333, 0.333)
+theme_override_fonts/font = ExtResource("13_mf33j")
+theme_override_font_sizes/font_size = 20
+text = "PRESS REPEATEDLY"
+horizontal_alignment = 1
+
 [node name="ControllerIcon2" type="AnimatedSprite2D" parent="."]
 position = Vector2(1032, 338)
 scale = Vector2(3, 3)
@@ -256,3 +266,14 @@ offset_bottom = -6.33333
 theme_override_fonts/font = ExtResource("5_1jf4b")
 theme_override_font_sizes/font_size = 8
 text = "LB+RB"
+
+[node name="Tip2" type="Label" parent="ControllerIcon2"]
+offset_left = -45.3328
+offset_top = 30.0
+offset_right = 198.667
+offset_bottom = 56.0
+scale = Vector2(0.333, 0.333)
+theme_override_fonts/font = ExtResource("13_mf33j")
+theme_override_font_sizes/font_size = 20
+text = "PRESS REPEATEDLY"
+horizontal_alignment = 1

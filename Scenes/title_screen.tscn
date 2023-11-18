@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://dkvw1gfhendya"]
+[gd_scene load_steps=48 format=3 uid="uid://dkvw1gfhendya"]
 
 [ext_resource type="Script" path="res://TitleScreen/title_screen.gd" id="1_ct7k0"]
 [ext_resource type="FontFile" uid="uid://by3aevm1ucjhc" path="res://Fonts/sd_auto_pilot.ttf" id="1_k6jlg"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://bols05xhjlv23" path="res://TitleScreen/Puddle.png" id="4_32jgg"]
 [ext_resource type="AudioStream" uid="uid://b5bxkjoi4dsum" path="res://Music/TitleTheme.mp3" id="5_ug5pn"]
 [ext_resource type="AudioStream" uid="uid://bey7egnpx8m2a" path="res://Music/Sound Effects/SelectSound.mp3" id="8_683vu"]
+[ext_resource type="PackedScene" uid="uid://cuffu6rbgiwpi" path="res://Scenes/character_select.tscn" id="9_sg42l"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vgi2x"]
 
@@ -376,6 +377,9 @@ horizontal_alignment = 1
 
 [node name="SFX" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("8_683vu")
+
+[node name="CharacterSelect" parent="." instance=ExtResource("9_sg42l")]
+visible = false
 
 [connection signal="pressed" from="Node/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="Node/Options" to="." method="_on_options_pressed"]
