@@ -1667,6 +1667,9 @@ animation = &"Hit"
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_mbvwr"]
 animation = &"Jab"
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0wbbn"]
+animation = &"Palm"
+
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_kli2e"]
 animation = &"Special2"
 
@@ -1716,6 +1719,12 @@ advance_condition = &"S2"
 switch_mode = 2
 advance_mode = 2
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_si30k"]
+advance_mode = 2
+advance_condition = &"L2"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1lcd7"]
+switch_mode = 2
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_pta5k"]
 advance_mode = 2
 advance_condition = &"isBlock"
@@ -1742,7 +1751,9 @@ states/GroundSlam/position = Vector2(515, 198)
 states/Hit/node = SubResource("AnimationNodeAnimation_308nh")
 states/Hit/position = Vector2(237, 10)
 states/Jab/node = SubResource("AnimationNodeAnimation_mbvwr")
-states/Jab/position = Vector2(200, 210)
+states/Jab/position = Vector2(126, 198)
+states/Palm/node = SubResource("AnimationNodeAnimation_0wbbn")
+states/Palm/position = Vector2(239, 245)
 states/Special2/node = SubResource("AnimationNodeAnimation_kli2e")
 states/Special2/position = Vector2(433, -12)
 states/idlerun/node = SubResource("AnimationNodeAnimation_clltm")
@@ -1971,6 +1982,7 @@ anim_player = NodePath("..")
 active = true
 parameters/conditions/GP = false
 parameters/conditions/L1 = false
+parameters/conditions/L2 = false
 parameters/conditions/S2 = false
 parameters/conditions/charge = false
 parameters/conditions/crouch = false

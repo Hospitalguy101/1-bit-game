@@ -233,6 +233,19 @@ func update_animation_param():
 		larm["parameters/conditions/charge"] = false
 		larm["parameters/conditions/ncharge"] = true
 		
+	if Input.is_action_pressed("p1_light_attack") and !charging and !running_attack and has_light:
+		if !chain_light:
+			body["parameters/conditions/L1"] = true
+			sarm["parameters/conditions/L1"] = true
+			harm["parameters/conditions/L1"] = true
+			garm["parameters/conditions/L1"] = true
+			larm["parameters/conditions/L1"] = true
+		else:
+			body["parameters/conditions/L1"] = true
+			sarm["parameters/conditions/L1"] = true
+			harm["parameters/conditions/L1"] = true
+			garm["parameters/conditions/L1"] = true
+			larm["parameters/conditions/L2"] = true
 	
 	
 	if groundSlam:
