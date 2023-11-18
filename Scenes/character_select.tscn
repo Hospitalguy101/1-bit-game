@@ -1,0 +1,198 @@
+[gd_scene load_steps=16 format=3 uid="uid://cuffu6rbgiwpi"]
+
+[ext_resource type="Script" path="res://Scenes/character_select.gd" id="1_1cf6l"]
+[ext_resource type="FontFile" uid="uid://by3aevm1ucjhc" path="res://Fonts/sd_auto_pilot.ttf" id="1_8evis"]
+[ext_resource type="Script" path="res://Scenes/Cursor.gd" id="3_1tqnk"]
+[ext_resource type="Texture2D" uid="uid://b7w1pho54nthn" path="res://UI/cursor.png" id="4_1ia0f"]
+[ext_resource type="FontFile" uid="uid://bkjji1n7krf63" path="res://Fonts/m42.TTF" id="5_1jf4b"]
+[ext_resource type="Texture2D" uid="uid://cqp0b2f52ds2q" path="res://UI/rincharselect.png" id="5_87iuj"]
+[ext_resource type="Script" path="res://Scenes/Cursor2.gd" id="6_hi2mc"]
+[ext_resource type="Texture2D" uid="uid://b6vxpj1253d1f" path="res://UI/controller1.png" id="7_arx8v"]
+[ext_resource type="Texture2D" uid="uid://bv5ptausrs25q" path="res://UI/controller2.png" id="8_ed6mh"]
+[ext_resource type="Texture2D" uid="uid://dbakhiyy1ob8w" path="res://UI/MachampProfile.png" id="9_ek2gu"]
+[ext_resource type="Texture2D" uid="uid://dmnpxcrsd81tj" path="res://UI/RinProfile.png" id="10_tebgk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4p7c4"]
+size = Vector2(49, 50)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_07q2d"]
+size = Vector2(48.5, 48.5)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xd8ts"]
+radius = 29.0172
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ifby6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_arx8v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_ed6mh")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="CharacterSelect" type="Node2D"]
+script = ExtResource("1_1cf6l")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0, 0, 0, 1)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+
+[node name="Player" type="Label" parent="."]
+offset_left = 20.0
+offset_top = 500.0
+offset_right = 228.0
+offset_bottom = 569.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("1_8evis")
+theme_override_font_sizes/font_size = 100
+text = "Player 1"
+
+[node name="Player2" type="Label" parent="."]
+offset_left = 917.0
+offset_top = 500.0
+offset_right = 1132.0
+offset_bottom = 569.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("1_8evis")
+theme_override_font_sizes/font_size = 100
+text = "Player 2"
+
+[node name="MachampProfile" type="Sprite2D" parent="."]
+position = Vector2(512, 300)
+scale = Vector2(2, 2)
+texture = ExtResource("9_ek2gu")
+
+[node name="Area2D" type="Area2D" parent="MachampProfile"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MachampProfile/Area2D"]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_4p7c4")
+
+[node name="RinProfile" type="Sprite2D" parent="."]
+position = Vector2(640, 300)
+scale = Vector2(2, 2)
+texture = ExtResource("10_tebgk")
+
+[node name="Area2D" type="Area2D" parent="RinProfile"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RinProfile/Area2D"]
+position = Vector2(0.75, -1.25)
+shape = SubResource("RectangleShape2D_07q2d")
+
+[node name="Rincharselect1" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(200, 275)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("5_87iuj")
+
+[node name="Rincharselect2" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(952, 275)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("5_87iuj")
+flip_h = true
+
+[node name="Cursor" type="CharacterBody2D" parent="."]
+position = Vector2(121, 331)
+script = ExtResource("3_1tqnk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Cursor"]
+visible = false
+position = Vector2(347, 329)
+shape = SubResource("CircleShape2D_xd8ts")
+disabled = true
+
+[node name="Sprite" type="Sprite2D" parent="Cursor"]
+position = Vector2(-1.99997, -5.99994)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("4_1ia0f")
+
+[node name="Label" type="Label" parent="Cursor"]
+offset_left = -41.0
+offset_top = -13.0
+offset_right = -1.0
+offset_bottom = 14.0
+scale = Vector2(2, 2)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_1jf4b")
+theme_override_font_sizes/font_size = 8
+text = "P1"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="RayCast2D" type="RayCast2D" parent="Cursor"]
+position = Vector2(30, -36)
+target_position = Vector2(0, 0)
+
+[node name="Cursor2" type="CharacterBody2D" parent="."]
+position = Vector2(1020, 327)
+script = ExtResource("6_hi2mc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Cursor2"]
+visible = false
+position = Vector2(347, 329)
+shape = SubResource("CircleShape2D_xd8ts")
+disabled = true
+
+[node name="Sprite" type="Sprite2D" parent="Cursor2"]
+position = Vector2(-2, -4.99994)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("4_1ia0f")
+
+[node name="Label" type="Label" parent="Cursor2"]
+offset_left = -39.0
+offset_top = -12.0
+offset_right = 1.0
+offset_bottom = 15.0
+scale = Vector2(2, 2)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_1jf4b")
+theme_override_font_sizes/font_size = 8
+text = "P2"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="RayCast2D" type="RayCast2D" parent="Cursor2"]
+position = Vector2(30, -35)
+target_position = Vector2(0, 0)
+
+[node name="ControllerIcon1" type="AnimatedSprite2D" parent="."]
+position = Vector2(120, 338)
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_ifby6")
+autoplay = "default"
+frame_progress = 0.951364
+
+[node name="Label" type="Label" parent="ControllerIcon1"]
+offset_left = -26.6667
+offset_top = -33.3333
+offset_right = 87.3333
+offset_bottom = -6.33333
+theme_override_fonts/font = ExtResource("5_1jf4b")
+theme_override_font_sizes/font_size = 8
+text = "LB+RB"
+
+[node name="ControllerIcon2" type="AnimatedSprite2D" parent="."]
+position = Vector2(1032, 338)
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_ifby6")
+autoplay = "default"
+frame_progress = 0.120848
+
+[node name="Label" type="Label" parent="ControllerIcon2"]
+offset_left = -26.6667
+offset_top = -33.3333
+offset_right = 87.3333
+offset_bottom = -6.33333
+theme_override_fonts/font = ExtResource("5_1jf4b")
+theme_override_font_sizes/font_size = 8
+text = "LB+RB"

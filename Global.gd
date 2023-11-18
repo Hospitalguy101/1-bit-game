@@ -9,9 +9,12 @@ var throwingDown = false
 var Grabbed = false
 var Grab = false
 
+var playerOneWins = 0
+var playerTwoWins = 0
+
 var volume;
 
-var players = [0, 0];
+var players = [2, 2];
 
 func _ready():
 	pass
@@ -33,4 +36,4 @@ func _process(delta):
 		0:
 			color = Color.MEDIUM_PURPLE;
 	
-	get_node("/root/FightingGame").set_modulate(color)
+	#get_node("/root/FightingGame").set_modulate(color)
