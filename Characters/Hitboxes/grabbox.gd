@@ -21,19 +21,14 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if active:
-		Global.Grabbed = true
 		if command_grab and enemy: enemy.position = get_node("/root/FightingGame/Game/GrabPointNode").position + Vector2(0, -15);
 		elif enemy: enemy.position = get_node("/root/FightingGame/Game/GrabPointNode").position;
 		enemy.sleeping = true;
-		if enemy.get_linear_velocity() != Vector2.ZERO: enemy.set_linear_velocity(Vector2.ZERO)
-	else:
-		Global.Grabbed = false
-		Global.Grab = false
+		if enemy.get_linear_velocity() != Vector2.ZERO: enemy.set_linear_velocity(Vector2.ZERO);
 
 
 func grab():
 	if enemy and $Cooldown.is_stopped():
-		Global.Grab = true
 		#if command grab, only use the current portal
 		if command_grab and get_parent().get_parent().get_parent().currPortal != get_parent():
 			return;
@@ -72,7 +67,6 @@ func down_throw(point:Vector2):
 	if has_down and $DeferTimer.is_stopped():
 		active = false;
 		enemy.position = Vector2(-100, -100)
-		Global.throwingDown = true
 		$GrabTimer.stop();
 		enemy.is_grabbed = false;
 		$Cooldown.start(.5);
