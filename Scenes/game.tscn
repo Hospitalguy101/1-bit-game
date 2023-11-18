@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bwefc52y2qpdh"]
+[gd_scene load_steps=16 format=3 uid="uid://bwefc52y2qpdh"]
 
 [ext_resource type="Script" path="res://game.gd" id="1_b8btr"]
 [ext_resource type="PackedScene" uid="uid://b7db2uskvgrby" path="res://Scenes/stage.tscn" id="1_sphns"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://dmnpxcrsd81tj" path="res://UI/RinProfile.png" id="6_2bqhp"]
 [ext_resource type="FontFile" uid="uid://by3aevm1ucjhc" path="res://Fonts/sd_auto_pilot.ttf" id="7_a1hw6"]
 [ext_resource type="FontFile" uid="uid://bkjji1n7krf63" path="res://Fonts/m42.TTF" id="8_iyl2k"]
+[ext_resource type="PackedScene" uid="uid://n28mc28am3n2" path="res://UI/pause_menu.tscn" id="11_nimbt"]
 
 [sub_resource type="Gradient" id="Gradient_60r4n"]
 
@@ -172,7 +173,6 @@ horizontal_alignment = 1
 [node name="Rin" parent="Players" instance=ExtResource("2_klfh5")]
 position = Vector2(322, 121)
 lock_rotation = false
-id = 1
 
 [node name="Machamp" parent="Players" instance=ExtResource("3_us6aj")]
 position = Vector2(173, 123)
@@ -180,6 +180,7 @@ collision_mask = 3
 mass = 0.8
 gravity_scale = 0.8
 lock_rotation = false
+id = 1
 run_speed = 1250.0
 
 [node name="Projectiles2" type="Node2D" parent="."]
@@ -195,6 +196,14 @@ one_shot = true
 [node name="GoTimer" type="Timer" parent="."]
 wait_time = 0.5
 one_shot = true
+
+[node name="PauseMenu" parent="." instance=ExtResource("11_nimbt")]
+visible = false
+offset_left = 223.0
+offset_top = 70.0
+offset_right = 223.0
+offset_bottom = 70.0
+scale = Vector2(0.15, 0.15)
 
 [connection signal="timeout" from="MatchTime" to="." method="_on_match_time_timeout"]
 [connection signal="timeout" from="ReadyTimer" to="." method="_on_ready_timer_timeout"]

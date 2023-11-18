@@ -1,6 +1,6 @@
 extends Node
 
-var DEADZONE = 0.1;
+var DEADZONE = 0.3;
 
 var color_modifier = 1;
 var color = Color.WHITE;

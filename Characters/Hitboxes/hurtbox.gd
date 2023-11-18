@@ -32,16 +32,19 @@ func _ready():
 func _process(delta):
 	if target: target.position = launch_point;
 	
-	if active and enemy:
+	if active and enemy and !enemy.invincible:
 		if enemy.blocking and (height == 1 or height == 0):
 			enemy.blockstun = true;
-			enemy.get_node("StunTimer").start(.15);
+			enemy.get_node("StunTimer").start(.05);
 		elif enemy.crouch_blocking and (height == -1 or height == 0):
 			enemy.blockstun = true;
 			enemy.get_node("StunTimer").start(.05);
 		else:
-			enemy_hit.emit(enemy);
-			if disable_on_hit: active = false;
+			enemy_hit.emit(enemy, self);
+			enemy.hitstun = true;
+			enemy.get_node("StunTimer").start(.15);
+			if knockdown or !enemy.floored: enemy.knocked_down = true;
+			
 			if point_mode:
 				enemy.sleeping = true;
 				target = enemy;
@@ -50,10 +53,23 @@ func _process(delta):
 				for p in Global.players:
 					if p.id == id:
 						owner = p;
+				
 				if owner.on_left: enemy.set_axis_velocity(launch_trajectory);
 				else: enemy.set_axis_velocity(Vector2(-launch_trajectory.x, launch_trajectory.y));
-				enemy.hp -= damage * Global.color_modifier * owner.damage_modifier;
-			if break_on_hit: get_parent().queue_free();
+				enemy.hp -= damage * Global.color_modifier * owner.damage_modifier;	
+			
+			
+			#for rin heavy attacks
+			if get_parent().is_in_group("HeavySwords"):
+				for s in get_parent().get_parent().get_children():
+					s.get_node("Hurtbox").active = false;
+			
+			if break_on_hit:
+				active = false;
+				get_parent().call_deferred("queue_free");
+				
+			if disable_on_hit:
+				active = false;
 	
 func activate(time=null):
 	active = true;

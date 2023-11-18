@@ -196,7 +196,6 @@ id = 4
 position = Vector2(6, 1)
 up_traj = Vector2(0, -250)
 left_traj = Vector2(-250, -100)
-down_traj = Vector2(0, 100)
 right_traj = Vector2(250, -100)
 
 [node name="CollisionShape2D" parent="Grabbox" index="0"]
@@ -240,6 +239,9 @@ one_shot = true
 [node name="Special3Timer" type="Timer" parent="AttackTimers" index="2"]
 one_shot = true
 
+[node name="Special1PortalTimer" type="Timer" parent="AttackTimers" index="3"]
+one_shot = true
+
 [node name="Label" type="Label" parent="." index="9"]
 offset_left = -7.0
 offset_top = -24.0
@@ -262,5 +264,6 @@ target_position = Vector2(0, 13)
 [connection signal="timeout" from="AttackTimers/HeavyTimer" to="." method="_on_heavy_timer_timeout"]
 [connection signal="timeout" from="AttackTimers/PortalRecallTimer" to="." method="_on_portal_recall_timer_timeout"]
 [connection signal="timeout" from="AttackTimers/Special3Timer" to="." method="_on_special_3_timer_timeout"]
+[connection signal="timeout" from="AttackTimers/Special1PortalTimer" to="." method="_on_special_1_portal_timer_timeout"]
 
 [editable path="Grabbox"]

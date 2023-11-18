@@ -52,12 +52,10 @@ func _physics_process(delta):
 	
 	#cancel special channel
 	if motion_combo and special_channel and direction.y > -Global.DEADZONE:
-		print("PROCESS")
 		motion_combo = false;
 		special_step = 0;
 		special_channel = false;
 		crouching = false;
-	print(str(special_step) + " " + str(motion_combo));
 	super._physics_process(delta);
 
 func light_attack(direction):
@@ -135,7 +133,7 @@ func heavy_attack(direction):
 
 #0 = light, 1 = heavy, 2 = slash, 3 = grab
 func special(arm):
-	print("arm: " + str(arm))
+
 	$Hurtboxes/SpecialHurtbox.top_level = true;
 	$Hurtboxes/SpecialHurtbox.position += position;
 	$Hurtboxes/SpecialHurtbox.activate(2);
@@ -155,7 +153,6 @@ func special(arm):
 
 func _unhandled_input(event):
 	if motion_combo and !$ComboTimer.is_stopped() and special_channel and special_step < 2 and (event is InputEventJoypadButton or event is InputEventKey):
-		print("INPUT")
 		motion_combo = false;
 		special_step = 0;
 		special_channel = false;
@@ -174,7 +171,6 @@ func _unhandled_input(event):
 				if event is InputEventJoypadMotion and abs(direction.x) < Global.DEADZONE and direction.y > Global.DEADZONE:
 					progress_combo();
 				elif event is InputEventJoypadButton or event is InputEventKey:
-						print("STEP 1")
 						motion_combo = false;
 			2:
 				if event is InputEventJoypadMotion and abs(direction.x) < Global.DEADZONE and direction.y < -Global.DEADZONE:

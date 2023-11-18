@@ -8,7 +8,7 @@ func _physics_process(delta):
 
 
 func _on_duration_timeout():
-	queue_free();
+	call_deferred("queue_free");
 
 
 func _on_move_timer_timeout():

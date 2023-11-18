@@ -26,7 +26,7 @@ func start_timer(time):
 	$AttackTimer.autostart = true;
 
 func _on_attack_timer_timeout():
-	queue_free();
+	call_deferred("queue_free");
 
 func _on_hurtbox_body_entered(body):
 	if body.is_in_group("FloorCollider"): velocity = Vector2.ZERO;

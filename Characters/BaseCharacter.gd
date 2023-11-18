@@ -28,8 +28,10 @@ var can_move = true;
 var hitstun = false;
 var blockstun = false;
 var super_armor = false;
+var knocked_down = false;
+var fallen_over = false;
 
-var hittable = true;
+var invincible = false;
 
 var dash_step = 0;
 var dash_direction = 0;
@@ -88,7 +90,13 @@ func _physics_process(delta):
 	rotation = 0;
 	
 	#Check if raycast is colliding with the floor
-	if $FloorChecker.is_colliding() and $FloorChecker.get_collider().is_in_group("FloorCollider"): floored = true;
+	if $FloorChecker.is_colliding() and $FloorChecker.get_collider().is_in_group("FloorCollider"):
+		#check if player just hit floor
+		if !floored:
+			if knocked_down:
+				knocked_down = false;
+				fallen_over = true;
+		floored = true;
 	else: floored = false;
 	#grab clashes
 	if is_grabbed and !$Grabbox/ClashTimer.is_stopped():
@@ -96,7 +104,7 @@ func _physics_process(delta):
 		if id == 0: Global.players[1]._on_grab_timer_timeout();
 		else: Global.players[0]._on_grab_timer_timeout();
 			
-	can_move = !crouching and !is_grabbed and !grabbing;
+	can_move = !crouching and !is_grabbed and !grabbing and !hitstun and !blockstun;
 	#check movement variables
 	if move_vars.size() > 0 and can_move:
 		for v in move_vars:
@@ -125,7 +133,13 @@ func _unhandled_input(event):
 		if Input.is_action_pressed("p1_move_right"):
 			var thrown = $Grabbox.throw(2);
 			if thrown: grabbing = false;
-			
+	
+	
+	#get up if fallen over
+	if can_move and fallen_over:
+		$GetUpTimer.start(.2);
+		invincible = true;
+	
 	#momvement controls
 	if floored and controllable and can_move:
 		hasDoubleJump = true;
@@ -169,13 +183,13 @@ func _unhandled_input(event):
 			#left jump
 			elif direction.x < -Global.DEADZONE:
 				set_axis_velocity(Vector2(-.1, -.9)*jump_height);
-	
-	if event.is_action_pressed("p1_crouch"):
-		crouching = true;
-	if event.is_action_released("p1_crouch"):
-		crouching = false;
+
+		if event.is_action_pressed("p1_crouch"):
+			crouching = true;
+		if event.is_action_released("p1_crouch"):
+			crouching = false;
 		
-	if !motion_combo and controllable:
+	if !motion_combo and can_move and controllable:
 		if event.is_action_pressed("p1_light_attack"):
 			light_attack(direction);
 		elif event.is_action_pressed("p1_slash_attack"):
@@ -214,7 +228,6 @@ func release_heavy_attack():
 	pass;
 
 func progress_combo():
-	print(special_step)
 	if special_channel:
 		special_channel = false;
 		special_step += 1;
@@ -245,3 +258,7 @@ func _on_dash_timer_timeout():
 #-1 = left, 1 = right
 func _on_dash_recoil_timeout():
 	apply_impulse(Vector2(dash_direction*150, 0));
+
+
+func _on_get_up_timer_timeout():
+	invincible = false;
