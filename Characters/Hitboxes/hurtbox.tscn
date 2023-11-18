@@ -4,8 +4,6 @@
 
 [node name="Hurtbox" type="Area2D" groups=["Hurtbox"]]
 script = ExtResource("1_6wjg8")
-break_on_hit = true
-disable_on_hit = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 
